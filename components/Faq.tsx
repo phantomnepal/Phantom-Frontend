@@ -5,7 +5,15 @@ import {
   AccordionContent,
 } from "@/components/animate-ui/components/radix/accordion";
 
-const faqLeft = [
+// ✅ Define the type for each FAQ item
+type FAQItem = {
+  value: string;
+  question: string;
+  answer: string | null;
+  list?: string[];
+};
+
+const faqLeft: FAQItem[] = [
   {
     value: "item-1",
     question: "What is Phantom?",
@@ -49,7 +57,7 @@ const faqLeft = [
   },
 ];
 
-const faqRight = [
+const faqRight: FAQItem[] = [
   {
     value: "item-1",
     question: "What can I build using the Phantom Electronics Starter Kit?",
@@ -89,28 +97,40 @@ const faqRight = [
   },
 ];
 
-function FAQAccordion({ items }) {
+// ✅ Type the props of FAQAccordion
+type FAQAccordionProps = {
+  items: FAQItem[];
+};
+
+function FAQAccordion({ items }: FAQAccordionProps) {
   return (
     <Accordion
       type="single"
       collapsible
-      className="w-full divide-y divide-gray-100 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md transition-all"
+      className="w-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md"
     >
-      {items.map(({ value, question, answer, list }) => (
+      {items.map(({ value, question, answer, list }, index) => (
         <AccordionItem
           key={value}
           value={value}
-          className="group px-5 transition-colors duration-200 hover:bg-gray-50 data-[state=open]:bg-[#fff5f5]"
+          className={`px-5 ${
+            index !== items.length - 1 ? "border-b border-gray-100" : ""
+          }`}
         >
-          <AccordionTrigger className="flex w-full items-center justify-between gap-4 py-5 text-left text-sm font-semibold text-gray-800 transition-colors duration-200 group-hover:text-[#A10F1A] data-[state=open]:text-[#A10F1A] md:text-base [&>svg]:text-[#A10F1A] [&>svg]:transition-transform [&>svg]:duration-300">
+          <AccordionTrigger
+            className="w-full py-5 text-left text-sm font-semibold
+                text-gray-800 transition-colors duration-200
+                hover:text-[#A10F1A] md:text-base"
+          >
             {question}
           </AccordionTrigger>
 
           <AccordionContent className="pb-5 text-sm leading-relaxed text-gray-600 md:text-base">
             {answer && <p>{answer}</p>}
+
             {list && (
               <ul className="mt-2 space-y-2">
-                {list.map((item, i) => (
+                {list.map((item: string, i: number) => (
                   <li key={i} className="flex items-start gap-2">
                     <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#A10F1A]" />
                     <span>{item}</span>
@@ -134,9 +154,11 @@ export default function HomeAccordion() {
           <span className="rounded-full bg-[#A10F1A]/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-[#A10F1A]">
             FAQ
           </span>
+
           <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">
             Frequently Asked Questions
           </h2>
+
           <p className="max-w-xl text-sm text-gray-500 md:text-base">
             Have questions? We've got answers. If you don't find what you're
             looking for, feel free to{" "}
