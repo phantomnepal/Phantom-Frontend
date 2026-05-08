@@ -1,0 +1,221 @@
+import Image from "next/image";
+import Link from "next/link";
+import { Play } from "lucide-react";
+
+const CORE_VALUES = [
+  {
+    number: "01",
+    title: "Disciplined Design",
+    description:
+      "We follow rigorous engineering standards to ensure every PCB and firmware module is deterministic and reliable.",
+  },
+  {
+    number: "02",
+    title: "Local Innovation",
+    description:
+      "By building advanced systems in Nepal, we aim to inspire and empower the next generation of hardware engineers.",
+  },
+  {
+    number: "03",
+    title: "Mission Focused",
+    description:
+      "Whether it's a simple sensor node or a complex CubeSat, we design with the end-mission success as our primary metric.",
+  },
+];
+
+const ROADMAP = [
+  {
+    year: "2026",
+    phase: "CURRENT PHASE",
+    title: "Foundation & Product Launch",
+    description:
+      "Building a strong foundation through educational platforms, embedded systems kits, and initial product releases. Focused on developing reliable hardware, validating designs, and establishing Phantom as a trusted engineering brand in Nepal.",
+    isCurrent: true,
+  },
+  {
+    year: "2028",
+    phase: "",
+    title: "Industrial Autonomy",
+    description:
+      "Scaling edge-computing solutions for sovereign manufacturing hubs.",
+    isCurrent: false,
+  },
+  {
+    year: "2029",
+    phase: "",
+    title: "Avionics Integration",
+    description:
+      "Certification for safety-critical flight systems and data links.",
+    isCurrent: false,
+  },
+  {
+    year: "2030",
+    phase: "",
+    title: "Aerospace Grade",
+    description:
+      "Deep space telemetry modules for private lunar infrastructure.",
+    isCurrent: false,
+  },
+];
+
+export default function AboutPage() {
+  return (
+    <main className="w-full bg-white">
+      {/* ========== HERO SECTION ========== */}
+      <section className="max-w-7xl mx-auto px-6 py-16 lg:py-24">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* LEFT — Text */}
+          <div>
+            <p className="text-[#9b1c1c] text-sm font-medium mb-4">
+              About - Company
+            </p>
+            <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight mb-8">
+              Building reliable technology from the ground up.
+            </h1>
+
+            <div className="space-y-5 text-gray-500 text-[15px] leading-relaxed mb-10 max-w-xl">
+              <p>
+                Phantom is focused on developing embedded systems, UAV
+                platforms, and advanced electronics in Nepal. We design and
+                build complete systems from PCB and firmware to integrated
+                platforms focused on reliability, performance, and practical
+                deployment.
+              </p>
+              <p>
+                We believe strong engineering is built through discipline,
+                iteration, and validation. Our goal is to create technology that
+                is not only functional, but dependable in real-world
+                environments.
+              </p>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="/capabilities"
+                className="bg-[#0f1e2e] text-white px-7 py-3.5 rounded-md text-sm font-medium hover:bg-[#1a3147] transition"
+              >
+                Our Capabilities
+              </Link>
+              <button className="flex items-center gap-2 border border-gray-300 text-gray-800 px-7 py-3.5 rounded-md text-sm font-medium hover:border-gray-400 hover:bg-gray-50 transition">
+                <Play className="w-4 h-4 fill-current" />
+                Watch reel
+              </button>
+            </div>
+          </div>
+
+          {/* RIGHT — Image with decorative corners */}
+          <div className="relative">
+            {/* Top-right corner decoration */}
+            <div className="absolute -top-4 -right-4 w-24 h-24 border-t-2 border-r-2 border-[#9b1c1c] z-10" />
+            {/* Bottom-left corner decoration */}
+            <div className="absolute -bottom-4 -left-4 w-24 h-24 border-b-2 border-l-2 border-[#9b1c1c] z-10" />
+
+            <div className="relative w-full aspect-[4/3] overflow-hidden rounded-md">
+              <Image
+                src="/about-hero.png" // 👈 add this image to /public
+                alt="Engineering blueprints"
+                fill
+                className="object-cover grayscale"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========== CORE VALUES SECTION ========== */}
+      <section className="bg-gray-50 py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          {/* Heading */}
+          <div className="text-center mb-14">
+            <p className="text-[#9b1c1c] text-sm font-medium mb-3">
+              Our Core Value
+            </p>
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
+              The principles that guide us.
+            </h2>
+          </div>
+
+          {/* Cards Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {CORE_VALUES.map((value) => (
+              <div
+                key={value.number}
+                className="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition border border-gray-100"
+              >
+                <h3 className="text-4xl font-bold text-[#9b1c1c] mb-6">
+                  {value.number}
+                </h3>
+                <h4 className="text-xl font-semibold text-gray-900 mb-4">
+                  {value.title}
+                </h4>
+                <p className="text-gray-500 text-[14px] leading-relaxed">
+                  {value.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ========== ROADMAP SECTION ========== */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        {/* Heading */}
+        <div className="mb-16">
+          <p className="text-[#9b1c1c] text-sm font-semibold tracking-wider mb-3">
+            ROADMAP
+          </p>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
+            5-Year Directional Plan.
+          </h2>
+        </div>
+
+        {/* Timeline */}
+        <div className="relative">
+          {/* Horizontal line */}
+          <div className="hidden lg:block absolute top-[88px] left-0 right-0 h-px bg-gray-200" />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-6">
+            {ROADMAP.map((item) => (
+              <div key={item.year} className="relative">
+                {/* Year */}
+                <p
+                  className={`text-4xl font-bold mb-2 ${
+                    item.isCurrent ? "text-[#9b1c1c]" : "text-[#e8b4b4]"
+                  }`}
+                >
+                  {item.year}
+                </p>
+
+                {/* Phase label */}
+                <p className="text-xs font-semibold text-gray-700 tracking-wider h-4 mb-3">
+                  {item.phase}
+                </p>
+
+                {/* Dot on timeline */}
+                <div className="relative mb-4">
+                  <div
+                    className={`w-3 h-3 rounded-full relative z-10 ${
+                      item.isCurrent ? "bg-[#9b1c1c]" : "bg-gray-300"
+                    }`}
+                  />
+                </div>
+
+                {/* Title */}
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  {item.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-gray-500 text-[14px] leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}

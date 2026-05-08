@@ -1,0 +1,68 @@
+import Image from "next/image";
+
+interface Logo {
+  src: string;
+  alt: string;
+}
+
+const logos: Logo[] = [
+  { src: "/logos/Matlab.png", alt: "MATLAB" },
+  { src: "/logos/LT.png", alt: "LTspice" },
+  { src: "/logos/RTOS.png", alt: "FreeRTOS" },
+  { src: "/logos/blender_logo.png", alt: "Blender" },
+  { src: "/logos/Altium.png", alt: "Altium Designer" },
+  { src: "/logos/AntDesign.png", alt: "Ant Design" },
+  { src: "/logos/VSCode.png", alt: "VS Code" },
+  { src: "/logos/Arduino.png", alt: "Arduino" },
+  { src: "/logos/OpenVSP.png", alt: "OpenVSP" },
+  { src: "/logos/KICAD.png", alt: "KiCad" },
+  { src: "/logos/FUSION.png", alt: "Fusion" },
+  { src: "/logos/STM32.png", alt: "STM32CubeIDE" },
+];
+
+export default function LogoMarquee() {
+  return (
+    <section className="w-full py-10 bg-white overflow-hidden">
+      <div className="relative">
+        {/* Gradient Edge Fades */}
+        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+        {/* Marquee Track */}
+        <div className="flex animate-marquee whitespace-nowrap hover:[animation-play-state:paused]">
+          {/* First copy */}
+          {logos.map((logo, idx) => (
+            <div
+              key={`a-${idx}`}
+              className="mx-8 md:mx-12 flex items-center justify-center flex-shrink-0"
+            >
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                width={120}
+                height={50}
+                className="h-12 w-auto object-contain"
+              />
+            </div>
+          ))}
+
+          {/* Second copy (for seamless loop) */}
+          {logos.map((logo, idx) => (
+            <div
+              key={`b-${idx}`}
+              className="mx-8 md:mx-12 flex items-center justify-center flex-shrink-0"
+            >
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                width={120}
+                height={50}
+                className="h-12 w-auto object-contain"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
