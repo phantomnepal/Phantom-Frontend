@@ -160,22 +160,6 @@ export default function ContactPage() {
               </div>
 
               {/* Decorative Element */}
-              <div className="hidden lg:block pt-4">
-                <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-gradient-to-br from-[#A10F1A]/10 via-[#DC2626]/5 to-orange-50">
-                  <div className="absolute inset-0 bg-[url('https://plus.unsplash.com/premium_photo-1683120889995-b6a309252981?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center opacity-30 mix-blend-multiply" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center p-8 backdrop-blur-sm bg-white/30 rounded-2xl border border-white/50">
-                      <div className="w-14 h-14 mx-auto mb-3 rounded-full bg-white/90 shadow-lg flex items-center justify-center text-[#A10F1A]">
-                        <Mail size={22} strokeWidth={1.5} />
-                      </div>
-                      <p className="text-xs font-semibold tracking-wider text-stone-600 uppercase mb-1">
-                        Response time
-                      </p>
-                      <p className="text-3xl font-light text-stone-900">24h</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </motion.div>
 
             {/* Right Column - Form */}
