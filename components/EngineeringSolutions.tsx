@@ -22,7 +22,7 @@ const solutions: Solution[] = [
     icon: Layers,
     title: "IoT & Robotics Engineering",
     description:
-      "We build intelligent connected systems combining hardware, sensors, control algorithms, and mechanical design to deliver autonomous and remote-ready solutions.",
+      "We build intelligent connected systems  combining hardware, sensors, and mechanical design to deliver autonomous and remote-ready solutions.",
     tags: ["Project Specific", "Reliable", "Industrial Grade"],
   },
   {

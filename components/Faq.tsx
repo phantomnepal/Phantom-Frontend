@@ -151,7 +151,7 @@ export default function HomeAccordion() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-10 flex flex-col items-start gap-2">
-          <span className="rounded-full bg-[#A10F1A]/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-[#A10F1A]">
+          <span className=" px-2 py-1 text-md font-semibold uppercase tracking-widest text-[#A10F1A]">
             FAQ
           </span>
 

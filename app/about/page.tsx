@@ -62,7 +62,7 @@ export default function AboutPage() {
   return (
     <main className="w-full bg-white">
       {/* ========== HERO SECTION ========== */}
-      <section className="max-w-7xl mx-auto px-6 py-16 lg:py-24">
+      <section className="max-w-7xl mx-auto px-6 py-16 lg:py-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* LEFT — Text */}
           <div>
@@ -173,15 +173,18 @@ export default function AboutPage() {
 
         {/* Timeline */}
         <div className="relative">
-          {/* Horizontal line */}
-          <div className="hidden lg:block absolute top-[88px] left-0 right-0 h-px bg-gray-200" />
+          {/* Horizontal line - perfectly aligned with dot centers */}
+          <div
+            className="hidden lg:block absolute left-0 right-0 bg-gray-200"
+            style={{ top: "84px", height: "1px" }}
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-6">
             {ROADMAP.map((item) => (
               <div key={item.year} className="relative">
                 {/* Year */}
                 <p
-                  className={`text-4xl font-bold mb-2 ${
+                  className={`text-4xl font-bold mb-2 leading-none ${
                     item.isCurrent ? "text-[#9b1c1c]" : "text-[#e8b4b4]"
                   }`}
                 >
@@ -189,17 +192,26 @@ export default function AboutPage() {
                 </p>
 
                 {/* Phase label */}
-                <p className="text-xs font-semibold text-gray-700 tracking-wider h-4 mb-3">
+                <p className="text-xs font-semibold text-gray-700 tracking-wider h-4 mb-4">
                   {item.phase}
                 </p>
 
-                {/* Dot on timeline */}
-                <div className="relative mb-4">
-                  <div
-                    className={`w-3 h-3 rounded-full relative z-10 ${
-                      item.isCurrent ? "bg-[#9b1c1c]" : "bg-gray-300"
-                    }`}
-                  />
+                {/* Dot on timeline - with halo ring */}
+                <div className="relative mb-5 h-4 flex items-center">
+                  <div className="relative flex items-center justify-center">
+                    {/* Outer halo ring */}
+                    <div
+                      className={`absolute w-4 h-4 rounded-full ${
+                        item.isCurrent ? "bg-[#9b1c1c]/15" : "bg-gray-200"
+                      }`}
+                    />
+                    {/* Inner solid dot */}
+                    <div
+                      className={`w-2 h-2 rounded-full relative z-10 ${
+                        item.isCurrent ? "bg-[#9b1c1c]" : "bg-gray-400"
+                      }`}
+                    />
+                  </div>
                 </div>
 
                 {/* Title */}

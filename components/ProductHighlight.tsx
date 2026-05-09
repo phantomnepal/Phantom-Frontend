@@ -57,7 +57,7 @@ export default function ProductHighlight() {
           {products.map((product, idx) => (
             <Link key={idx} href={product.href} className="group block">
               {/* Image Container */}
-              <div className="relative w-full aspect-square overflow-hidden rounded-2xl">
+              <div className="relative w-full aspect-square overflow-hidden rounded-md">
                 <Image
                   src={product.image}
                   alt={product.title}

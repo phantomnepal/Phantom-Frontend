@@ -16,9 +16,9 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full min-h-[85vh] flex items-start overflow-hidden bg-white">
+    <section className="relative w-full h-[65vh] flex items-start overflow-hidden bg-white">
       {/* Background Image Overlay Animation */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute  inset-0 z-0">
         <AnimatePresence mode="sync">
           <motion.div
             key={currentIndex}
@@ -35,7 +35,7 @@ export default function Hero() {
             <img
               src={images[currentIndex]}
               alt="Hero background"
-              className="w-full# h-full object-cover object-center"
+              className="w-full h-full object-cover object-center"
             />
           </motion.div>
         </AnimatePresence>
@@ -45,14 +45,14 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
 
       {/* Content - aligned to top with padding instead of centered */}
-      <div className="max-w-7xl mx-auto w-full px-6 relative z-20 pt-16 sm:pt-20 pb-16">
+      <div className="flex items-start max-w-7xl mx-auto w-full px-6 relative z-20 pt-8 sm:pt-12 pb-16">
         <div className="max-w-[650px]">
           {/* Eyebrow */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-sm text-gray-600 mb-4 font-medium tracking-wide"
+            className="text-lg text-[#58595A] mb-4 font-medium tracking-wide"
           >
             Trusted by Aerospace, Robotics & Embedded systems
           </motion.p>

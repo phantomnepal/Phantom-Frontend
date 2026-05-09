@@ -56,7 +56,6 @@ const capabilities: Capability[] = [
       "Load, Stress & Vibration Considerations",
       "Thermal & Environmental Design",
       "Enclosure & Mounting Design",
-      "Rapid Prototyping",
       "Testing & Design Iteration",
       "Production-Ready Design",
     ],
@@ -81,26 +80,26 @@ export default function EngineeringCapabilities() {
   return (
     <section className="relative py-16 px-6 bg-gray-50">
       <div className="max-w-7xl mx-auto relative">
-        {/* Left Navigation Arrow */}
-        <button
-          onClick={handlePrev}
-          aria-label="Previous"
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 z-10 w-11 h-11 rounded-full bg-red-700 hover:bg-red-800 text-white flex items-center justify-center transition-all shadow-md"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-
-        {/* Right Navigation Arrow */}
-        <button
-          onClick={handleNext}
-          aria-label="Next"
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 z-10 w-11 h-11 rounded-full bg-red-700 hover:bg-red-800 text-white flex items-center justify-center transition-all shadow-md"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
+        {/* Navigation Buttons - Top Right Aligned */}
+        <div className="absolute top-0 right-12 flex items-center gap-2 z-10">
+          <button
+            onClick={handlePrev}
+            aria-label="Previous"
+            className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] text-white flex items-center justify-center transition-all"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            onClick={handleNext}
+            aria-label="Next"
+            className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] text-white flex items-center justify-center transition-all"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
 
         {/* Main Content - 5/12 + 7/12 split for wider image */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center px-8 md:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center px-8 md:px-12 ">
           {/* Left Content - 5 columns */}
           <div
             key={`text-${activeIndex}`}
@@ -118,10 +117,12 @@ export default function EngineeringCapabilities() {
             <ul className="space-y-4">
               {current.features.map((feature, idx) => (
                 <li key={idx} className="flex items-center gap-3">
-                  <Check
-                    className="w-5 h-5 text-[#A10F1A] flex-shrink-0"
-                    strokeWidth={2.5}
-                  />
+                  <div className="w-6 h-6 rounded-full bg-[#A10F1A]/10 border flex items-center justify-center flex-shrink-0">
+                    <Check
+                      className="w-3.5 h-3.5 text-[#A10F1A]"
+                      strokeWidth={3}
+                    />
+                  </div>
                   <span className="text-gray-700">{feature}</span>
                 </li>
               ))}
@@ -131,7 +132,7 @@ export default function EngineeringCapabilities() {
           {/* Right Image - 7 columns (larger/wider) */}
           <div
             key={`img-${activeIndex}`}
-            className="lg:col-span-7 relative w-full aspect-[3/2] rounded-lg overflow-hidden shadow-md animate-fadeIn"
+            className="lg:col-span-7 mt-14 relative w-full aspect-[3/2] rounded-md overflow-hidden shadow-md animate-fadeIn"
           >
             <Image
               src={current.image}

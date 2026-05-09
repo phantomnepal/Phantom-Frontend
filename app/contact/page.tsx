@@ -36,7 +36,7 @@ export default function ContactPage() {
       icon: Mail,
       label: "Email",
       value: "info@phantom.com.np",
-      href: "mailto:hello@yourproject.com",
+      href: "mailto:info@phantom.com.np",
     },
     {
       icon: Phone,
@@ -84,14 +84,14 @@ export default function ContactPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="inline-block px-4 py-1.5 mb-6 text-xs font-semibold tracking-[0.2em] text-[#A10F1A] uppercase bg-[#A10F1A]/5 rounded-full border border-[#A10F1A]/10"
+              className="inline-block px-4 py-1.5 mb-6 text-xs font-semibold tracking-[0.2em] text-[#A10F1A] uppercase"
             >
               Get in Touch
             </motion.span>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-stone-900 mb-6">
               Let's start a{" "}
-              <span className="font-medium text-transparent bg-clip-text bg-gradient-to-r from-[#A10F1A] to-[#DC2626]">
+              <span className="font-medium text-transparent bg-clip-text  bg-[#A10F1A]">
                 conversation
               </span>
             </h1>

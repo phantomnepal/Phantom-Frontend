@@ -20,7 +20,7 @@ export default function AboutUs() {
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 md:py-28 text-center text-white">
         <p className="text-sm tracking-[0.2em] mb-5 text-gray-200">ABOUT US</p>
 
-        <h2 className="text-3xl md:text-5xl font-bold mb-8">
+        <h2 className="text-xl md:text-4xl font-bold mb-8">
           Advancing Embedded Innovation
         </h2>
 
