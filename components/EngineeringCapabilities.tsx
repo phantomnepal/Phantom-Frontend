@@ -156,7 +156,7 @@ export default function EngineeringCapabilities() {
               src={current.image}
               alt={current.title}
               fill
-              priority
+              sizes="(max-width: 1024px) 100vw, 58vw"
               className="object-cover"
             />
           </div>

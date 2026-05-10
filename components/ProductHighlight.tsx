@@ -62,6 +62,7 @@ export default function ProductHighlight() {
                   src={product.image}
                   alt={product.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 ease-in-out group-hover:scale-105"
                 />
 

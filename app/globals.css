@@ -141,3 +141,17 @@
     @apply font-sans;
   }
 }
+
+/* Add to your existing globals.css */
+@import "./styles/404-keyframes.css";
+
+/* Ensure smooth scrolling for the error page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom selection color for brand consistency */
+::selection {
+  background-color: rgba(161, 15, 26, 0.2);
+  color: #1a1a1a;
+}
