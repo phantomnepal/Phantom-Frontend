@@ -99,14 +99,14 @@ export default function EngineeringCapabilities() {
           <button
             onClick={handlePrev}
             aria-label="Previous"
-            className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] text-[#0f172a] hover:text-white flex items-center justify-center transition-all cursor-pointer"
+            className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] active:bg-[#A10F1A] text-[#0f172a] hover:text-white active:text-white flex items-center justify-center transition-all cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={handleNext}
             aria-label="Next"
-            className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] text-[#0f172a] hover:text-white flex items-center justify-center transition-all cursor-pointer"
+            className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] active:bg-[#A10F1A] text-[#0f172a] hover:text-white active:text-white flex items-center justify-center transition-all cursor-pointer"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -169,14 +169,14 @@ export default function EngineeringCapabilities() {
             <button
               onClick={handlePrev}
               aria-label="Previous"
-              className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] text-[#0f172a] hover:text-white flex items-center justify-center transition-all cursor-pointer"
+              className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] active:bg-[#A10F1A] text-[#0f172a] hover:text-white active:text-white flex items-center justify-center transition-all cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={handleNext}
               aria-label="Next"
-              className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] text-[#0f172a] hover:text-white flex items-center justify-center transition-all cursor-pointer"
+              className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] active:bg-[#A10F1A] text-[#0f172a] hover:text-white active:text-white flex items-center justify-center transition-all cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
