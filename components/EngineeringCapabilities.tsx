@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -77,29 +77,47 @@ export default function EngineeringCapabilities() {
 
   const current = capabilities[activeIndex];
 
+  const touchX = useRef(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const diff = touchX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) handleNext();
+      else handlePrev();
+    }
+  };
+
   return (
     <section className="relative py-16 px-6 bg-gray-50">
       <div className="max-w-7xl mx-auto relative">
-        {/* Navigation Buttons - Top Right Aligned */}
-        <div className="absolute top-0 right-12 flex items-center gap-2 z-10">
+        {/* Navigation Buttons - Desktop only (top right) */}
+        <div className="hidden lg:flex absolute top-0 right-12 items-center gap-2 z-10">
           <button
             onClick={handlePrev}
             aria-label="Previous"
-            className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] text-white flex items-center justify-center transition-all"
+            className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] text-[#0f172a] hover:text-white flex items-center justify-center transition-all cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={handleNext}
             aria-label="Next"
-            className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] text-white flex items-center justify-center transition-all"
+            className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] text-[#0f172a] hover:text-white flex items-center justify-center transition-all cursor-pointer"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>
 
         {/* Main Content - 5/12 + 7/12 split for wider image */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center px-8 md:px-12 ">
+        <div
+          className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center px-8 md:px-12"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           {/* Left Content - 5 columns */}
           <div
             key={`text-${activeIndex}`}
@@ -144,20 +162,41 @@ export default function EngineeringCapabilities() {
           </div>
         </div>
 
-        {/* Pagination Indicators - aligned under image on desktop */}
-        <div className="flex items-center justify-center lg:justify-end gap-2 mt-8 lg:pr-[8%]">
-          {capabilities.map((_, idx) => (
+        {/* Mobile Nav Buttons + Pagination */}
+        <div className="flex flex-col items-center gap-4 mt-8 lg:mt-8">
+          {/* Mobile prev/next buttons */}
+          <div className="flex lg:hidden items-center gap-3">
             <button
-              key={idx}
-              onClick={() => setActiveIndex(idx)}
-              aria-label={`Go to slide ${idx + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                idx === activeIndex
-                  ? "w-12 bg-red-700"
-                  : "w-12 bg-gray-200 hover:bg-gray-300"
-              }`}
-            />
-          ))}
+              onClick={handlePrev}
+              aria-label="Previous"
+              className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] text-[#0f172a] hover:text-white flex items-center justify-center transition-all cursor-pointer"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={handleNext}
+              aria-label="Next"
+              className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] text-[#0f172a] hover:text-white flex items-center justify-center transition-all cursor-pointer"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Pagination Indicators */}
+          <div className="flex items-center gap-2">
+            {capabilities.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveIndex(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                  idx === activeIndex
+                    ? "w-12 bg-red-700"
+                    : "w-8 bg-gray-200 hover:bg-gray-300"
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -55,7 +55,9 @@ function AccordionItem(props: AccordionItemProps) {
   );
 
   React.useEffect(() => {
-    setIsOpen(value?.includes(props?.value) ?? false);
+    React.startTransition(() => {
+      setIsOpen(value?.includes(props?.value) ?? false);
+    });
   }, [value, props?.value]);
 
   return (

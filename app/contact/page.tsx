@@ -90,15 +90,15 @@ export default function ContactPage() {
             </motion.span>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-stone-900 mb-6">
-              Let's start a{" "}
+              Let&apos;s start a{" "}
               <span className="font-medium text-transparent bg-clip-text  bg-[#A10F1A]">
                 conversation
               </span>
             </h1>
 
             <p className="max-w-2xl mx-auto text-lg text-stone-600 leading-relaxed font-light">
-              Have a project in mind or just want to say hello? We'd love to
-              hear from you. Fill out the form below and I'll get back to you as
+              Have a project in mind or just want to say hello? We&apos;d love to
+              hear from you. Fill out the form below and I&apos;ll get back to you as
               soon as possible.
             </p>
           </motion.div>

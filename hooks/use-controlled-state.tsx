@@ -18,7 +18,9 @@ export function useControlledState<T, Rest extends any[] = []>(
   );
 
   React.useEffect(() => {
-    if (value !== undefined) setInternalState(value);
+    React.startTransition(() => {
+      if (value !== undefined) setInternalState(value);
+    });
   }, [value]);
 
   const setState = React.useCallback(

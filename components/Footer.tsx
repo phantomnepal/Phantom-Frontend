@@ -29,7 +29,7 @@ const productLinks: FooterLink[] = [
   { label: "Embedded Systems", href: "#" },
   { label: "IOT & Robotics", href: "#" },
   { label: "UAV", href: "#" },
-  { label: "Educational kits", href: "#" },
+  { label: "Educational Kits", href: "#" },
 ];
 
 export default function Footer() {

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, startTransition } from "react";
 import { Menu, X, Search, ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -61,10 +61,12 @@ export default function Navbar() {
 
   // ✅ Close menus on route change
   useEffect(() => {
-    setMobileOpen(false);
-    setActiveDropdown(null);
-    setSearchOpen(false);
-    setSearchQuery("");
+    startTransition(() => {
+      setMobileOpen(false);
+      setActiveDropdown(null);
+      setSearchOpen(false);
+      setSearchQuery("");
+    });
   }, [pathname]);
 
   // ✅ ⌘K / Ctrl+K shortcut
@@ -87,7 +89,7 @@ export default function Navbar() {
   useEffect(() => {
     if (searchOpen) {
       setTimeout(() => searchInputRef.current?.focus(), 100);
-      setSelectedIndex(0);
+      startTransition(() => setSelectedIndex(0));
     }
   }, [searchOpen]);
 
@@ -134,7 +136,7 @@ export default function Navbar() {
   }, [searchOpen, selectedIndex, filteredResults]);
 
   useEffect(() => {
-    setSelectedIndex(0);
+    startTransition(() => setSelectedIndex(0));
   }, [searchQuery]);
 
   const toggleDropdown = (label: string) => {

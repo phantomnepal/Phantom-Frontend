@@ -160,7 +160,7 @@ export default function HomeAccordion() {
           </h2>
 
           <p className="max-w-xl text-sm text-gray-500 md:text-base">
-            Have questions? We've got answers. If you don't find what you're
+            Have questions? We&apos;ve got answers. If you don&apos;t find what you&apos;re
             looking for, feel free to{" "}
             <a
               href="/contact"

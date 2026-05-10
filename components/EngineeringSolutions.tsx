@@ -28,7 +28,7 @@ const solutions: Solution[] = [
   {
     layer: "SYSTEM LAYER",
     icon: Rocket,
-    title: "UAV System Devlopment",
+    title: "UAV System Development",
     description:
       "We engineer unmanned aerial systems by integrating aerodynamics, avionics, propulsion, and communication systems.",
     tags: ["Project Specific", "Reliable", "Industrial Grade"],

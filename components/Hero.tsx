@@ -19,7 +19,7 @@ export default function Hero() {
     <section className="relative w-full h-[65vh] flex items-start overflow-hidden bg-white">
       {/* Background Image Overlay Animation */}
       <div className="absolute  inset-0 z-0">
-        <AnimatePresence mode="sync">
+        <AnimatePresence>
           <motion.div
             key={currentIndex}
             initial={{ opacity: 0, scale: 1.1 }}
