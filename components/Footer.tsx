@@ -18,11 +18,9 @@ const quickLinks: FooterLink[] = [
 ];
 
 const engineeringLinks: FooterLink[] = [
-  { label: "Custom PCB Design", href: "#" },
-  { label: "Firmware Development", href: "#" },
-  { label: "Power System", href: "#" },
-  { label: "RF & Telemetry", href: "#" },
-  { label: "Avionics Architecture", href: "#" },
+  { label: "Embedded Hardware Development", href: "#" },
+  { label: "Embedded Software Development", href: "#" },
+  { label: "3D & Mechanical Development", href: "#" },
 ];
 
 const productLinks: FooterLink[] = [

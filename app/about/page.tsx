@@ -97,10 +97,12 @@ export default function AboutPage() {
               >
                 Our Capabilities
               </Link>
-              <button className="flex items-center gap-2 border border-gray-300 text-gray-800 px-7 py-3.5 rounded-md text-sm font-medium hover:border-gray-400 hover:bg-gray-50 transition">
-                <Play className="w-4 h-4 fill-current" />
-                Watch reel
-              </button>
+              <Link href="https://www.instagram.com/reel/DYh_tqxIIjM/?utm_source=ig_web_button_share_sheet">
+                <button className="flex items-center gap-2 border border-gray-300 text-gray-800 px-7 py-3.5 rounded-md text-sm font-medium hover:border-gray-400 hover:bg-gray-50 transition">
+                  <Play className="w-4 h-4 fill-current" />
+                  Watch reel
+                </button>
+              </Link>
             </div>
           </div>
 
