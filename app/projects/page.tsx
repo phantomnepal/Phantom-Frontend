@@ -20,8 +20,8 @@ const projects: Project[] = [
     badgeVariant: "prototype",
     title: "Educational 1U CubeSat",
     description:
-      "Modular research platform designed for university-level aerospace engineering, featuring high-precision telemetry and solar energy management systems.",
-    tags: ["LO-EARTH", "MODULAR", "RF-SYNC"],
+      "A learning platform designed to introduce students to satellite systems, embedded electronics, communications, and aerospace engineering principles.",
+    tags: ["Aerospace", "CubeSat", "Education"],
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const projects: Project[] = [
     title: "Phantom F722 Flight Controller",
     description:
       "A custom STM32F722-based flight controller designed for high-end FPV drones and industrial UAV applications requiring millisecond precision.",
-    tags: ["STM32F7", "6S LIPO", "BLACKBOX"],
+    tags: ["FPV", "Flight Control", "Avionics"],
   },
   {
     id: 3,
@@ -42,8 +42,8 @@ const projects: Project[] = [
     badgeVariant: "prototype",
     title: "Phantom F405 Flight Controller",
     description:
-      "Modular research platform designed for university-level aerospace engineering, featuring high-precision telemetry and solar energy management systems.",
-    tags: ["LO-EARTH", "MODULAR", "RF-SYNC"],
+      "A STM32F405-based flight controller designed for high-end FPV drones and industrial UAV applications requiring millisecond precision",
+    tags: ["FPV", "Flight Control", "Avionics"],
   },
   {
     id: 4,
@@ -53,8 +53,8 @@ const projects: Project[] = [
     badgeVariant: "available",
     title: "Phantom Electronics Starter Kit",
     description:
-      "Comprehensive training hardware for embedded software development, including industrial-grade sensors and robust microcontroller boards.",
-    tags: ["LEARNING", "SENSORS", "MCU-X1"],
+      "A beginner-friendly electronics kit designed to teach fundamental concepts through hands-on projects involving sensors, displays, and basic automation systems.",
+    tags: ["Electronics", "STEM Education", "Beginners"],
   },
   {
     id: 5,
@@ -64,8 +64,8 @@ const projects: Project[] = [
     badgeVariant: "available",
     title: "Phantom Robotics Kit",
     description:
-      "A high-precision mobile platform with aluminum chassis and integrated ROS support, ideal for autonomous navigation development.",
-    tags: ["ROS READY", "AUTONOMY", "AL-FRAME"],
+      "Explore robotics through practical projects involving motion control, sensors, actuators, and autonomous system development.",
+    tags: ["Robotics", "Automation", "Motion Control"],
   },
   {
     id: 6,
@@ -75,14 +75,14 @@ const projects: Project[] = [
     badgeVariant: "in-development",
     title: "Phantom Embedded Systems Kit",
     description:
-      "Modular research platform designed for university-level aerospace engineering, featuring high-precision telemetry and solar energy management systems.",
-    tags: ["ROS READY", "AUTONOMY", "AL-FRAME"],
+      "Learn real embedded systems development with industry-relevant hardware and programming concepts, including communication protocols, peripherals, and real-time control.",
+    tags: ["Embedded Systems", "STEM Education", "Firmware Development"],
   },
 ];
 
 const badgeStyles = {
   prototype: "border-amber-500 text-amber-700",
-  "in-development": "border-gray-400 text-gray-600",
+  "in-development": "border-[#0096c7] text-gray-600",
   available: "border-green-600 text-green-700",
 };
 
@@ -90,7 +90,7 @@ export default function ProjectsPage() {
   return (
     <main className="bg-white">
       {/* Hero Section */}
-      <section className="pt-16 pb-12 md:pt-24 md:pb-16">
+      <section className="pt-16 pb-12 md:pt-16 md:pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
             Precision Engineering for the{" "}
@@ -151,7 +151,7 @@ export default function ProjectsPage() {
                       {project.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="inline-block bg-gray-100 text-gray-600 text-xs font-medium px-2 py-1 rounded-sm"
+                          className="inline-block bg-gray-100 text-gray-600 text-xs font-medium px-2 py-1 rounded-sm uppercase"
                         >
                           {tag}
                         </span>
