@@ -6,18 +6,18 @@ interface Logo {
 }
 
 const logos: Logo[] = [
-  { src: "/logos/Matlab.png", alt: "MATLAB" },
-  { src: "/logos/LT.png", alt: "LTspice" },
-  { src: "/logos/RTOS.png", alt: "FreeRTOS" },
-  { src: "/logos/blender_logo.png", alt: "Blender" },
+  { src: "/logos/matlab.svg", alt: "MATLAB" },
+  { src: "/logos/LT.svg", alt: "LTspice" },
+  { src: "/logos/aws-freertos.svg", alt: "FreeRTOS" },
+  { src: "/logos/blender.svg", alt: "Blender" },
   { src: "/logos/Altium.png", alt: "Altium Designer" },
-  { src: "/logos/AntDesign.png", alt: "Ant Design" },
-  { src: "/logos/VSCode.png", alt: "VS Code" },
-  { src: "/logos/Arduino.png", alt: "Arduino" },
+  { src: "/logos/platformio.svg", alt: "PlatformIO" },
+  { src: "/logos/visual-studio-code.svg", alt: "VS Code" },
+  { src: "/logos/arduino.svg", alt: "Arduino" },
   { src: "/logos/OpenVSP.png", alt: "OpenVSP" },
-  { src: "/logos/KICAD.png", alt: "KiCad" },
-  { src: "/logos/FUSION.png", alt: "Fusion" },
-  { src: "/logos/STM32.png", alt: "STM32CubeIDE" },
+  { src: "/logos/kicad.svg", alt: "KiCad" },
+  { src: "/logos/fusion.svg", alt: "Fusion" },
+  { src: "/logos/stmicroelectronics.svg", alt: "STM32CubeIDE" },
 ];
 
 export default function LogoMarquee() {

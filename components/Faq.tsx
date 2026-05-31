@@ -107,7 +107,7 @@ function FAQAccordion({ items }: FAQAccordionProps) {
     <Accordion
       type="single"
       collapsible
-      className="w-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md"
+      className="w-full overflow-hidden rounded-md border border-gray-200 bg-white shadow-md"
     >
       {items.map(({ value, question, answer, list }, index) => (
         <AccordionItem
@@ -160,8 +160,8 @@ export default function HomeAccordion() {
           </h2>
 
           <p className="max-w-xl text-sm text-gray-500 md:text-base">
-            Have questions? We&apos;ve got answers. If you don&apos;t find what you&apos;re
-            looking for, feel free to{" "}
+            Have questions? We&apos;ve got answers. If you don&apos;t find what
+            you&apos;re looking for, feel free to{" "}
             <a
               href="/contact"
               className="font-medium text-[#A10F1A] underline underline-offset-2 hover:opacity-80"

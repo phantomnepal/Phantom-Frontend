@@ -12,17 +12,18 @@ const NAV_ITEMS = [
   {
     label: "Product",
     dropdown: [
-      { label: "Features", href: "/product/features" },
-      { label: "Pricing", href: "/product/pricing" },
-      { label: "Changelog", href: "/product/changelog" },
+      { label: "Embedded Systems", href: "/product/features" },
+      { label: "IOT & Robotics", href: "/product/pricing" },
+      { label: "UAV", href: "/product/changelog" },
+      { label: "Educational Kits", href: "/product/educational-kits" },
     ],
   },
   {
     label: "Engineering",
     dropdown: [
-      { label: "Blog", href: "/engineering/blog" },
-      { label: "Open Source", href: "/engineering/oss" },
-      { label: "API Docs", href: "/engineering/docs" },
+      { label: "Embedded Hardware Development", href: "/engineering/blog" },
+      { label: "Embedded Software Development", href: "/engineering/oss" },
+      { label: "3D & Mechanical Development", href: "/engineering/docs" },
     ],
   },
   { label: "Projects", href: "/projects" },
@@ -97,15 +98,18 @@ export default function Navbar() {
   const filteredResults = SEARCHABLE_ITEMS.filter(
     (item) =>
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.category.toLowerCase().includes(searchQuery.toLowerCase())
+      item.category.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   // ✅ Group results
-  const groupedResults = filteredResults.reduce((acc, item) => {
-    if (!acc[item.category]) acc[item.category] = [];
-    acc[item.category].push(item);
-    return acc;
-  }, {} as Record<string, typeof SEARCHABLE_ITEMS>);
+  const groupedResults = filteredResults.reduce(
+    (acc, item) => {
+      if (!acc[item.category]) acc[item.category] = [];
+      acc[item.category].push(item);
+      return acc;
+    },
+    {} as Record<string, typeof SEARCHABLE_ITEMS>,
+  );
 
   // ✅ Arrow key navigation
   useEffect(() => {
@@ -115,13 +119,13 @@ export default function Navbar() {
       if (e.key === "ArrowDown") {
         e.preventDefault();
         setSelectedIndex((prev) =>
-          prev < filteredResults.length - 1 ? prev + 1 : 0
+          prev < filteredResults.length - 1 ? prev + 1 : 0,
         );
       }
       if (e.key === "ArrowUp") {
         e.preventDefault();
         setSelectedIndex((prev) =>
-          prev > 0 ? prev - 1 : filteredResults.length - 1
+          prev > 0 ? prev - 1 : filteredResults.length - 1,
         );
       }
       if (e.key === "Enter" && filteredResults[selectedIndex]) {
@@ -226,7 +230,7 @@ export default function Navbar() {
                 >
                   {item.label}
                 </Link>
-              )
+              ),
             )}
           </nav>
 
@@ -321,7 +325,7 @@ export default function Navbar() {
                 >
                   {item.label}
                 </Link>
-              )
+              ),
             )}
 
             {/* MOBILE BOTTOM */}
