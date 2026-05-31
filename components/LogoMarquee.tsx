@@ -1,4 +1,11 @@
+"use client";
+
 import Image from "next/image";
+import {
+  Marquee,
+  MarqueeContent,
+  MarqueeItem,
+} from "@/components/kibo-ui/marquee";
 
 interface Logo {
   src: string;
@@ -23,18 +30,17 @@ const logos: Logo[] = [
 export default function LogoMarquee() {
   return (
     <section className="w-full py-10 bg-white overflow-hidden">
-      <div className="relative">
-        {/* Gradient Edge Fades */}
-        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-
-        {/* Marquee Track */}
-        <div className="flex animate-marquee whitespace-nowrap hover:[animation-play-state:paused]">
-          {/* First copy */}
+      {/* 
+        pauseOnHover: stops animation on mouse hover
+        [--duration:15s]: makes it fast (lower = faster, higher = slower)
+      */}
+      <Marquee className="[--duration:15s]">
+        <MarqueeContent>
           {logos.map((logo, idx) => (
-            <div
-              key={`a-${idx}`}
-              className="mx-8 md:mx-12 flex items-center justify-center flex-shrink-0"
+            <MarqueeItem
+              key={idx}
+              // Moved your original spacing/flexbox classes here
+              className="mx-8 md:mx-12 flex items-center justify-center shrink-0"
             >
               <Image
                 src={logo.src}
@@ -43,26 +49,10 @@ export default function LogoMarquee() {
                 height={50}
                 className="h-12 w-auto object-contain"
               />
-            </div>
+            </MarqueeItem>
           ))}
-
-          {/* Second copy (for seamless loop) */}
-          {logos.map((logo, idx) => (
-            <div
-              key={`b-${idx}`}
-              className="mx-8 md:mx-12 flex items-center justify-center flex-shrink-0"
-            >
-              <Image
-                src={logo.src}
-                alt={logo.alt}
-                width={120}
-                height={50}
-                className="h-12 w-auto object-contain"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+        </MarqueeContent>
+      </Marquee>
     </section>
   );
 }
