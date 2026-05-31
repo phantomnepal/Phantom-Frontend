@@ -26,7 +26,7 @@ const projects: Project[] = [
   {
     id: 2,
     image: "/projects/project2.jpg",
-    category: "UAV SYSTEMS",
+    category: "FPV FLIGHT CONTROLLER ",
     badge: "IN DEVELOPMENT",
     badgeVariant: "in-development",
     title: "Phantom F722 Flight Controller",
@@ -37,7 +37,7 @@ const projects: Project[] = [
   {
     id: 3,
     image: "/projects/project1.jpg",
-    category: "AEROSPACE EDUCATION",
+    category: "FPV FLIGHT CONTROLLER ",
     badge: "PROTOTYPE",
     badgeVariant: "prototype",
     title: "Phantom F405 Flight Controller",
@@ -76,7 +76,7 @@ const projects: Project[] = [
     title: "Phantom Embedded Systems Kit",
     description:
       "Learn real embedded systems development with industry-relevant hardware and programming concepts, including communication protocols, peripherals, and real-time control.",
-    tags: ["Embedded Systems", "STEM Education", "Firmware Development"],
+    tags: ["Embedded Systems", "STEM Education"],
   },
 ];
 
