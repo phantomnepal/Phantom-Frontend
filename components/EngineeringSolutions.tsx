@@ -31,7 +31,7 @@ export default function EngineeringSolutions() {
                 key={idx}
                 className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 hover:shadow-md transition-shadow"
               >
-                <p className="text-gray-400 text-sm font-medium tracking-wider mb-4">
+                <p className="text-gray-500 text-sm font-medium tracking-wider mb-4">
                   {item.layer}
                 </p>
 

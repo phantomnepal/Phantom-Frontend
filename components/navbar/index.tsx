@@ -139,7 +139,7 @@ export default function Navbar() {
             >
               <Search className="w-4 h-4" />
               <span className="text-sm">Search...</span>
-              <kbd className="hidden sm:inline-flex items-center gap-0.5 ml-2 px-1.5 py-0.5 text-[11px] font-medium text-gray-400 bg-gray-100 rounded border border-gray-200 group-hover:border-gray-300">
+              <kbd className="hidden sm:inline-flex items-center gap-0.5 ml-2 px-1.5 py-0.5 text-[11px] font-medium text-gray-500 bg-gray-100 rounded border border-gray-200 group-hover:border-gray-300">
                 ⌘K
               </kbd>
             </button>

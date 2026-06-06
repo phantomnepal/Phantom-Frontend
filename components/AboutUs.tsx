@@ -42,6 +42,7 @@ export default function AboutUs() {
 
         <Link
           href="/about"
+          aria-label="Learn more about Phantom"
           className="inline-block px-10 py-3 border border-white/80 text-white font-medium rounded-md hover:bg-white hover:text-slate-900 transition-colors duration-300"
         >
           Learn More

@@ -104,8 +104,9 @@ export default function Hero() {
           <button
             key={idx}
             onClick={() => setCurrentIndex(idx)}
-            className={`h-1.5 rounded-full transition-all duration-500 ${
-              idx === currentIndex ? "w-8 bg-[#A10F1A]" : "w-1.5 bg-gray-300"
+            aria-label={`Go to slide ${idx + 1}`}
+            className={`h-3 w-3 rounded-full transition-all duration-500 ${
+              idx === currentIndex ? "w-8 bg-[#A10F1A]" : "bg-gray-300"
             }`}
           />
         ))}

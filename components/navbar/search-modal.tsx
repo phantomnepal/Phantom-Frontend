@@ -59,7 +59,7 @@ export function SearchModal({
           />
           <kbd
             onClick={onClose}
-            className="px-2 py-0.5 text-[11px] font-medium text-gray-400 bg-gray-100 rounded border border-gray-200 cursor-pointer hover:bg-gray-200 transition"
+            className="px-2 py-0.5 text-[11px] font-medium text-gray-500 bg-gray-100 rounded border border-gray-200 cursor-pointer hover:bg-gray-200 transition"
           >
             ESC
           </kbd>
@@ -67,12 +67,12 @@ export function SearchModal({
 
         <div className="max-h-[320px] overflow-y-auto">
           {searchQuery === '' ? (
-            <div className="px-4 py-8 text-center text-sm text-gray-400">
+            <div className="px-4 py-8 text-center text-sm text-gray-500">
               Start typing to search...
             </div>
           ) : filteredResults.length === 0 ? (
             <div className="px-4 py-8 text-center">
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-gray-500">
                 No results for &quot;{searchQuery}&quot;
               </p>
               <p className="text-xs text-gray-300 mt-1">
@@ -83,7 +83,7 @@ export function SearchModal({
             <div className="py-2">
               {Object.entries(groupedResults).map(([category, items]) => (
                 <div key={category}>
-                  <div className="px-4 py-1.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">
+                  <div className="px-4 py-1.5 text-[11px] font-semibold text-gray-500 uppercase tracking-wider">
                     {category}
                   </div>
                   {items.map((item) => {
@@ -104,7 +104,7 @@ export function SearchModal({
                           className={`w-4 h-4 shrink-0 ${
                             selectedIndex === globalIndex
                               ? 'text-gray-300'
-                              : 'text-gray-400'
+                              : 'text-gray-500'
                           }`}
                         />
                         <span>{item.title}</span>
@@ -122,7 +122,7 @@ export function SearchModal({
           )}
         </div>
 
-        <div className="flex items-center justify-between px-4 py-2 border-t border-gray-100 bg-gray-50 text-[11px] text-gray-400">
+        <div className="flex items-center justify-between px-4 py-2 border-t border-gray-100 bg-gray-50 text-[11px] text-gray-500">
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1">
               <kbd className="px-1 py-0.5 bg-white border border-gray-200 rounded text-[10px]">↑</kbd>

@@ -31,7 +31,7 @@ export default function ProjectsPage() {
       <section className="pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {content.projects.map((project) => (
+            {content.projects.map((project, index) => (
               <div
                 key={project.id}
                 className="group border border-gray-200 bg-white flex flex-col rounded-md overflow-hidden transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1"
@@ -44,6 +44,7 @@ export default function ProjectsPage() {
                     fill
                     className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={index === 0}
                   />
                 </div>
 

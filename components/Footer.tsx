@@ -156,7 +156,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="mt-8 text-center">
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-400">
             © 2026 Phantom. All rights reserved.
           </p>
         </div>
