@@ -3,9 +3,11 @@
 import * as React from 'react';
 import { Accordion as AccordionPrimitive } from 'radix-ui';
 import { motion, AnimatePresence, type HTMLMotionProps } from 'motion/react';
+import { ChevronDownIcon } from 'lucide-react';
 
 import { useControlledState } from '@/hooks/use-controlled-state';
 import { getStrictContext } from '@/lib/get-strict-context';
+import { cn } from '@/lib/utils';
 
 type AccordionContextType = {
   value: string | string[] | undefined;
@@ -48,7 +50,7 @@ function Accordion(props: AccordionProps) {
 
 type AccordionItemProps = React.ComponentProps<typeof AccordionPrimitive.Item>;
 
-function AccordionItem(props: AccordionItemProps) {
+function AccordionItem({ className, ...props }: AccordionItemProps) {
   const { value } = useAccordion();
   const [isOpen, setIsOpen] = React.useState(
     value?.includes(props?.value) ?? false,
@@ -62,7 +64,11 @@ function AccordionItem(props: AccordionItemProps) {
 
   return (
     <AccordionItemProvider value={{ isOpen, setIsOpen, value: props.value }}>
-      <AccordionPrimitive.Item data-slot="accordion-item" {...props} />
+      <AccordionPrimitive.Item
+        data-slot="accordion-item"
+        className={cn('border-b last:border-b-0', className)}
+        {...props}
+      />
     </AccordionItemProvider>
   );
 }
@@ -77,11 +83,32 @@ function AccordionHeader(props: AccordionHeaderProps) {
 
 type AccordionTriggerProps = React.ComponentProps<
   typeof AccordionPrimitive.Trigger
->;
+> & {
+  showArrow?: boolean;
+};
 
-function AccordionTrigger(props: AccordionTriggerProps) {
+function AccordionTrigger({
+  className,
+  children,
+  showArrow = true,
+  ...props
+}: AccordionTriggerProps) {
   return (
-    <AccordionPrimitive.Trigger data-slot="accordion-trigger" {...props} />
+    <AccordionHeader className="flex">
+      <AccordionPrimitive.Trigger
+        data-slot="accordion-trigger"
+        className={cn(
+          'focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180',
+          className,
+        )}
+        {...props}
+      >
+        {children}
+        {showArrow && (
+          <ChevronDownIcon className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
+        )}
+      </AccordionPrimitive.Trigger>
+    </AccordionHeader>
   );
 }
 
@@ -96,9 +123,15 @@ type AccordionContentProps = Omit<
 function AccordionContent({
   keepRendered = false,
   transition = { duration: 0.35, ease: 'easeInOut' },
+  className,
+  children,
   ...props
 }: AccordionContentProps) {
   const { isOpen } = useAccordionItem();
+
+  const content = (
+    <div className={cn('text-sm pt-0 pb-4', className)}>{children}</div>
+  );
 
   return (
     <AnimatePresence>
@@ -122,7 +155,9 @@ function AccordionContent({
               overflow: 'hidden',
             }}
             {...props}
-          />
+          >
+            {content}
+          </motion.div>
         </AccordionPrimitive.Content>
       ) : (
         isOpen && (
@@ -147,7 +182,9 @@ function AccordionContent({
                 overflow: 'hidden',
               }}
               {...props}
-            />
+            >
+              {content}
+            </motion.div>
           </AccordionPrimitive.Content>
         )
       )}

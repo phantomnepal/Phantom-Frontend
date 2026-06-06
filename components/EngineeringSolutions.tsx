@@ -1,41 +1,10 @@
 import { Cpu, Layers, Rocket, ArrowRight, type LucideIcon } from "lucide-react";
+import { getSiteContent } from "@/data/content";
 
-interface Solution {
-  layer: string;
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  tags: string[];
-}
-
-const solutions: Solution[] = [
-  {
-    layer: "CORE LAYER",
-    icon: Cpu,
-    title: "Embedded Systems",
-    description:
-      "We design and build complete embedded systems from schematics and PCB design to firmware and integration delivering production-ready solutions.",
-    tags: ["Project Specific", "Reliable", "Industrial Grade"],
-  },
-  {
-    layer: "PLATFORM LAYER",
-    icon: Layers,
-    title: "IoT & Robotics Engineering",
-    description:
-      "We build intelligent connected systems  combining hardware, sensors, and mechanical design to deliver autonomous and remote-ready solutions.",
-    tags: ["Project Specific", "Reliable", "Industrial Grade"],
-  },
-  {
-    layer: "SYSTEM LAYER",
-    icon: Rocket,
-    title: "UAV System Development",
-    description:
-      "We engineer unmanned aerial systems by integrating aerodynamics, avionics, propulsion, and communication systems.",
-    tags: ["Project Specific", "Reliable", "Industrial Grade"],
-  },
-];
+const iconMap: Record<string, LucideIcon> = { Cpu, Layers, Rocket };
 
 export default function EngineeringSolutions() {
+  const content = getSiteContent();
   return (
     <section className="py-16 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
@@ -55,8 +24,8 @@ export default function EngineeringSolutions() {
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {solutions.map((item, idx) => {
-            const Icon = item.icon;
+          {content.solutions.map((item, idx) => {
+            const Icon = iconMap[item.iconName];
             return (
               <div
                 key={idx}

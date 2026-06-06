@@ -3,67 +3,11 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { Check, ChevronLeft, ChevronRight } from "lucide-react";
-
-interface Capability {
-  category: string;
-  title: string;
-  subtitle: string;
-  features: string[];
-  image: string;
-}
-
-const capabilities: Capability[] = [
-  {
-    category: "ENGINEERING CAPABILITIES",
-    title: "Embedded Hardware Development",
-    subtitle: "Hardware Development Lifecycle",
-    features: [
-      "Requirements & System Architecture",
-      "Component Selection & Schematic Design",
-      "Multi-layer PCB Layout",
-      "Power, Signal & Thermal Integrity",
-      "EMI/EMC Design Considerations",
-      "Prototyping & Hardware Bring-up",
-      "Testing, Validation & Debugging",
-      "Optimisation & Production Readiness",
-    ],
-    image: "/hardware2.png",
-  },
-  {
-    category: "ENGINEERING CAPABILITIES",
-    title: "Embedded Software Development",
-    subtitle: "Software Development Lifecycle",
-    features: [
-      "Requirements & System Architecture",
-      "Bare-metal / RTOS Firmware Development",
-      "Peripheral & Driver Development",
-      "Communication Protocols",
-      "Real-Time Control Systems",
-      "Testing, Debugging & Validation",
-      "Performance & Power Optimisation",
-      "Deployment & Field Updates",
-    ],
-    image: "/software.jpg",
-  },
-  {
-    category: "ENGINEERING CAPABILITIES",
-    title: "3D Design & Mechanical Development",
-    subtitle: "Mechanical Development Lifecycle",
-    features: [
-      "Requirements & Form Factor Definition",
-      "Concept Design & CAD Modelling",
-      "Structural Design & Material Selection",
-      "Load, Stress & Vibration Considerations",
-      "Thermal & Environmental Design",
-      "Enclosure & Mounting Design",
-      "Testing & Design Iteration",
-      "Production-Ready Design",
-    ],
-    image: "/mechanical.jpg",
-  },
-];
+import { getSiteContent } from "@/data/content";
 
 export default function EngineeringCapabilities() {
+  const content = getSiteContent();
+  const capabilities = content.capabilities;
   const [activeIndex, setActiveIndex] = useState(0);
   const total = capabilities.length;
 

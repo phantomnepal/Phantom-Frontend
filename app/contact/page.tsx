@@ -2,18 +2,19 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone, Send, ArrowUpRight } from "lucide-react";
+import { Mail, MapPin, Phone, Send, ArrowUpRight, type LucideIcon } from "lucide-react";
 import { FaTiktok, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import type { IconType } from "react-icons/lib";
+import { getSiteContent } from "@/data/content";
+import { submitContact } from "@/lib/submit-contact";
+import type { ContactFormData } from "@/lib/submit-contact";
 
-interface FormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
+const contactIconMap: Record<string, LucideIcon> = { Mail, MapPin, Phone };
+const socialIconMap: Record<string, IconType> = { FaTiktok, FaInstagram, FaLinkedinIn };
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState<FormData>({
+  const content = getSiteContent();
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
     subject: "",
@@ -21,54 +22,20 @@ export default function ContactPage() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [result, setResult] = useState<{ ok: boolean; error?: string } | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    setResult(null);
+    const res = await submitContact(formData);
+    if (res.ok) {
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    }
+    setResult(res);
     setIsSubmitting(false);
-    setFormData({ name: "", email: "", subject: "", message: "" });
   };
-
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: "info@phantom.com.np",
-      href: "mailto:info@phantom.com.np",
-    },
-    {
-      icon: Phone,
-      label: "Phone",
-      value: "+977 (986)3942274",
-      href: "tel:+9779863942274",
-    },
-    {
-      icon: MapPin,
-      label: "Location",
-      value: "Kathmandu, Nepal",
-      href: "https://maps.app.goo.gl/MC1qoKfJvkrohWAd6",
-    },
-  ];
-
-  const socialLinks = [
-    {
-      icon: FaTiktok,
-      href: "https://www.tiktok.com/@phantom_technology02?is_from_webapp=1&sender_device=pc",
-      label: "Tiktok",
-    },
-    {
-      icon: FaLinkedinIn,
-      href: "https://www.linkedin.com/company/phantom_technologies/",
-      label: "LinkedIn",
-    },
-    {
-      icon: FaInstagram,
-      href: "https://www.instagram.com/phantom.nepal?igsh=MTN5aGg2YmpwNDJhZg==",
-      label: "Instagram",
-    },
-  ];
 
   return (
     <main className="min-h-screen bg-[#faf8f6] text-stone-800 font-sans">
@@ -112,32 +79,35 @@ export default function ContactPage() {
               className="lg:col-span-4 space-y-8"
             >
               <div className="space-y-4">
-                {contactInfo.map((item, index) => (
-                  <motion.a
-                    key={item.label}
-                    href={item.href}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 + index * 0.1 }}
-                    className="group flex items-start space-x-4 p-5 rounded-2xl bg-white border border-stone-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(161,15,26,0.08)] transition-all duration-500 hover:border-[#A10F1A]/20"
-                  >
-                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#A10F1A]/5 to-[#DC2626]/5 flex items-center justify-center text-[#A10F1A] group-hover:scale-110 transition-transform duration-300">
-                      <item.icon size={20} strokeWidth={1.5} />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-xs font-medium tracking-wider text-stone-400 mb-1 uppercase">
-                        {item.label}
-                      </p>
-                      <p className="text-stone-800 font-medium group-hover:text-[#A10F1A] transition-colors duration-300">
-                        {item.value}
-                      </p>
-                    </div>
-                    <ArrowUpRight
-                      className="text-stone-300 group-hover:text-[#A10F1A] transition-all duration-300 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                      size={16}
-                    />
-                  </motion.a>
-                ))}
+                {content.contactInfo.map((item, index) => {
+                  const Icon = contactIconMap[item.iconName];
+                  return (
+                    <motion.a
+                      key={item.label}
+                      href={item.href}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 + index * 0.1 }}
+                      className="group flex items-start space-x-4 p-5 rounded-2xl bg-white border border-stone-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(161,15,26,0.08)] transition-all duration-500 hover:border-[#A10F1A]/20"
+                    >
+                      <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#A10F1A]/5 to-[#DC2626]/5 flex items-center justify-center text-[#A10F1A] group-hover:scale-110 transition-transform duration-300">
+                        <Icon size={20} strokeWidth={1.5} />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs font-medium tracking-wider text-stone-400 mb-1 uppercase">
+                          {item.label}
+                        </p>
+                        <p className="text-stone-800 font-medium group-hover:text-[#A10F1A] transition-colors duration-300">
+                          {item.value}
+                        </p>
+                      </div>
+                      <ArrowUpRight
+                        className="text-stone-300 group-hover:text-[#A10F1A] transition-all duration-300 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        size={16}
+                      />
+                    </motion.a>
+                  );
+                })}
               </div>
 
               {/* Social Links */}
@@ -146,16 +116,19 @@ export default function ContactPage() {
                   Follow Us
                 </p>
                 <div className="flex space-x-3">
-                  {socialLinks.map((social) => (
+                  {content.socialLinks.map((social) => {
+                    const SIcon = socialIconMap[social.iconName];
+                    return (
                     <a
                       key={social.label}
                       href={social.href}
                       className="w-11 h-11 rounded-full bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:text-white hover:bg-[#A10F1A] hover:border-[#A10F1A] transition-all duration-300 shadow-sm"
                       aria-label={social.label}
                     >
-                      <social.icon size={18} strokeWidth={1.5} />
+                      <SIcon size={18} />
                     </a>
-                  ))}
+                  );
+                  })}
                 </div>
               </div>
 
@@ -299,6 +272,20 @@ export default function ContactPage() {
                     </>
                   )}
                 </motion.button>
+
+                {result && (
+                  <div
+                    className={`mt-4 p-4 rounded-xl text-sm ${
+                      result.ok
+                        ? 'bg-green-50 text-green-700 border border-green-200'
+                        : 'bg-red-50 text-red-700 border border-red-200'
+                    }`}
+                  >
+                    {result.ok
+                      ? 'Message sent successfully! We\'ll get back to you soon.'
+                      : result.error}
+                  </div>
+                )}
               </form>
 
               {/* Trust Badges */}

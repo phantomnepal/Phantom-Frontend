@@ -1,64 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Play } from "lucide-react";
-
-const CORE_VALUES = [
-  {
-    number: "01",
-    title: "Disciplined Design",
-    description:
-      "We follow rigorous engineering standards to ensure every PCB and firmware module is deterministic and reliable.",
-  },
-  {
-    number: "02",
-    title: "Local Innovation",
-    description:
-      "By building advanced systems in Nepal, we aim to inspire and empower the next generation of hardware engineers.",
-  },
-  {
-    number: "03",
-    title: "Mission Focused",
-    description:
-      "Whether it's a simple sensor node or a complex CubeSat, we design with the end-mission success as our primary metric.",
-  },
-];
-
-const ROADMAP = [
-  {
-    year: "2026",
-    phase: "CURRENT PHASE",
-    title: "Foundation & Product Launch",
-    description:
-      "Building a strong foundation through educational platforms, embedded systems kits, and initial product releases. Focused on developing reliable hardware, validating designs, and establishing Phantom as a trusted engineering brand in Nepal.",
-    isCurrent: true,
-  },
-  {
-    year: "2028",
-    phase: "",
-    title: "Industrial Autonomy",
-    description:
-      "Scaling edge-computing solutions for sovereign manufacturing hubs.",
-    isCurrent: false,
-  },
-  {
-    year: "2029",
-    phase: "",
-    title: "Avionics Integration",
-    description:
-      "Certification for safety-critical flight systems and data links.",
-    isCurrent: false,
-  },
-  {
-    year: "2030",
-    phase: "",
-    title: "Aerospace Grade",
-    description:
-      "Deep space telemetry modules for private lunar infrastructure.",
-    isCurrent: false,
-  },
-];
+import { getSiteContent } from "@/data/content";
 
 export default function AboutPage() {
+  const content = getSiteContent();
   return (
     <main className="w-full bg-white">
       {/* ========== HERO SECTION ========== */}
@@ -118,7 +64,7 @@ export default function AboutPage() {
                 src="/about-hero.png" // 👈 add this image to /public
                 alt="Engineering blueprints"
                 fill
-                className="object-cover grayscale"
+                className="object-cover grayscale hover:grayscale-0 transition-all duration-500 ease-in-out hover:scale-105"
                 priority
               />
             </div>
@@ -141,7 +87,7 @@ export default function AboutPage() {
 
           {/* Cards Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {CORE_VALUES.map((value) => (
+            {content.coreValues.map((value) => (
               <div
                 key={value.number}
                 className="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition border border-gray-100"
@@ -182,7 +128,7 @@ export default function AboutPage() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-6">
-            {ROADMAP.map((item) => (
+            {content.roadmap.map((item) => (
               <div key={item.year} className="relative">
                 {/* Year */}
                 <p

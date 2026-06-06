@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const images = ["/images/hero1.png", "/images/hero2.png"];
+import { getSiteContent } from "@/data/content";
 
 export default function Hero() {
+  const content = getSiteContent();
+  const images = content.heroImages.map((img) => img.src);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -13,7 +14,7 @@ export default function Hero() {
       setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [images.length]);
 
   return (
     <section className="relative w-full h-[65vh] flex items-start overflow-hidden bg-white">

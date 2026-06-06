@@ -1,35 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-
-interface Product {
-  category: string;
-  title: string;
-  image: string;
-  href: string;
-}
-
-const products: Product[] = [
-  {
-    category: "Instrumentation",
-    title: "Embedded Systems",
-    image: "/embedded-systems.jpg", //
-    href: "/products/embedded-systems",
-  },
-  {
-    category: "Aerospace",
-    title: "Engineering Kits",
-    image: "/engineering-kits.png", //
-    href: "/products/engineering-kits",
-  },
-  {
-    category: "Development",
-    title: "IoT & Robotics",
-    image: "/iot-robotics.jpg", //
-    href: "/products/iot-robotics",
-  },
-];
+import { getSiteContent } from "@/data/content";
 
 export default function ProductHighlight() {
+  const content = getSiteContent();
   return (
     <section className="py-16 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
@@ -54,7 +28,7 @@ export default function ProductHighlight() {
 
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {products.map((product, idx) => (
+          {content.products.map((product, idx) => (
             <Link key={idx} href={product.href} className="group block">
               {/* Image Container */}
               <div className="relative w-full aspect-square overflow-hidden rounded-md">

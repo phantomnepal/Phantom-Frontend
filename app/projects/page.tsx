@@ -1,84 +1,5 @@
 import Image from "next/image";
-
-type Project = {
-  id: number;
-  image: string;
-  category: string;
-  badge: string;
-  badgeVariant: "prototype" | "in-development" | "available";
-  title: string;
-  description: string;
-  tags: string[];
-};
-
-const projects: Project[] = [
-  {
-    id: 1,
-    image: "/projects/project1.jpg",
-    category: "AEROSPACE EDUCATION",
-    badge: "PROTOTYPE",
-    badgeVariant: "prototype",
-    title: "Educational 1U CubeSat",
-    description:
-      "A learning platform designed to introduce students to satellite systems, embedded electronics, communications, and aerospace engineering principles.",
-    tags: ["Aerospace", "CubeSat", "Education"],
-  },
-  {
-    id: 2,
-    image: "/projects/project2.jpg",
-    category: "FPV FLIGHT CONTROLLER ",
-    badge: "IN DEVELOPMENT",
-    badgeVariant: "in-development",
-    title: "Phantom F722 Flight Controller",
-    description:
-      "A custom STM32F722-based flight controller designed for high-end FPV drones and industrial UAV applications requiring millisecond precision.",
-    tags: ["FPV", "Flight Control", "Avionics"],
-  },
-  {
-    id: 3,
-    image: "/projects/project1.jpg",
-    category: "FPV FLIGHT CONTROLLER ",
-    badge: "PROTOTYPE",
-    badgeVariant: "prototype",
-    title: "Phantom F405 Flight Controller",
-    description:
-      "A STM32F405-based flight controller designed for high-end FPV drones and industrial UAV applications requiring millisecond precision",
-    tags: ["FPV", "Flight Control", "Avionics"],
-  },
-  {
-    id: 4,
-    image: "/projects/project3.jpg",
-    category: "Educational Products",
-    badge: "AVAILABLE",
-    badgeVariant: "available",
-    title: "Phantom Electronics Starter Kit",
-    description:
-      "A beginner-friendly electronics kit designed to teach fundamental concepts through hands-on projects involving sensors, displays, and basic automation systems.",
-    tags: ["Electronics", "STEM Education", "Beginners"],
-  },
-  {
-    id: 5,
-    image: "/projects/project4.jpg",
-    category: "Educational Products",
-    badge: "AVAILABLE",
-    badgeVariant: "available",
-    title: "Phantom Robotics Kit",
-    description:
-      "Explore robotics through practical projects involving motion control, sensors, actuators, and autonomous system development.",
-    tags: ["Robotics", "Automation", "Motion Control"],
-  },
-  {
-    id: 6,
-    image: "/projects/project5.jpg",
-    category: "Educational Products",
-    badge: "IN DEVELOPMENT",
-    badgeVariant: "in-development",
-    title: "Phantom Embedded Systems Kit",
-    description:
-      "Learn real embedded systems development with industry-relevant hardware and programming concepts, including communication protocols, peripherals, and real-time control.",
-    tags: ["Embedded Systems", "STEM Education"],
-  },
-];
+import { getSiteContent } from "@/data/content";
 
 const badgeStyles = {
   prototype: "border-amber-500 text-amber-700",
@@ -87,6 +8,7 @@ const badgeStyles = {
 };
 
 export default function ProjectsPage() {
+  const content = getSiteContent();
   return (
     <main className="bg-white">
       {/* Hero Section */}
@@ -109,7 +31,7 @@ export default function ProjectsPage() {
       <section className="pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
+            {content.projects.map((project) => (
               <div
                 key={project.id}
                 className="group border border-gray-200 bg-white flex flex-col rounded-md overflow-hidden transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1"

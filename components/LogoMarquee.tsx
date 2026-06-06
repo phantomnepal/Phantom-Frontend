@@ -6,28 +6,10 @@ import {
   MarqueeContent,
   MarqueeItem,
 } from "@/components/kibo-ui/marquee";
-
-interface Logo {
-  src: string;
-  alt: string;
-}
-
-const logos: Logo[] = [
-  { src: "/logos/matlab.svg", alt: "MATLAB" },
-  { src: "/logos/LT.svg", alt: "LTspice" },
-  { src: "/logos/aws-freertos.svg", alt: "FreeRTOS" },
-  { src: "/logos/blender.svg", alt: "Blender" },
-  { src: "/logos/Altium.png", alt: "Altium Designer" },
-  { src: "/logos/platformio.svg", alt: "PlatformIO" },
-  { src: "/logos/visual-studio-code.svg", alt: "VS Code" },
-  { src: "/logos/arduino.svg", alt: "Arduino" },
-  { src: "/logos/OpenVSP.png", alt: "OpenVSP" },
-  { src: "/logos/kicad.svg", alt: "KiCad" },
-  { src: "/logos/fusion.svg", alt: "Fusion" },
-  { src: "/logos/stmicroelectronics.svg", alt: "STM32CubeIDE" },
-];
+import { getSiteContent } from "@/data/content";
 
 export default function LogoMarquee() {
+  const content = getSiteContent();
   return (
     <section className="w-full py-10 bg-white overflow-hidden">
       {/* 
@@ -36,7 +18,7 @@ export default function LogoMarquee() {
       */}
       <Marquee className="[--duration:15s]">
         <MarqueeContent>
-          {logos.map((logo, idx) => (
+          {content.logos.map((logo, idx) => (
             <MarqueeItem
               key={idx}
               // Moved your original spacing/flexbox classes here

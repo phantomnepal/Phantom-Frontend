@@ -2,35 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-
-interface FooterLink {
-  label: string;
-  href: string;
-}
-
-const quickLinks: FooterLink[] = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Product", href: "/product" },
-  { label: "Engineering", href: "/engineering" },
-  { label: "Project", href: "/projects" },
-  { label: "Contact", href: "/contact" },
-];
-
-const engineeringLinks: FooterLink[] = [
-  { label: "Embedded Hardware Development", href: "#" },
-  { label: "Embedded Software Development", href: "#" },
-  { label: "3D & Mechanical Development", href: "#" },
-];
-
-const productLinks: FooterLink[] = [
-  { label: "Embedded Systems", href: "#" },
-  { label: "IOT & Robotics", href: "#" },
-  { label: "UAV", href: "#" },
-  { label: "Educational Kits", href: "#" },
-];
+import { getSiteContent } from "@/data/content";
 
 export default function Footer() {
+  const content = getSiteContent();
   return (
     <footer className="relative bg-[#0B1727] text-gray-300 overflow-hidden">
       {/* Decorative diagonal stripes */}
@@ -96,7 +71,7 @@ export default function Footer() {
               QUICK LINKS
             </h3>
             <ul className="space-y-2.5">
-              {quickLinks.map((link) => (
+              {content.footerQuickLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
@@ -115,7 +90,7 @@ export default function Footer() {
               ENGINEERING
             </h3>
             <ul className="space-y-2.5">
-              {engineeringLinks.map((link) => (
+              {content.footerEngineeringLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
@@ -134,7 +109,7 @@ export default function Footer() {
               PRODUCT
             </h3>
             <ul className="space-y-2.5">
-              {productLinks.map((link) => (
+              {content.footerProductLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}

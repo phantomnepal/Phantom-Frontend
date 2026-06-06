@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Sora, Geist } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/next";
