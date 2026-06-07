@@ -1,7 +1,6 @@
-import { Cpu, Layers, Rocket, ArrowRight, type LucideIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { getSiteContent } from "@/data/content";
-
-const iconMap: Record<string, LucideIcon> = { Cpu, Layers, Rocket };
+import { solutionIcons } from "@/data/icons";
 
 export default function EngineeringSolutions() {
   const content = getSiteContent();
@@ -25,7 +24,7 @@ export default function EngineeringSolutions() {
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {content.solutions.map((item, idx) => {
-            const Icon = iconMap[item.iconName];
+            const Icon = solutionIcons[item.iconName];
             return (
               <div
                 key={idx}

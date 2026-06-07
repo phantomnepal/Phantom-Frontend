@@ -15,7 +15,7 @@ export default function AboutPage() {
             <p className="text-[#9b1c1c] text-sm font-medium mb-4">
               About - Company
             </p>
-            <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-[66px] mb-8">
+            <h1 className="text-[40px] sm:text-[52px] lg:text-[60px] font-bold text-gray-900 leading-[1.1] mb-5">
               Building reliable technology from the ground up.
             </h1>
 

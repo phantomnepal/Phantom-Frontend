@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
-import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { getSiteContent } from "@/data/content";
+import { socialIcons } from "@/data/icons";
 
 export default function Footer() {
   const content = getSiteContent();
@@ -41,27 +41,19 @@ export default function Footer() {
             </p>
 
             <div className="flex items-center gap-4">
-              <Link
-                href="https://www.facebook.com/profile.php?id=61573350158559"
-                aria-label="Facebook"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <FaFacebookF className="w-4 h-4" />
-              </Link>
-              <Link
-                href="https://www.instagram.com/phantom.nepal?igsh=MTN5aGg2YmpwNDJhZg=="
-                aria-label="Instagram"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <FaInstagram className="w-5 h-5" />
-              </Link>
-              <Link
-                href="https://www.linkedin.com/company/phantom_technologies/"
-                aria-label="LinkedIn"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <FaLinkedinIn className="w-4 h-4" />
-              </Link>
+              {content.socialLinks.map((social) => {
+                const SIcon = socialIcons[social.iconName];
+                return (
+                  <Link
+                    key={social.label}
+                    href={social.href}
+                    aria-label={social.label}
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    {SIcon && <SIcon className="w-4 h-4" />}
+                  </Link>
+                );
+              })}
             </div>
           </div>
 

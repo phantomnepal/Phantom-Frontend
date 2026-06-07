@@ -2,15 +2,11 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone, Send, ArrowUpRight, type LucideIcon } from "lucide-react";
-import { FaTiktok, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-import type { IconType } from "react-icons/lib";
+import { Send, ArrowUpRight } from "lucide-react";
 import { getSiteContent } from "@/data/content";
+import { contactIcons, socialIcons } from "@/data/icons";
 import { submitContact } from "@/lib/submit-contact";
 import type { ContactFormData } from "@/lib/submit-contact";
-
-const contactIconMap: Record<string, LucideIcon> = { Mail, MapPin, Phone };
-const socialIconMap: Record<string, IconType> = { FaTiktok, FaInstagram, FaLinkedinIn };
 
 export default function ContactPage() {
   const content = getSiteContent();
@@ -80,7 +76,7 @@ export default function ContactPage() {
             >
               <div className="space-y-4">
                 {content.contactInfo.map((item, index) => {
-                  const Icon = contactIconMap[item.iconName];
+                  const Icon = contactIcons[item.iconName];
                   return (
                     <motion.a
                       key={item.label}
@@ -117,7 +113,7 @@ export default function ContactPage() {
                 </p>
                 <div className="flex space-x-3">
                   {content.socialLinks.map((social) => {
-                    const SIcon = socialIconMap[social.iconName];
+                    const SIcon = socialIcons[social.iconName];
                     return (
                     <a
                       key={social.label}

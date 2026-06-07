@@ -3,19 +3,37 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, startTransition } from "react";
-import { Menu, X, Search, ChevronDown } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { useCommandSearch } from "./use-command-search";
+import { useMegaPanel } from "./use-mega-panel";
 import { SearchModal } from "./search-modal";
+import { MegaMenuContent } from "./mega-menu";
+import { DesktopNav } from "./desktop-nav";
+import { MobileNav } from "./mobile-nav";
 import { getSiteContent } from "@/data/content";
 
 export default function Navbar() {
   const content = getSiteContent();
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+
+  const {
+    activeLabel: activeMegaLabel,
+    setActiveLabel: setActiveMegaLabel,
+    getTriggerHandlers,
+    getPanelHandlers,
+  } = useMegaPanel(150);
+
+  const currentMegaMenu =
+    activeMegaLabel
+      ? content.navItems.find((i) => i.label === activeMegaLabel)?.megaMenu ??
+        null
+      : null;
 
   const {
     searchOpen,
@@ -39,11 +57,17 @@ export default function Navbar() {
     startTransition(() => {
       setMobileOpen(false);
       setActiveDropdown(null);
+      setActiveMegaLabel(null);
     });
-  }, [pathname]);
+  }, [pathname, setActiveMegaLabel]);
 
   const toggleDropdown = (label: string) => {
     setActiveDropdown(activeDropdown === label ? null : label);
+  };
+
+  const toggleMegaMobile = (label: string) => {
+    setActiveMegaLabel((prev) => (prev === label ? null : label));
+    setActiveDropdown(null);
   };
 
   return (
@@ -68,68 +92,14 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-8 text-[15px] font-medium text-gray-700">
-            {content.navItems.map((item) =>
-              item.dropdown ? (
-                <div
-                  key={item.label}
-                  className="relative"
-                  onMouseEnter={() => setActiveDropdown(item.label)}
-                  onMouseLeave={() => setActiveDropdown(null)}
-                >
-                  <button
-                    className={`flex items-center gap-1 transition hover:text-black ${
-                      item.dropdown.some((d) => d.href === pathname)
-                        ? "text-black font-semibold"
-                        : ""
-                    }`}
-                  >
-                    {item.label}
-                    <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-200 ${
-                        activeDropdown === item.label ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-
-                  <div
-                    className={`absolute top-full left-0 mt-3 w-52 bg-white shadow-xl rounded-lg border border-gray-100 transition-all duration-200 origin-top ${
-                      activeDropdown === item.label
-                        ? "opacity-100 scale-100 visible"
-                        : "opacity-0 scale-95 invisible"
-                    }`}
-                  >
-                    <ul className="py-2 text-sm text-gray-600">
-                      {item.dropdown.map((child) => (
-                        <li key={child.href}>
-                          <Link
-                            href={child.href}
-                            className={`block px-4 py-2.5 hover:bg-gray-50 hover:text-black transition ${
-                              pathname === child.href
-                                ? "text-black font-medium bg-gray-50"
-                                : ""
-                            }`}
-                          >
-                            {child.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ) : (
-                <Link
-                  key={item.label}
-                  href={item.href!}
-                  className={`hover:text-black transition ${
-                    pathname === item.href ? "text-black font-semibold" : ""
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ),
-            )}
-          </nav>
+          <DesktopNav
+            navItems={content.navItems}
+            pathname={pathname}
+            activeMegaLabel={activeMegaLabel}
+            activeDropdown={activeDropdown}
+            onSetActiveDropdown={setActiveDropdown}
+            getTriggerHandlers={getTriggerHandlers}
+          />
 
           <div className="hidden lg:flex items-center gap-4">
             <button
@@ -166,81 +136,44 @@ export default function Navbar() {
           </button>
         </div>
 
+        {activeMegaLabel && (
+          <div
+            className="hidden lg:flex absolute left-0 right-0 z-50 justify-center"
+            {...getPanelHandlers()}
+          >
+            <div className="w-full max-w-5xl">
+              <AnimatePresence mode="popLayout">
+                {currentMegaMenu && (
+                  <motion.div
+                    key={activeMegaLabel}
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.15, ease: "easeOut" }}
+                  >
+                    <MegaMenuContent menu={currentMegaMenu} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+        )}
+
         <div
           className={`lg:hidden transition-all duration-300 overflow-hidden ${
-            mobileOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
+            mobileOpen ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <nav className="px-6 pb-6 space-y-1 text-gray-700 text-[15px] font-medium border-t border-gray-100">
-            {content.navItems.map((item) =>
-              item.dropdown ? (
-                <div key={item.label} className="py-1">
-                  <button
-                    onClick={() => toggleDropdown(item.label)}
-                    className="flex justify-between w-full items-center py-2 hover:text-black transition"
-                  >
-                    {item.label}
-                    <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-200 ${
-                        activeDropdown === item.label ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-
-                  <div
-                    className={`overflow-hidden transition-all duration-200 ${
-                      activeDropdown === item.label ? "max-h-48" : "max-h-0"
-                    }`}
-                  >
-                    <div className="pl-4 pb-2 space-y-1 border-l-2 border-gray-100 ml-1">
-                      {item.dropdown.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className={`block py-1.5 text-sm hover:text-black transition ${
-                            pathname === child.href
-                              ? "text-black font-medium"
-                              : "text-gray-500"
-                          }`}
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <Link
-                  key={item.label}
-                  href={item.href!}
-                  className={`block py-2 hover:text-black transition ${
-                    pathname === item.href ? "text-black font-semibold" : ""
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ),
-            )}
-
-            <div className="flex items-center gap-3 pt-4 border-t border-gray-200 mt-2">
-              <button
-                onClick={() => {
-                  setMobileOpen(false);
-                  openSearch();
-                }}
-                className="flex items-center gap-2 px-3 py-2 rounded-md border border-gray-200 text-gray-500"
-                aria-label="Search"
-              >
-                <Search className="w-4 h-4" />
-              </button>
-              <Link
-                href="/contact"
-                className="bg-[#0f1e2e] text-white px-4 py-2.5 rounded-md flex-1 text-center text-sm hover:bg-[#1a3147] transition"
-              >
-                Get In Touch
-              </Link>
-            </div>
-          </nav>
+          <MobileNav
+            navItems={content.navItems}
+            pathname={pathname}
+            activeMegaLabel={activeMegaLabel}
+            activeDropdown={activeDropdown}
+            onToggleMega={toggleMegaMobile}
+            onToggleDropdown={toggleDropdown}
+            onSearch={openSearch}
+            onMobileClose={() => setMobileOpen(false)}
+          />
         </div>
       </header>
 

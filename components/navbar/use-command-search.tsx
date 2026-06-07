@@ -1,10 +1,12 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 
 import type { SearchableItem } from '@/data/types';
 
 export function useCommandSearch(items: SearchableItem[]) {
+  const router = useRouter();
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQueryState] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -57,7 +59,7 @@ export function useCommandSearch(items: SearchableItem[]) {
         );
       }
       if (e.key === 'Enter' && filteredResults[selectedIndex]) {
-        window.location.href = filteredResults[selectedIndex].href;
+        router.push(filteredResults[selectedIndex].href);
         setSearchOpen(false);
         setSearchQuery('');
       }
@@ -69,7 +71,7 @@ export function useCommandSearch(items: SearchableItem[]) {
 
     window.addEventListener('keydown', handleNav);
     return () => window.removeEventListener('keydown', handleNav);
-  }, [searchOpen, selectedIndex, filteredResults, setSearchQuery]);
+  }, [searchOpen, selectedIndex, filteredResults, setSearchQuery, router]);
 
   const closeSearch = useCallback(() => {
     setSearchOpen(false);

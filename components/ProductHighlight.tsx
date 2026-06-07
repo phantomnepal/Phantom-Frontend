@@ -19,7 +19,7 @@ export default function ProductHighlight() {
           </div>
 
           <Link
-            href="/products"
+            href="/product"
             className="self-start md:self-auto px-6 py-3 border border-gray-300 rounded-md text-gray-900 font-medium hover:bg-gray-900 hover:text-white transition-colors duration-300"
           >
             View All Products

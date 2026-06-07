@@ -2,6 +2,22 @@ export interface NavItem {
   label: string;
   href?: string;
   dropdown?: { label: string; href: string }[];
+  megaMenu?: MegaMenu;
+}
+
+export interface MegaMenuItem {
+  label: string;
+  href: string;
+  description?: string;
+}
+
+export interface MegaMenuColumn {
+  title: string;
+  items: MegaMenuItem[];
+}
+
+export interface MegaMenu {
+  columns: MegaMenuColumn[];
 }
 
 export interface SearchableItem {
