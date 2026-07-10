@@ -38,7 +38,7 @@ export default function AboutPage() {
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4">
               <Link
-                href="/capabilities"
+                href="/engineering"
                 className="bg-[#0f1e2e] text-white px-7 py-3.5 rounded-md text-sm font-medium hover:bg-[#1a3147] transition"
               >
                 Our Capabilities
