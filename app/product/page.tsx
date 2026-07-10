@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { getSiteContent } from "@/data/content";
+
+export const metadata: Metadata = {
+  title: "Products – Phantom",
+  description:
+    "Explore Phantom's high-performance aerospace and robotics systems, engineered for resilience, speed, and mission-critical reliability.",
+};
 
 const badgeStyles = {
   prototype: "border-amber-500 text-amber-700",
@@ -7,7 +14,7 @@ const badgeStyles = {
   available: "border-green-600 text-green-700",
 };
 
-export default function ProjectsPage() {
+export default function ProductPage() {
   const content = getSiteContent();
   return (
     <main className="bg-white">
