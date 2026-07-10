@@ -28,7 +28,7 @@ export function ProjectsView({ projects }: { projects: Project[] }) {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mx-auto max-w-4xl text-[40px] sm:text-[52px] lg:text-[60px] font-bold text-gray-900 leading-[1.1] tracking-[-0.02em]"
         >
-          Precision engineering, from first sketch to first flight.
+          The hardware we have built to work in the field.
         </motion.h1>
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 30 }}
