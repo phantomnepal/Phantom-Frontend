@@ -13,7 +13,7 @@ export function ProjectsView({ projects }: { projects: Project[] }) {
   return (
     <main className="bg-white">
       {/* Centered hero */}
-      <section className="max-w-7xl mx-auto px-6 py-16 lg:py-20 text-center">
+      <section className="max-w-7xl mx-auto px-6 pt-8 lg:pt-10 pb-16 lg:pb-20 text-center">
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -39,19 +39,6 @@ export function ProjectsView({ projects }: { projects: Project[] }) {
           The systems we have designed, built, and shipped, from flight
           controllers and CubeSats to hands-on kits.
         </motion.p>
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-8"
-        >
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 border border-gray-300 text-gray-800 px-7 py-3.5 rounded-md text-sm font-medium hover:border-gray-400 hover:bg-gray-50 transition"
-          >
-            Get in touch
-          </Link>
-        </motion.div>
       </section>
 
       {/* Project grid */}
