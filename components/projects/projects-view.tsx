@@ -3,256 +3,88 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/data/types";
-
-const fadeUp = (reduce: boolean | null) => ({
-  hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 22 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
-  },
-});
-
-type Chapter = {
-  index: string;
-  kicker: string;
-  title: string;
-  story: string;
-  match: (p: Project) => boolean;
-};
-
-// The six projects are grouped into three narrative chapters. Copy is
-// authored per chapter; images and the "in this chapter" list come from data.
-const chapters: Chapter[] = [
-  {
-    index: "01",
-    kicker: "Aerospace, in a classroom",
-    title: "We put a satellite on a student's desk.",
-    story:
-      "The 1U CubeSat began as a question: how do you teach orbital systems without a launch budget? The answer became a working platform for satellite structures, power, and communications that students can hold, program, and break.",
-    match: (p) => p.category.toUpperCase().includes("AEROSPACE"),
-  },
-  {
-    index: "02",
-    kicker: "Where milliseconds matter",
-    title: "Flight controllers built to hold their line.",
-    story:
-      "The F722 and F405 are our answer to flight hardware that has to stay precise under load. Designed in Nepal around STM32 silicon, they run everything from FPV drones to industrial UAVs where a dropped cycle is not an option.",
-    match: (p) => p.category.toUpperCase().includes("FLIGHT CONTROLLER"),
-  },
-  {
-    index: "03",
-    kicker: "Embedded systems, in more hands",
-    title: "Kits that turn curiosity into hardware.",
-    story:
-      "Not every project starts in a lab. Our electronics, robotics, and embedded kits take the same rigor we ship in flight hardware and package it for people learning to build their first working system.",
-    match: (p) => p.category.toUpperCase().includes("EDUCATIONAL PRODUCTS"),
-  },
-];
+import { projectSlug } from "@/lib/projects";
 
 export function ProjectsView({ projects }: { projects: Project[] }) {
   const reduce = useReducedMotion();
-  const hero = projects.find((p) => p.title.includes("F722")) ?? projects[0];
 
   return (
     <main className="bg-white">
-      {/* Cinematic hero (brand navy) */}
-      <section className="relative isolate overflow-hidden bg-[#0f1e2e] text-white min-h-[86vh] flex items-center">
-        {/* Full-bleed product image */}
-        {hero && (
-          <motion.div
-            aria-hidden
-            initial={reduce ? false : { opacity: 0, scale: 1.06 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-y-0 right-0 w-full lg:w-[56%]"
-          >
-            <motion.div
-              className="relative h-full w-full"
-              animate={reduce ? undefined : { y: [0, -14, 0] }}
-              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <Image
-                src={hero.image}
-                alt={hero.title}
-                fill
-                priority
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 56vw"
-              />
-            </motion.div>
-            {/* Navy wash so the headline stays legible over the image */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0f1e2e] via-[#0f1e2e]/70 to-[#0f1e2e]/10 lg:via-[#0f1e2e]/45" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0f1e2e] via-transparent to-transparent lg:hidden" />
-          </motion.div>
-        )}
-
-        <motion.div
-          className="relative max-w-7xl mx-auto px-6 w-full py-24"
-          initial="hidden"
-          animate="show"
-          variants={{
-            hidden: {},
-            show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-          }}
+      {/* Centered hero */}
+      <section className="max-w-7xl mx-auto px-6 pt-20 lg:pt-24 pb-16 lg:pb-24 text-center">
+        <motion.h1
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mx-auto max-w-4xl text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 tracking-tight leading-[1.03]"
         >
-          <div className="max-w-2xl">
-            <motion.p
-              variants={fadeUp(reduce)}
-              className="inline-flex items-center gap-2 text-[#e0625f] text-sm font-semibold tracking-[0.14em] uppercase mb-6"
-            >
-              <span className="h-px w-8 bg-[#e0625f]" />
-              Our work
-            </motion.p>
-            <motion.h1
-              variants={fadeUp(reduce)}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.02]"
-            >
-              Precision, from first sketch to first flight.
-            </motion.h1>
-            <motion.p
-              variants={fadeUp(reduce)}
-              className="mt-7 text-lg md:text-xl text-white/70 leading-relaxed max-w-[46ch]"
-            >
-              Phantom designs embedded hardware, firmware, and mechanical
-              systems that have to work the first time. These are the builds
-              that got us here.
-            </motion.p>
-          </div>
+          Precision engineering, from first sketch to first flight.
+        </motion.h1>
+        <motion.p
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="mx-auto mt-6 max-w-xl text-lg text-gray-500 leading-relaxed"
+        >
+          The systems we have designed, built, and shipped, from flight
+          controllers and CubeSats to hands-on kits.
+        </motion.p>
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-9"
+        >
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 rounded-md border border-gray-300 px-7 py-3.5 text-sm font-semibold text-gray-900 transition-colors hover:border-gray-900 active:translate-y-[1px]"
+          >
+            Get in touch
+          </Link>
         </motion.div>
       </section>
 
-      {/* Brand statement */}
-      <section className="max-w-4xl mx-auto px-6 py-24 lg:py-32">
-        <p className="text-2xl md:text-3xl lg:text-[2.4rem] font-medium text-gray-900 leading-[1.35] tracking-tight">
-          We are a small engineering team that treats every board, mount, and
-          line of firmware as something a person will one day depend on. The
-          projects below are not a catalog.{" "}
-          <span className="text-gray-400">
-            They are the story of how we learned to build.
-          </span>
-        </p>
-      </section>
-
-      {/* Chapters */}
-      <div className="border-t border-gray-100">
-        {chapters.map((chapter, i) => {
-          const items = projects.filter(chapter.match);
-          const image = items[0]?.image;
-          const imageLeft = i % 2 === 0;
-          return (
-            <section key={chapter.index} className="border-b border-gray-100">
-              <div className="max-w-7xl mx-auto px-6 py-20 lg:py-28 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-                <motion.div
-                  initial={reduce ? false : { opacity: 0, x: imageLeft ? -30 : 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                  className={`relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 ${
-                    imageLeft ? "lg:order-1" : "lg:order-2"
-                  }`}
-                >
-                  {image && (
-                    <Image
-                      src={image}
-                      alt={chapter.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                    />
-                  )}
-                </motion.div>
-
-                <motion.div
-                  initial={reduce ? false : { opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                  className={imageLeft ? "lg:order-2" : "lg:order-1"}
-                >
-                  <div className="flex items-baseline gap-4 mb-5">
-                    <span className="font-mono text-sm text-[#A10F1A]">
-                      {chapter.index}
-                    </span>
-                    <span className="text-sm font-semibold text-gray-500 uppercase tracking-widest">
-                      {chapter.kicker}
-                    </span>
+      {/* Project grid */}
+      <section className="max-w-7xl mx-auto px-6 pb-24 lg:pb-32">
+        <div className="grid md:grid-cols-2 gap-x-8 gap-y-14 lg:gap-y-20">
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={reduce ? false : { opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{
+                duration: 0.6,
+                delay: reduce ? 0 : (index % 2) * 0.08,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+            >
+              <Link href={`/projects/${projectSlug(project)}`} className="group block">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-gray-100">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    sizes="(max-width: 768px) 100vw, 46vw"
+                  />
+                </div>
+                <div className="mt-6 flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-[#A10F1A] mb-2">
+                      {project.category.trim()}
+                    </p>
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight transition-colors group-hover:text-gray-600">
+                      {project.title}
+                    </h2>
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight leading-tight mb-5">
-                    {chapter.title}
-                  </h2>
-                  <p className="text-gray-600 leading-relaxed max-w-[52ch] mb-8">
-                    {chapter.story}
-                  </p>
-                  <ul className="flex flex-col gap-2 border-t border-gray-200 pt-5">
-                    {items.map((item) => (
-                      <li
-                        key={item.id}
-                        className="flex items-center justify-between gap-4 text-sm"
-                      >
-                        <span className="font-medium text-gray-900">
-                          {item.title}
-                        </span>
-                        <span className="text-gray-400 uppercase tracking-wider text-xs shrink-0">
-                          {item.badge}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              </div>
-            </section>
-          );
-        })}
-      </div>
-
-      {/* By the numbers */}
-      <section className="max-w-7xl mx-auto px-6 py-20 lg:py-24">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8">
-          {[
-            { value: String(projects.length), label: "Systems designed and built" },
-            { value: "3", label: "Domains: aerospace, avionics, education" },
-            { value: "STM32", label: "Silicon at the core of our flight hardware" },
-          ].map((stat) => (
-            <div key={stat.label}>
-              <p className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
-                {stat.value}
-              </p>
-              <p className="mt-3 text-gray-500 leading-relaxed max-w-[28ch]">
-                {stat.label}
-              </p>
-            </div>
+                  <ArrowUpRight className="mt-1 h-6 w-6 shrink-0 text-gray-300 transition-all duration-300 group-hover:text-gray-900 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </div>
+              </Link>
+            </motion.div>
           ))}
-        </div>
-      </section>
-
-      {/* Forward + CTA */}
-      <section className="bg-[#0f1e2e] text-white">
-        <div className="max-w-7xl mx-auto px-6 py-24 lg:py-28">
-          <p className="text-[#e0625f] text-sm font-semibold tracking-wide mb-5">
-            What is next
-          </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight max-w-3xl">
-            The kits and boards you have read about are coming to a store of
-            their own.
-          </h2>
-          <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-4">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 bg-white text-[#0f1e2e] px-7 py-3.5 rounded-md text-sm font-semibold hover:bg-gray-100 transition active:translate-y-[1px]"
-            >
-              Get in touch
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/product"
-              className="inline-flex items-center justify-center gap-2 border border-white/25 text-white px-7 py-3.5 rounded-md text-sm font-semibold hover:bg-white/10 transition"
-            >
-              See the products
-            </Link>
-          </div>
         </div>
       </section>
     </main>
