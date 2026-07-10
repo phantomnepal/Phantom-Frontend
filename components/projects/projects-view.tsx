@@ -6,6 +6,15 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import type { Project } from "@/data/types";
 
+const fadeUp = (reduce: boolean | null) => ({
+  hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 22 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
+  },
+});
+
 type Chapter = {
   index: string;
   kicker: string;
@@ -50,34 +59,69 @@ export function ProjectsView({ projects }: { projects: Project[] }) {
   return (
     <main className="bg-white">
       {/* Cinematic hero (brand navy) */}
-      <section className="bg-[#0f1e2e] text-white">
-        <div className="max-w-7xl mx-auto px-6 py-20 lg:py-28 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div>
-            <p className="text-[#e0625f] text-sm font-semibold tracking-wide mb-5">
-              Our work
-            </p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05]">
-              Precision, from first sketch to first flight.
-            </h1>
-            <p className="mt-6 text-lg text-white/70 leading-relaxed max-w-[48ch]">
-              Phantom designs embedded hardware, firmware, and mechanical
-              systems that have to work the first time. These are the builds
-              that got us here, and where we are taking them next.
-            </p>
-          </div>
-          <div className="relative aspect-[4/3] lg:aspect-square rounded-xl overflow-hidden">
-            {hero && (
+      <section className="relative isolate overflow-hidden bg-[#0f1e2e] text-white min-h-[86vh] flex items-center">
+        {/* Full-bleed product image */}
+        {hero && (
+          <motion.div
+            aria-hidden
+            initial={reduce ? false : { opacity: 0, scale: 1.06 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-y-0 right-0 w-full lg:w-[56%]"
+          >
+            <motion.div
+              className="relative h-full w-full"
+              animate={reduce ? undefined : { y: [0, -14, 0] }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            >
               <Image
                 src={hero.image}
                 alt={hero.title}
                 fill
                 priority
                 className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 46vw"
+                sizes="(max-width: 1024px) 100vw, 56vw"
               />
-            )}
+            </motion.div>
+            {/* Navy wash so the headline stays legible over the image */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0f1e2e] via-[#0f1e2e]/70 to-[#0f1e2e]/10 lg:via-[#0f1e2e]/45" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0f1e2e] via-transparent to-transparent lg:hidden" />
+          </motion.div>
+        )}
+
+        <motion.div
+          className="relative max-w-7xl mx-auto px-6 w-full py-24"
+          initial="hidden"
+          animate="show"
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+          }}
+        >
+          <div className="max-w-2xl">
+            <motion.p
+              variants={fadeUp(reduce)}
+              className="inline-flex items-center gap-2 text-[#e0625f] text-sm font-semibold tracking-[0.14em] uppercase mb-6"
+            >
+              <span className="h-px w-8 bg-[#e0625f]" />
+              Our work
+            </motion.p>
+            <motion.h1
+              variants={fadeUp(reduce)}
+              className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.02]"
+            >
+              Precision, from first sketch to first flight.
+            </motion.h1>
+            <motion.p
+              variants={fadeUp(reduce)}
+              className="mt-7 text-lg md:text-xl text-white/70 leading-relaxed max-w-[46ch]"
+            >
+              Phantom designs embedded hardware, firmware, and mechanical
+              systems that have to work the first time. These are the builds
+              that got us here.
+            </motion.p>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Brand statement */}
