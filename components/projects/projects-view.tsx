@@ -1,197 +1,214 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import type { Project } from "@/data/types";
 
-const statusStyles: Record<Project["badgeVariant"], string> = {
-  prototype: "text-amber-700",
-  "in-development": "text-[#0096c7]",
-  available: "text-green-700",
+type Chapter = {
+  index: string;
+  kicker: string;
+  title: string;
+  story: string;
+  match: (p: Project) => boolean;
 };
 
-type Filter = { label: string; match: (project: Project) => boolean };
-
-const filters: Filter[] = [
-  { label: "All work", match: () => true },
-  { label: "Aerospace", match: (p) => p.category.toUpperCase().includes("AEROSPACE") },
+// The six projects are grouped into three narrative chapters. Copy is
+// authored per chapter; images and the "in this chapter" list come from data.
+const chapters: Chapter[] = [
   {
-    label: "Flight Controllers",
+    index: "01",
+    kicker: "Aerospace, in a classroom",
+    title: "We put a satellite on a student's desk.",
+    story:
+      "The 1U CubeSat began as a question: how do you teach orbital systems without a launch budget? The answer became a working platform for satellite structures, power, and communications that students can hold, program, and break.",
+    match: (p) => p.category.toUpperCase().includes("AEROSPACE"),
+  },
+  {
+    index: "02",
+    kicker: "Where milliseconds matter",
+    title: "Flight controllers built to hold their line.",
+    story:
+      "The F722 and F405 are our answer to flight hardware that has to stay precise under load. Designed in Nepal around STM32 silicon, they run everything from FPV drones to industrial UAVs where a dropped cycle is not an option.",
     match: (p) => p.category.toUpperCase().includes("FLIGHT CONTROLLER"),
   },
   {
-    label: "Educational",
+    index: "03",
+    kicker: "Embedded systems, in more hands",
+    title: "Kits that turn curiosity into hardware.",
+    story:
+      "Not every project starts in a lab. Our electronics, robotics, and embedded kits take the same rigor we ship in flight hardware and package it for people learning to build their first working system.",
     match: (p) => p.category.toUpperCase().includes("EDUCATIONAL PRODUCTS"),
   },
 ];
 
 export function ProjectsView({ projects }: { projects: Project[] }) {
   const reduce = useReducedMotion();
-  const [active, setActive] = useState(0);
-
-  const visible = useMemo(() => projects.filter(filters[active].match), [projects, active]);
-  const [featured, ...rest] = visible;
+  const hero = projects.find((p) => p.title.includes("F722")) ?? projects[0];
 
   return (
     <main className="bg-white">
-      {/* Intro */}
-      <section className="max-w-7xl mx-auto px-6 pt-20 lg:pt-24">
-        <p className="text-[#A10F1A] text-sm font-semibold tracking-wide mb-4">
-          Selected work
-        </p>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight leading-[1.05] max-w-4xl">
-          Engineering projects built to fly, sense, and teach.
-        </h1>
-        <div className="mt-8 flex flex-col gap-6 border-b border-gray-200 pb-6 md:flex-row md:items-end md:justify-between">
-          <p className="text-lg text-gray-600 leading-relaxed max-w-[52ch]">
-            A look at what we have designed and shipped, from flight controllers
-            and CubeSats to hands-on kits that put embedded systems in more hands.
-          </p>
-          <div className="flex flex-wrap gap-x-5 gap-y-2 md:justify-end">
-            {filters.map((filter, index) => (
-              <button
-                key={filter.label}
-                onClick={() => setActive(index)}
-                className={`text-sm font-medium transition-colors ${
-                  index === active
-                    ? "text-gray-900 underline decoration-[#A10F1A] decoration-2 underline-offset-[6px]"
-                    : "text-gray-400 hover:text-gray-700"
-                }`}
-              >
-                {filter.label}
-              </button>
-            ))}
+      {/* Cinematic hero (brand navy) */}
+      <section className="bg-[#0f1e2e] text-white">
+        <div className="max-w-7xl mx-auto px-6 py-20 lg:py-28 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div>
+            <p className="text-[#e0625f] text-sm font-semibold tracking-wide mb-5">
+              Our work
+            </p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05]">
+              Precision, from first sketch to first flight.
+            </h1>
+            <p className="mt-6 text-lg text-white/70 leading-relaxed max-w-[48ch]">
+              Phantom designs embedded hardware, firmware, and mechanical
+              systems that have to work the first time. These are the builds
+              that got us here, and where we are taking them next.
+            </p>
+          </div>
+          <div className="relative aspect-[4/3] lg:aspect-square rounded-xl overflow-hidden">
+            {hero && (
+              <Image
+                src={hero.image}
+                alt={hero.title}
+                fill
+                priority
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 46vw"
+              />
+            )}
           </div>
         </div>
       </section>
 
-      {/* Featured case study */}
-      {featured && (
-        <section className="max-w-7xl mx-auto px-6 pt-12 lg:pt-16">
-          <motion.div
-            key={featured.id}
-            initial={reduce ? false : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center"
-          >
-            <div className="lg:col-span-7">
-              <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-gray-50 group">
-                <Image
-                  src={featured.image}
-                  alt={featured.title}
-                  fill
-                  priority
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                  sizes="(max-width: 1024px) 100vw, 58vw"
-                />
-                <span className="absolute top-4 left-4 text-xs font-mono text-white/90 bg-black/40 backdrop-blur px-2 py-1 rounded">
-                  Featured
-                </span>
+      {/* Brand statement */}
+      <section className="max-w-4xl mx-auto px-6 py-24 lg:py-32">
+        <p className="text-2xl md:text-3xl lg:text-[2.4rem] font-medium text-gray-900 leading-[1.35] tracking-tight">
+          We are a small engineering team that treats every board, mount, and
+          line of firmware as something a person will one day depend on. The
+          projects below are not a catalog.{" "}
+          <span className="text-gray-400">
+            They are the story of how we learned to build.
+          </span>
+        </p>
+      </section>
+
+      {/* Chapters */}
+      <div className="border-t border-gray-100">
+        {chapters.map((chapter, i) => {
+          const items = projects.filter(chapter.match);
+          const image = items[0]?.image;
+          const imageLeft = i % 2 === 0;
+          return (
+            <section key={chapter.index} className="border-b border-gray-100">
+              <div className="max-w-7xl mx-auto px-6 py-20 lg:py-28 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <motion.div
+                  initial={reduce ? false : { opacity: 0, x: imageLeft ? -30 : 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                  className={`relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 ${
+                    imageLeft ? "lg:order-1" : "lg:order-2"
+                  }`}
+                >
+                  {image && (
+                    <Image
+                      src={image}
+                      alt={chapter.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                    />
+                  )}
+                </motion.div>
+
+                <motion.div
+                  initial={reduce ? false : { opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className={imageLeft ? "lg:order-2" : "lg:order-1"}
+                >
+                  <div className="flex items-baseline gap-4 mb-5">
+                    <span className="font-mono text-sm text-[#A10F1A]">
+                      {chapter.index}
+                    </span>
+                    <span className="text-sm font-semibold text-gray-500 uppercase tracking-widest">
+                      {chapter.kicker}
+                    </span>
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight leading-tight mb-5">
+                    {chapter.title}
+                  </h2>
+                  <p className="text-gray-600 leading-relaxed max-w-[52ch] mb-8">
+                    {chapter.story}
+                  </p>
+                  <ul className="flex flex-col gap-2 border-t border-gray-200 pt-5">
+                    {items.map((item) => (
+                      <li
+                        key={item.id}
+                        className="flex items-center justify-between gap-4 text-sm"
+                      >
+                        <span className="font-medium text-gray-900">
+                          {item.title}
+                        </span>
+                        <span className="text-gray-400 uppercase tracking-wider text-xs shrink-0">
+                          {item.badge}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
               </div>
-            </div>
-            <div className="lg:col-span-5">
-              <div className="flex items-center gap-3 text-xs font-bold tracking-widest uppercase mb-4">
-                <span className="text-[#A10F1A]">{featured.category.trim()}</span>
-                <span className="text-gray-300">/</span>
-                <span className={statusStyles[featured.badgeVariant]}>
-                  {featured.badge}
-                </span>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight mb-4">
-                {featured.title}
-              </h2>
-              <p className="text-gray-600 leading-relaxed mb-6 max-w-[46ch]">
-                {featured.description}
+            </section>
+          );
+        })}
+      </div>
+
+      {/* By the numbers */}
+      <section className="max-w-7xl mx-auto px-6 py-20 lg:py-24">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8">
+          {[
+            { value: String(projects.length), label: "Systems designed and built" },
+            { value: "3", label: "Domains: aerospace, avionics, education" },
+            { value: "STM32", label: "Silicon at the core of our flight hardware" },
+          ].map((stat) => (
+            <div key={stat.label}>
+              <p className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
+                {stat.value}
               </p>
-              <div className="flex flex-wrap gap-2">
-                {featured.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="inline-block border border-gray-200 text-gray-600 text-xs font-medium px-2.5 py-1 rounded-full uppercase tracking-wide"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              <p className="mt-3 text-gray-500 leading-relaxed max-w-[28ch]">
+                {stat.label}
+              </p>
             </div>
-          </motion.div>
-        </section>
-      )}
+          ))}
+        </div>
+      </section>
 
-      {/* Story gallery */}
-      {rest.length > 0 && (
-        <section className="max-w-7xl mx-auto px-6 pt-24 lg:pt-32 pb-24">
-          <div className="grid md:grid-cols-2 gap-x-8 gap-y-16 lg:gap-y-24">
-            {rest.map((project, index) => (
-              <motion.article
-                key={project.id}
-                initial={reduce ? false : { opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{
-                  duration: 0.6,
-                  delay: reduce ? 0 : (index % 2) * 0.08,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="group"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-gray-50">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                    sizes="(max-width: 768px) 100vw, 46vw"
-                  />
-                </div>
-                <div className="mt-5 flex items-center gap-3 text-xs font-bold tracking-widest uppercase">
-                  <span className="text-[#A10F1A]">{project.category.trim()}</span>
-                  <span className="text-gray-300">/</span>
-                  <span className={statusStyles[project.badgeVariant]}>
-                    {project.badge}
-                  </span>
-                </div>
-                <h3 className="mt-2 text-2xl font-bold text-gray-900 tracking-tight">
-                  {project.title}
-                </h3>
-                <p className="mt-2 text-gray-600 leading-relaxed max-w-[48ch] line-clamp-2">
-                  {project.description}
-                </p>
-              </motion.article>
-            ))}
+      {/* Forward + CTA */}
+      <section className="bg-[#0f1e2e] text-white">
+        <div className="max-w-7xl mx-auto px-6 py-24 lg:py-28">
+          <p className="text-[#e0625f] text-sm font-semibold tracking-wide mb-5">
+            What is next
+          </p>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight max-w-3xl">
+            The kits and boards you have read about are coming to a store of
+            their own.
+          </h2>
+          <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-4">
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 bg-white text-[#0f1e2e] px-7 py-3.5 rounded-md text-sm font-semibold hover:bg-gray-100 transition active:translate-y-[1px]"
+            >
+              Get in touch
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/product"
+              className="inline-flex items-center justify-center gap-2 border border-white/25 text-white px-7 py-3.5 rounded-md text-sm font-semibold hover:bg-white/10 transition"
+            >
+              See the products
+            </Link>
           </div>
-        </section>
-      )}
-
-      {visible.length === 0 && (
-        <section className="max-w-7xl mx-auto px-6 py-24">
-          <p className="text-center text-gray-500">No projects in this category yet.</p>
-        </section>
-      )}
-
-      {/* CTA */}
-      <section className="border-t border-gray-100 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6 py-20 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-          <div className="max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
-              Have a system that needs building?
-            </h2>
-            <p className="mt-4 text-gray-600 leading-relaxed">
-              We take embedded hardware, firmware, and mechanical design from
-              concept to working prototype. Tell us what you are working on.
-            </p>
-          </div>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 bg-[#0f1e2e] text-white px-7 py-3.5 rounded-md text-sm font-medium hover:bg-[#1a3147] transition active:translate-y-[1px] shrink-0"
-          >
-            Get in touch
-            <ArrowRight className="w-4 h-4" />
-          </Link>
         </div>
       </section>
     </main>
