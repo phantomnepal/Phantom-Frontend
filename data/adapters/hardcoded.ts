@@ -190,7 +190,7 @@ export const hardcodedContent: SiteContent = {
         ],
       },
     },
-    { label: "Projects", href: "/product" },
+    { label: "Projects", href: "/projects" },
   ],
 
   searchableItems: [
@@ -316,7 +316,7 @@ export const hardcodedContent: SiteContent = {
       href: "/engineering/mechanical/production-ready",
       category: "3D & Mechanical",
     },
-    { title: "Projects", href: "/product", category: "Page" },
+    { title: "Projects", href: "/projects", category: "Page" },
     { title: "Contact Us", href: "/contact", category: "Page" },
   ],
 
@@ -325,7 +325,7 @@ export const hardcodedContent: SiteContent = {
     { label: "About", href: "/about" },
     { label: "Product", href: "/product" },
     { label: "Engineering", href: "/engineering" },
-    { label: "Project", href: "/product" },
+    { label: "Projects", href: "/projects" },
     { label: "Contact", href: "/contact" },
   ],
 
