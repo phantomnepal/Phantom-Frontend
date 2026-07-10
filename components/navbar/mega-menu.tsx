@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowUpRight, ChevronRight } from "lucide-react";
 import type { MegaMenu, MegaMenuItem } from "@/data/types";
@@ -25,8 +24,6 @@ const columnVariants = {
 };
 
 export function MegaMenuContent({ menu }: { menu: MegaMenu }) {
-  const pathname = usePathname();
-
   return (
     <div className="bg-white rounded-xl border border-gray-200 shadow-xl overflow-hidden">
       <div className="p-6">
@@ -51,10 +48,7 @@ export function MegaMenuContent({ menu }: { menu: MegaMenu }) {
                 <ul className="space-y-0.5">
                   {column.items.map((item) => (
                     <li key={item.href}>
-                      <MegaMenuLink
-                        item={item}
-                        isActive={pathname === item.href}
-                      />
+                      <MegaMenuLink item={item} />
                     </li>
                   ))}
                 </ul>
@@ -80,21 +74,11 @@ export function MegaMenuContent({ menu }: { menu: MegaMenu }) {
   );
 }
 
-function MegaMenuLink({
-  item,
-  isActive,
-}: {
-  item: MegaMenuItem;
-  isActive: boolean;
-}) {
+function MegaMenuLink({ item }: { item: MegaMenuItem }) {
   return (
     <Link
       href={item.href}
-      className={`group flex items-start gap-2.5 px-3 py-2 rounded-lg transition-colors ${
-        isActive
-          ? "bg-gray-100 text-gray-900"
-          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-      }`}
+      className="group flex items-start gap-2.5 px-3 py-2 rounded-lg transition-colors text-gray-600 hover:bg-gray-50 hover:text-gray-900"
     >
       <div className="flex-1 min-w-0">
         <span className="text-sm font-medium flex items-center gap-1.5">
