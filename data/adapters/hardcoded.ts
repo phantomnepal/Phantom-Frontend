@@ -13,12 +13,12 @@ export const hardcodedContent: SiteContent = {
             items: [
               {
                 label: "Development Boards",
-                href: "/product/embedded-systems/development-boards",
+                href: "/product",
                 description: "Custom PCBs and dev boards for rapid prototyping",
               },
               {
                 label: "Sensor Modules",
-                href: "/product/embedded-systems/sensor-modules",
+                href: "/product",
                 description: "Integrated sensor solutions for data acquisition",
               },
             ],
@@ -28,19 +28,19 @@ export const hardcodedContent: SiteContent = {
             items: [
               {
                 label: "4-DOF Robotic Arm",
-                href: "/product/iot-robotics/robotic-arm",
+                href: "/product",
                 description:
                   "Programmable robotic arm for education and automation",
               },
               {
                 label: "Smart Sensor",
-                href: "/product/iot-robotics/smart-sensor",
+                href: "/product",
                 description:
                   "Intelligent sensing platform with wireless connectivity",
               },
               {
                 label: "Industrial Monitoring Devices",
-                href: "/product/iot-robotics/industrial-monitoring",
+                href: "/product",
                 description:
                   "Real-time industrial monitoring and control hardware",
               },
@@ -51,18 +51,18 @@ export const hardcodedContent: SiteContent = {
             items: [
               {
                 label: "Phantom F405",
-                href: "/product/uav/phantom-f405",
+                href: "/product",
                 description: "STM32F405-based flight controller for FPV drones",
               },
               {
                 label: "Phantom F722",
-                href: "/product/uav/phantom-f722",
+                href: "/product",
                 description:
                   "High-performance F722 flight controller for industrial UAVs",
               },
               {
                 label: "ESC Stack",
-                href: "/product/uav/esc-stack",
+                href: "/product",
                 description:
                   "High-current ESC modules for multirotor platforms",
               },
@@ -73,23 +73,23 @@ export const hardcodedContent: SiteContent = {
             items: [
               {
                 label: "Electronics Starter Kit",
-                href: "/product/kits/electronics-starter",
+                href: "/product",
                 description:
                   "Beginner-friendly kit for learning electronics fundamentals",
               },
               {
                 label: "Embedded Systems Kit",
-                href: "/product/kits/embedded-systems",
+                href: "/product",
                 description: "Advanced kit for embedded systems development",
               },
               {
                 label: "Robotics Kit",
-                href: "/product/kits/robotics",
+                href: "/product",
                 description: "Build and program your own robots",
               },
               {
                 label: "Educational 1U CubeSat",
-                href: "/product/kits/cubesat",
+                href: "/product",
                 description:
                   "Learn satellite systems with this 1U CubeSat platform",
               },
@@ -198,62 +198,62 @@ export const hardcodedContent: SiteContent = {
     { title: "About Us", href: "/about", category: "Page" },
     {
       title: "Development Boards",
-      href: "/product/embedded-systems/development-boards",
+      href: "/product",
       category: "Embedded Systems",
     },
     {
       title: "Sensor Modules",
-      href: "/product/embedded-systems/sensor-modules",
+      href: "/product",
       category: "Embedded Systems",
     },
     {
       title: "4-DOF Robotic Arm",
-      href: "/product/iot-robotics/robotic-arm",
+      href: "/product",
       category: "IoT & Robotics",
     },
     {
       title: "Smart Sensor",
-      href: "/product/iot-robotics/smart-sensor",
+      href: "/product",
       category: "IoT & Robotics",
     },
     {
       title: "Industrial Monitoring Devices",
-      href: "/product/iot-robotics/industrial-monitoring",
+      href: "/product",
       category: "IoT & Robotics",
     },
     {
       title: "Phantom F405",
-      href: "/product/uav/phantom-f405",
+      href: "/product",
       category: "UAV Systems",
     },
     {
       title: "Phantom F722",
-      href: "/product/uav/phantom-f722",
+      href: "/product",
       category: "UAV Systems",
     },
     {
       title: "ESC Stack",
-      href: "/product/uav/esc-stack",
+      href: "/product",
       category: "UAV Systems",
     },
     {
       title: "Electronics Starter Kit",
-      href: "/product/kits/electronics-starter",
+      href: "/product",
       category: "Educational Kits",
     },
     {
       title: "Embedded Systems Kit",
-      href: "/product/kits/embedded-systems",
+      href: "/product",
       category: "Educational Kits",
     },
     {
       title: "Robotics Kit",
-      href: "/product/kits/robotics",
+      href: "/product",
       category: "Educational Kits",
     },
     {
       title: "Educational 1U CubeSat",
-      href: "/product/kits/cubesat",
+      href: "/product",
       category: "Educational Kits",
     },
     {
@@ -325,7 +325,7 @@ export const hardcodedContent: SiteContent = {
     { label: "About", href: "/about" },
     { label: "Product", href: "/product" },
     { label: "Engineering", href: "/engineering" },
-    { label: "Project", href: "/projects" },
+    { label: "Projects", href: "/projects" },
     { label: "Contact", href: "/contact" },
   ],
 
@@ -425,19 +425,19 @@ export const hardcodedContent: SiteContent = {
       category: "Instrumentation",
       title: "Embedded Systems",
       image: "/embedded-systems.jpg",
-      href: "/product/embedded-systems",
+      href: "/product",
     },
     {
       category: "Aerospace",
       title: "Engineering Kits",
       image: "/engineering-kits.png",
-      href: "/product/engineering-kits",
+      href: "/product",
     },
     {
       category: "Development",
       title: "IoT & Robotics",
       image: "/iot-robotics.jpg",
-      href: "/product/iot-robotics",
+      href: "/product",
     },
   ],
 

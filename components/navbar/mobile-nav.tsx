@@ -51,9 +51,9 @@ export function MobileNav({
                       {column.title}
                     </h4>
                     <div className="space-y-1">
-                      {column.items.map((child) => (
+                      {column.items.map((child, index) => (
                         <Link
-                          key={child.href}
+                          key={index}
                           href={child.href}
                           className={`block py-1.5 text-sm hover:text-black transition ${
                             pathname === child.href
@@ -91,9 +91,9 @@ export function MobileNav({
               }`}
             >
               <div className="pl-4 pb-2 space-y-1 border-l-2 border-gray-100 ml-1">
-                {item.dropdown.map((child) => (
+                {item.dropdown.map((child, index) => (
                   <Link
-                    key={child.href}
+                    key={index}
                     href={child.href}
                     className={`block py-1.5 text-sm hover:text-black transition ${
                       pathname === child.href
