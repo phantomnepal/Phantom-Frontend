@@ -1,16 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-} from "framer-motion";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import type { Project } from "@/data/types";
 
 const statusStyles: Record<Project["badgeVariant"], string> = {
@@ -37,21 +31,6 @@ const filters: Filter[] = [
 export function ProjectsView({ projects }: { projects: Project[] }) {
   const reduce = useReducedMotion();
   const [active, setActive] = useState(0);
-  const [hovered, setHovered] = useState<number | null>(null);
-
-  const pointerX = useMotionValue(0);
-  const pointerY = useMotionValue(0);
-  const previewX = useSpring(pointerX, { stiffness: 350, damping: 30, mass: 0.5 });
-  const previewY = useSpring(pointerY, { stiffness: 350, damping: 30, mass: 0.5 });
-
-  // The floating preview follows the pointer; clear it on scroll so it does
-  // not linger over later sections (scroll does not fire mouseleave).
-  useEffect(() => {
-    if (hovered === null) return;
-    const clear = () => setHovered(null);
-    window.addEventListener("scroll", clear, { passive: true });
-    return () => window.removeEventListener("scroll", clear);
-  }, [hovered]);
 
   const visible = useMemo(() => projects.filter(filters[active].match), [projects, active]);
   const [featured, ...rest] = visible;
@@ -143,81 +122,48 @@ export function ProjectsView({ projects }: { projects: Project[] }) {
         </section>
       )}
 
-      {/* Work index */}
+      {/* Story gallery */}
       {rest.length > 0 && (
-        <section
-          className="max-w-7xl mx-auto px-6 pt-20 lg:pt-28 pb-24"
-          onMouseMove={(e) => {
-            pointerX.set(e.clientX + 24);
-            pointerY.set(e.clientY - 120);
-          }}
-          onMouseLeave={() => setHovered(null)}
-        >
-          <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">
-            More projects
-          </h3>
-          <ul className="border-t border-gray-200">
+        <section className="max-w-7xl mx-auto px-6 pt-24 lg:pt-32 pb-24">
+          <div className="grid md:grid-cols-2 gap-x-8 gap-y-16 lg:gap-y-24">
             {rest.map((project, index) => (
-              <li key={project.id}>
-                <div
-                  onMouseEnter={() => setHovered(project.id)}
-                  className="group relative grid grid-cols-12 items-center gap-4 border-b border-gray-200 py-6 md:py-7 transition-colors"
-                >
-                  <span className="col-span-2 md:col-span-1 font-mono text-sm text-gray-400 group-hover:text-[#A10F1A] transition-colors">
-                    {String(index + 2).padStart(2, "0")}
-                  </span>
-
-                  {/* Mobile thumbnail */}
-                  <div className="col-span-3 lg:hidden relative aspect-[4/3] rounded overflow-hidden bg-gray-50">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover"
-                      sizes="30vw"
-                    />
-                  </div>
-
-                  <span className="col-span-7 md:col-span-6 lg:col-span-6 text-lg md:text-2xl font-bold text-gray-900 md:group-hover:translate-x-2 transition-transform duration-300">
-                    {project.title}
-                  </span>
-                  <span className="hidden md:block md:col-span-3 text-sm text-gray-500 uppercase tracking-wide">
-                    {project.category.trim()}
-                  </span>
-                  <span
-                    className={`hidden md:flex md:col-span-2 items-center justify-end gap-2 text-xs font-semibold uppercase tracking-wider ${statusStyles[project.badgeVariant]}`}
-                  >
+              <motion.article
+                key={project.id}
+                initial={reduce ? false : { opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{
+                  duration: 0.6,
+                  delay: reduce ? 0 : (index % 2) * 0.08,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="group"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-gray-50">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    sizes="(max-width: 768px) 100vw, 46vw"
+                  />
+                </div>
+                <div className="mt-5 flex items-center gap-3 text-xs font-bold tracking-widest uppercase">
+                  <span className="text-[#A10F1A]">{project.category.trim()}</span>
+                  <span className="text-gray-300">/</span>
+                  <span className={statusStyles[project.badgeVariant]}>
                     {project.badge}
-                    <ArrowUpRight className="w-4 h-4 text-gray-300 opacity-0 group-hover:opacity-100 group-hover:text-gray-600 transition -translate-x-1 group-hover:translate-x-0" />
                   </span>
                 </div>
-              </li>
+                <h3 className="mt-2 text-2xl font-bold text-gray-900 tracking-tight">
+                  {project.title}
+                </h3>
+                <p className="mt-2 text-gray-600 leading-relaxed max-w-[48ch] line-clamp-2">
+                  {project.description}
+                </p>
+              </motion.article>
             ))}
-          </ul>
-
-          {/* Cursor-following preview (desktop only) */}
-          {!reduce && (
-            <motion.div
-              aria-hidden
-              style={{ x: previewX, y: previewY }}
-              className="pointer-events-none fixed left-0 top-0 z-40 hidden lg:block w-[280px] aspect-[4/3] rounded-lg overflow-hidden shadow-2xl"
-              animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.92 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-            >
-              {rest.map((project) => (
-                <Image
-                  key={project.id}
-                  src={project.image}
-                  alt=""
-                  fill
-                  className={`object-cover transition-opacity duration-200 ${
-                    hovered === project.id ? "opacity-100" : "opacity-0"
-                  }`}
-                  sizes="280px"
-                />
-              ))}
-            </motion.div>
-          )}
+          </div>
         </section>
       )}
 
