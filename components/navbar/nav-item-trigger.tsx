@@ -39,9 +39,13 @@ export function NavItemTrigger({
     );
   }
 
-  const isActive = item.megaMenu
-    ? isExpanded
+  const matchesPath = item.megaMenu
+    ? item.megaMenu.columns.some((column) =>
+        column.items.some((menuItem) => menuItem.href === pathname),
+      )
     : item.dropdown?.some((d) => d.href === pathname);
+
+  const isActive = item.megaMenu ? isExpanded || matchesPath : matchesPath;
 
   const handlers =
     variant === "desktop" && desktopHandlers
@@ -57,7 +61,11 @@ export function NavItemTrigger({
         variant === "desktop"
           ? "flex items-center gap-1 transition hover:text-black"
           : "flex justify-between w-full items-center py-2 hover:text-black transition"
-      } ${isActive && variant === "desktop" ? "text-black" : ""}`}
+      } ${
+        isActive && variant === "desktop"
+          ? `text-black${matchesPath ? " font-semibold" : ""}`
+          : ""
+      }`}
       onClick={variant === "mobile" ? onTrigger : undefined}
       {...handlers}
     >
