@@ -16,7 +16,7 @@ export function ProjectDetail({ project }: { project: Project }) {
 
   return (
     <main className="bg-white">
-      <article className="max-w-7xl mx-auto px-6 py-16 lg:py-20">
+      <article className="max-w-7xl mx-auto px-6 pt-8 lg:pt-10 pb-16 lg:pb-20">
         <Link
           href="/projects"
           className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors mb-10"
