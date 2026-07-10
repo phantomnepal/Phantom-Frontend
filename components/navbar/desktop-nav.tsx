@@ -61,8 +61,8 @@ export function DesktopNav({
               }`}
             >
               <ul className="py-2 text-sm text-gray-600">
-                {item.dropdown.map((child) => (
-                  <li key={child.href}>
+                {item.dropdown.map((child, index) => (
+                  <li key={index}>
                     <Link
                       href={child.href}
                       className={`block px-4 py-2.5 hover:bg-gray-50 hover:text-black transition ${

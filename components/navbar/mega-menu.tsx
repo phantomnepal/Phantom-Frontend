@@ -46,8 +46,8 @@ export function MegaMenuContent({ menu }: { menu: MegaMenu }) {
                   </h3>
                 </div>
                 <ul className="space-y-0.5">
-                  {column.items.map((item) => (
-                    <li key={item.href}>
+                  {column.items.map((item, index) => (
+                    <li key={index}>
                       <MegaMenuLink item={item} />
                     </li>
                   ))}

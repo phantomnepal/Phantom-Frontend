@@ -90,7 +90,7 @@ export function SearchModal({
                     const globalIndex = filteredResults.indexOf(item);
                     return (
                       <Link
-                        key={item.href}
+                        key={globalIndex}
                         href={item.href}
                         onClick={onClose}
                         className={`flex items-center gap-3 px-4 py-2.5 text-sm transition ${
