@@ -549,7 +549,7 @@ export const hardcodedContent: SiteContent = {
       category: "FPV FLIGHT CONTROLLER",
       badge: "PROTOTYPE",
       badgeVariant: "prototype",
-      title: "Phantom F722-Analog",
+      title: "Phantom F722-Analog: Pure Analog FPV Flight Controller",
       description:
         "A custom STM32F722 based analog only flight controller built for high-end FPV drones where every millisecond of control loop matters.",
       tags: ["Pure Analog FPV", "High-Speed Flight Control"],

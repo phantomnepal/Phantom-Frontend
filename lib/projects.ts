@@ -40,7 +40,7 @@ const projectContent: Record<string, ProjectContent> = {
     impact:
       "The platform turns satellite engineering from a lecture topic into something students can assemble, program, and debug on their own bench.",
   },
-  "phantom-f722-analog": {
+  "phantom-f722-analog-pure-analog-fpv-flight-controller": {
     challenge:
       "Most FPV flight controllers on the market today are compromised by poor PCB routing, overcrowded boards trying to do everything at once, and corners cut on component quality.",
     approach:
