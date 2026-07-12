@@ -18,7 +18,7 @@ export default function Footer() {
       />
 
       {/* Inner container — Figma: 1532 x 351 */}
-      <div className="relative w-full max-w-[1532px] mx-auto px-12 py-10 min-h-[351px] flex flex-col justify-between">
+      <div className="relative w-full max-w-[1532px] mx-auto px-6 sm:px-12 py-10 min-h-[351px] flex flex-col justify-between">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-1">

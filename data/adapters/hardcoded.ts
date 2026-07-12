@@ -543,69 +543,16 @@ export const hardcodedContent: SiteContent = {
   projects: [
     {
       id: 1,
-      image: "/projects/project1.jpg",
-      category: "AEROSPACE EDUCATION",
+      heroImage: "/project/project1.png",
+      image: "/project/project1.png",
+      gallery: ["/project/project2.png", "/project/projects3.png"],
+      category: "FPV FLIGHT CONTROLLER",
       badge: "PROTOTYPE",
       badgeVariant: "prototype",
-      title: "Educational 1U CubeSat",
+      title: "Phantom F722-Analog",
       description:
-        "A learning platform designed to introduce students to satellite systems, embedded electronics, communications, and aerospace engineering principles.",
-      tags: ["Aerospace", "CubeSat", "Education"],
-    },
-    {
-      id: 2,
-      image: "/projects/project2.jpg",
-      category: "FPV FLIGHT CONTROLLER ",
-      badge: "IN DEVELOPMENT",
-      badgeVariant: "in-development",
-      title: "Phantom F722 Flight Controller",
-      description:
-        "A custom STM32F722-based flight controller designed for high-end FPV drones and industrial UAV applications requiring millisecond precision.",
-      tags: ["FPV", "Flight Control", "Avionics"],
-    },
-    {
-      id: 3,
-      image: "/projects/project1.jpg",
-      category: "FPV FLIGHT CONTROLLER ",
-      badge: "PROTOTYPE",
-      badgeVariant: "prototype",
-      title: "Phantom F405 Flight Controller",
-      description:
-        "A STM32F405-based flight controller designed for high-end FPV drones and industrial UAV applications requiring millisecond precision",
-      tags: ["FPV", "Flight Control", "Avionics"],
-    },
-    {
-      id: 4,
-      image: "/projects/project3.jpg",
-      category: "Educational Products",
-      badge: "AVAILABLE",
-      badgeVariant: "available",
-      title: "Phantom Electronics Starter Kit",
-      description:
-        "A beginner-friendly electronics kit designed to teach fundamental concepts through hands-on projects involving sensors, displays, and basic automation systems.",
-      tags: ["Electronics", "STEM Education", "Beginners"],
-    },
-    {
-      id: 5,
-      image: "/projects/project4.jpg",
-      category: "Educational Products",
-      badge: "AVAILABLE",
-      badgeVariant: "available",
-      title: "Phantom Robotics Kit",
-      description:
-        "Explore robotics through practical projects involving motion control, sensors, actuators, and autonomous system development.",
-      tags: ["Robotics", "Automation", "Motion Control"],
-    },
-    {
-      id: 6,
-      image: "/projects/project5.jpg",
-      category: "Educational Products",
-      badge: "IN DEVELOPMENT",
-      badgeVariant: "in-development",
-      title: "Phantom Embedded Systems Kit",
-      description:
-        "Learn real embedded systems development with industry-relevant hardware and programming concepts, including communication protocols, peripherals, and real-time control.",
-      tags: ["Embedded Systems", "STEM Education"],
+        "A custom STM32F722 based analog only flight controller built for high-end FPV drones where every millisecond of control loop matters.",
+      tags: ["Pure Analog FPV", "High-Speed Flight Control"],
     },
   ],
 

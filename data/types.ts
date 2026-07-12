@@ -68,7 +68,9 @@ export interface FAQItem {
 
 export interface Project {
   id: number;
+  heroImage?: string;
   image: string;
+  gallery?: string[];
   category: string;
   badge: string;
   badgeVariant: 'prototype' | 'in-development' | 'available';

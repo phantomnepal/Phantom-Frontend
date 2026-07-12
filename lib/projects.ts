@@ -40,16 +40,22 @@ const projectContent: Record<string, ProjectContent> = {
     impact:
       "The platform turns satellite engineering from a lecture topic into something students can assemble, program, and debug on their own bench.",
   },
-  "phantom-f722-flight-controller": {
+  "phantom-f722-analog": {
     challenge:
-      "Industrial UAVs need flight hardware that stays precise under vibration, heat, and load, where a single dropped control cycle can end a mission.",
+      "Most FPV flight controllers on the market today are compromised by poor PCB routing, overcrowded boards trying to do everything at once, and corners cut on component quality.",
     approach:
-      "The F722 is built around the STM32F722 with a carefully laid out power and sensor stage, tuned for high loop rates and clean signal paths.",
+      "The F722-Analog was engineered around one goal: an ultra-precise IMU, fully isolated on its own power rail. It's built with premium, gold-standard components to minimise EMI and keep power delivery clean and efficient, nothing else competing for board space or signal integrity.",
     highlights: [
-      "STM32F722 core for high loop-rate control",
-      "Layout tuned for clean power and sensor signals",
-      "Targeted at demanding FPV and industrial UAVs",
-      "Designed and assembled in Nepal",
+      "Built around the STM32F722RETx MCU",
+      "ICM42688-P IMU with dedicated LDO for noise isolation",
+      "BMP280 barometer for precise altitude hold",
+      "2S–6S battery support",
+      "Purpose-built for ultra-clean analog systems only",
+      "6-layer PCB for signal and power integrity",
+      "Ultra-low-noise buck converter for reduced EMI",
+      "DShot600 on all four motor channels via Timer8",
+      "Plug-and-play with soldering pads",
+      "5 UARTs for peripheral flexibility",
     ],
     impact:
       "A flight controller we trust in the field, engineered to hold its line when conditions are least forgiving.",

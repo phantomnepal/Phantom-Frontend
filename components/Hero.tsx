@@ -17,7 +17,7 @@ export default function Hero() {
   }, [images.length]);
 
   return (
-    <section className="relative w-full h-[65vh] flex items-start overflow-hidden bg-white">
+    <section className="relative w-full min-h-[65vh] flex items-start overflow-hidden bg-white">
       {/* Background Image Overlay Animation */}
       <div className="absolute  inset-0 z-0">
         <AnimatePresence>
