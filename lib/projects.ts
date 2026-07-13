@@ -26,6 +26,26 @@ export type ProjectContent = {
 };
 
 const projectContent: Record<string, ProjectContent> = {
+  "phantom-advance-type-c-power-supply": {
+    challenge:
+      "Variable power supplies with high current output in a compact form factor are hard to find. Most students and researchers end up relying on battery packs paired with separate buck converter modules, an inefficient, bulky, and error-prone setup for powering high-current projects like flight controllers, motor drivers, and other embedded systems.",
+    approach:
+      "Phantom was engineered around one goal: an ultra-compact USB-C power supply that lets users select from four voltage outputs on demand, tailored to their project's specific power requirements, all while maintaining low-noise, high-efficiency delivery through P-channel MOSFET switching.",
+    highlights: [
+      "Built around the STM32G030K6Tx microcontroller",
+      "STUSB4500QTR USB-PD controller for precise, negotiated voltage selection",
+      "High-efficiency STL6P3LLH6 P-channel MOSFETs for the power path",
+      "Selectable output: 5V, 9V, 12V, and 20V",
+      "Ultra-compact form factor, purpose-built for space-constrained projects",
+      "4-layer PCB for robust power integrity and thermal performance",
+      "Low-noise power delivery for reduced EMI",
+      "Push-button voltage selection with onboard LED indicators",
+      "USB-C 2.0 input",
+      "Supports up to 3A continuous current draw",
+    ],
+    impact:
+      "Clean, selectable high-current power in a pocket-sized board, so embedded and robotics projects can leave the bulky bench supply behind.",
+  },
   "educational-1u-cubesat": {
     challenge:
       "Teaching orbital systems is expensive and abstract. Students rarely touch real satellite hardware, so power budgets, attitude control, and telemetry stay theoretical.",
