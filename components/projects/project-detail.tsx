@@ -136,7 +136,7 @@ export function ProjectDetail({ project }: { project: Project }) {
 
             {/* Highlights */}
             <div className="mt-16 lg:mt-20">
-              <p className="text-[#A10F1A] text-sm font-medium mb-6">
+              <p className="text-[#A10F1A] text-sm font-bold mb-6">
                 Highlights
               </p>
               <div className="grid sm:grid-cols-2 gap-x-12">
