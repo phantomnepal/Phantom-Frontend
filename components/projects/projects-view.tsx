@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowDownRight } from "lucide-react";
 import type { Project } from "@/data/types";
 import { projectSlug } from "@/lib/projects";
 
@@ -41,37 +41,54 @@ export function ProjectsView({ projects }: { projects: Project[] }) {
         </motion.p>
       </section>
 
-      {/* Project grid */}
-      <section className="max-w-7xl mx-auto px-6 pb-20 lg:pb-24">
-        <div className="grid md:grid-cols-2 gap-x-8 gap-y-12">
-          {projects.map((project, index) => (
+      {/* Project row list */}
+      <section className="max-w-6xl mx-auto px-6 pb-20 lg:pb-24">
+        <div className="border-t border-gray-200">
+          {projects.map((project) => (
             <motion.div
               key={project.id}
               initial={reduce ? false : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.6, delay: reduce ? 0 : (index % 2) * 0.1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: reduce ? 0 : 0.05 }}
             >
-              <Link href={`/projects/${projectSlug(project)}`} className="group block">
-                <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-gray-100">
+              <Link
+                href={`/projects/${projectSlug(project)}`}
+                className="group grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-10 items-start border-b border-gray-200 py-10 lg:py-12"
+              >
+                {/* Image */}
+                <div className="md:col-span-2 relative aspect-[3/2] overflow-hidden rounded-xl bg-gray-100">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover transition-all duration-500 ease-in-out group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 46vw"
+                    className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 40vw"
                   />
                 </div>
-                <div className="mt-5 flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-[#A10F1A] text-sm font-medium mb-2">
-                      {project.category.trim()}
-                    </p>
-                    <h2 className="text-2xl font-bold text-gray-900 tracking-tight transition-colors group-hover:text-gray-600">
-                      {project.title}
-                    </h2>
+
+                {/* Text */}
+                <div className="md:col-span-3 relative pr-10">
+                  <ArrowDownRight className="absolute right-0 top-0 h-6 w-6 shrink-0 text-gray-300 transition-all duration-300 group-hover:text-gray-900 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
+                  <p className="text-[#A10F1A] text-sm font-medium mb-2">
+                    {project.category.trim()}
+                  </p>
+                  <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 tracking-tight transition-colors group-hover:text-gray-600">
+                    {project.title}
+                  </h2>
+                  <p className="mt-3 text-gray-600 leading-relaxed line-clamp-3">
+                    {project.description}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-block border border-gray-200 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-full uppercase tracking-wide"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
-                  <ArrowUpRight className="mt-1 h-6 w-6 shrink-0 text-gray-300 transition-all duration-300 group-hover:text-gray-900 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
               </Link>
             </motion.div>
