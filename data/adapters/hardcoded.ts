@@ -554,6 +554,19 @@ export const hardcodedContent: SiteContent = {
         "A custom STM32F722 based analog only flight controller built for high-end FPV drones where every millisecond of control loop matters.",
       tags: ["Pure Analog FPV", "High-Speed Flight Control"],
     },
+    {
+      id: 2,
+      heroImage: "/project/project4.png",
+      image: "/project/project4.png",
+      gallery: ["/project/project5.png", "/project/project6.png"],
+      category: "VARIABLE POWER SUPPLY",
+      badge: "PROTOTYPE",
+      badgeVariant: "prototype",
+      title: "Phantom - Advance Type C Power Supply",
+      description:
+        "A custom STM32G0-based advanced power supply built for high-power embedded and robotics projects. It delivers selectable, high-current voltage rails in an ultra-compact footprint designed for students, researchers, and engineers who need clean, reliable power without the bulk of traditional bench supplies.",
+      tags: ["Embedded System"],
+    },
   ],
 
   coreValues: [
