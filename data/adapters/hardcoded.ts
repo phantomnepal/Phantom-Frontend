@@ -556,16 +556,16 @@ export const hardcodedContent: SiteContent = {
     },
     {
       id: 2,
-      heroImage: "/project/project4.png",
-      image: "/project/project4.png",
-      gallery: ["/project/project5.png", "/project/project6.png"],
+      heroImage: "/project/project7.png",
+      image: "/project/project7.png",
+      gallery: ["/project/project8.png", "/project/project9.png"],
       category: "VARIABLE POWER SUPPLY",
       badge: "PROTOTYPE",
       badgeVariant: "prototype",
       title: "Phantom - Advance Type C Power Supply",
       description:
-        "A custom STM32G0-based advanced power supply built for high-power embedded and robotics projects. It delivers selectable, high-current voltage rails in an ultra-compact footprint designed for students, researchers, and engineers who need clean, reliable power without the bulk of traditional bench supplies.",
-      tags: ["Embedded System"],
+        "A custom STM32G0-based advanced power supply for high-power embedded and robotics projects, delivering selectable high-current voltage rails in an ultra-compact design for clean, reliable power.",
+      tags: ["Embedded System", "Power Supply"],
     },
   ],
 
