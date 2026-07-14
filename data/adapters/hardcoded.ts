@@ -1,6 +1,14 @@
 import type { SiteContent } from "../types";
 
 export const hardcodedContent: SiteContent = {
+  // Where marketing → store links point. The store lives at the ROOT of its own
+  // (sub)domain — proxy.ts rewrites "/" → "/store" there — so store components use
+  // root-relative links and must NOT be served under a "/store" path prefix.
+  // Set NEXT_PUBLIC_STORE_URL per environment:
+  //   local: http://store.localhost:3000   (proxy handles the subdomain)
+  //   prod:  https://store.phantom.com.np   (once DNS is set up)
+  // Fallback "/store" only reaches the store home; internal store nav needs the subdomain.
+  storeUrl: process.env.NEXT_PUBLIC_STORE_URL ?? "/store",
   navItems: [
     { label: "Home", href: "/" },
     { label: "About Us", href: "/about" },
@@ -330,16 +338,16 @@ export const hardcodedContent: SiteContent = {
   ],
 
   footerEngineeringLinks: [
-    { label: "Embedded Hardware Development", href: "#" },
-    { label: "Embedded Software Development", href: "#" },
-    { label: "3D & Mechanical Development", href: "#" },
+    { label: "Embedded Hardware Development", href: "/engineering" },
+    { label: "Embedded Software Development", href: "/engineering" },
+    { label: "3D & Mechanical Development", href: "/engineering" },
   ],
 
   footerProductLinks: [
-    { label: "Embedded Systems", href: "#" },
-    { label: "IOT & Robotics", href: "#" },
-    { label: "UAV", href: "#" },
-    { label: "Educational Kits", href: "#" },
+    { label: "Embedded Systems", href: "/product" },
+    { label: "IOT & Robotics", href: "/product" },
+    { label: "UAV", href: "/product" },
+    { label: "Educational Kits", href: "/product" },
   ],
 
   solutions: [
@@ -566,6 +574,81 @@ export const hardcodedContent: SiteContent = {
       description:
         "A custom STM32G0-based advanced power supply for high-power embedded and robotics projects, delivering selectable high-current voltage rails in an ultra-compact design for clean, reliable power.",
       tags: ["Embedded System", "Power Supply"],
+    },
+  ],
+
+  productCatalog: [
+    {
+      id: 1,
+      image: "/products/project1.jpg",
+      category: "AEROSPACE EDUCATION",
+      badge: "PROTOTYPE",
+      badgeVariant: "prototype",
+      title: "Educational 1U CubeSat",
+      description:
+        "A learning platform designed to introduce students to satellite systems, embedded electronics, communications, and aerospace engineering principles.",
+      tags: ["Aerospace", "CubeSat", "Education"],
+      storeSlug: "educational-1u-cubesat",
+    },
+    {
+      id: 2,
+      image: "/products/project2.jpg",
+      category: "FPV FLIGHT CONTROLLER",
+      badge: "IN DEVELOPMENT",
+      badgeVariant: "in-development",
+      title: "Phantom F722 Flight Controller",
+      description:
+        "A custom STM32F722-based flight controller designed for high-end FPV drones and industrial UAV applications requiring millisecond precision.",
+      tags: ["FPV", "Flight Control", "Avionics"],
+      storeSlug: "phantom-f722-flight-controller",
+    },
+    {
+      id: 3,
+      image: "/products/phantom-f405.png",
+      category: "FPV FLIGHT CONTROLLER",
+      badge: "PROTOTYPE",
+      badgeVariant: "prototype",
+      title: "Phantom F405 Flight Controller",
+      description:
+        "A STM32F405-based flight controller designed for high-end FPV drones and industrial UAV applications requiring millisecond precision.",
+      tags: ["FPV", "Flight Control", "Avionics"],
+      storeSlug: "phantom-f405-flight-controller",
+    },
+    {
+      id: 4,
+      image: "/products/project3.jpg",
+      category: "Educational Products",
+      badge: "AVAILABLE",
+      badgeVariant: "available",
+      title: "Phantom Electronics Starter Kit",
+      description:
+        "A beginner-friendly electronics kit designed to teach fundamental concepts through hands-on projects involving sensors, displays, and basic automation systems.",
+      tags: ["Electronics", "STEM Education", "Beginners"],
+      storeSlug: "phantom-electronics-starter-kit",
+    },
+    {
+      id: 5,
+      image: "/products/project4.jpg",
+      category: "Educational Products",
+      badge: "AVAILABLE",
+      badgeVariant: "available",
+      title: "Phantom Robotics Kit",
+      description:
+        "Explore robotics through practical projects involving motion control, sensors, actuators, and autonomous system development.",
+      tags: ["Robotics", "Automation", "Motion Control"],
+      storeSlug: "phantom-robotics-kit",
+    },
+    {
+      id: 6,
+      image: "/products/project5.jpg",
+      category: "Educational Products",
+      badge: "IN DEVELOPMENT",
+      badgeVariant: "in-development",
+      title: "Phantom Embedded Systems Kit",
+      description:
+        "Learn real embedded systems development with industry-relevant hardware and programming concepts, including communication protocols, peripherals, and real-time control.",
+      tags: ["Embedded Systems", "STEM Education"],
+      storeSlug: "phantom-embedded-systems-kit",
     },
   ],
 

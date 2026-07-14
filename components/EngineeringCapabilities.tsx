@@ -43,14 +43,14 @@ export default function EngineeringCapabilities() {
           <button
             onClick={handlePrev}
             aria-label="Previous"
-            className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] active:bg-[#A10F1A] text-[#0f172a] hover:text-white active:text-white flex items-center justify-center transition-all cursor-pointer"
+            className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-brand active:bg-brand text-[#0f172a] hover:text-white active:text-white flex items-center justify-center transition-all cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={handleNext}
             aria-label="Next"
-            className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] active:bg-[#A10F1A] text-[#0f172a] hover:text-white active:text-white flex items-center justify-center transition-all cursor-pointer"
+            className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-brand active:bg-brand text-[#0f172a] hover:text-white active:text-white flex items-center justify-center transition-all cursor-pointer"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -67,7 +67,7 @@ export default function EngineeringCapabilities() {
             key={`text-${activeIndex}`}
             className="lg:col-span-5 animate-fadeIn"
           >
-            <p className="text-[#A10F1A] font-semibold text-sm tracking-wider mb-4">
+            <p className="text-brand font-semibold text-sm tracking-wider mb-4">
               {current.category}
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-5 leading-tight">
@@ -79,9 +79,9 @@ export default function EngineeringCapabilities() {
             <ul className="space-y-4">
               {current.features.map((feature, idx) => (
                 <li key={idx} className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-[#A10F1A]/10 border flex items-center justify-center flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-brand/10 border flex items-center justify-center flex-shrink-0">
                     <Check
-                      className="w-3.5 h-3.5 text-[#A10F1A]"
+                      className="w-3.5 h-3.5 text-brand"
                       strokeWidth={3}
                     />
                   </div>
@@ -113,14 +113,14 @@ export default function EngineeringCapabilities() {
             <button
               onClick={handlePrev}
               aria-label="Previous"
-              className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] active:bg-[#A10F1A] text-[#0f172a] hover:text-white active:text-white flex items-center justify-center transition-all cursor-pointer"
+              className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-brand active:bg-brand text-[#0f172a] hover:text-white active:text-white flex items-center justify-center transition-all cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={handleNext}
               aria-label="Next"
-              className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-[#A10F1A] active:bg-[#A10F1A] text-[#0f172a] hover:text-white active:text-white flex items-center justify-center transition-all cursor-pointer"
+              className="w-10 h-10 rounded-full bg-[#D6E1E1] hover:bg-brand active:bg-brand text-[#0f172a] hover:text-white active:text-white flex items-center justify-center transition-all cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

@@ -27,7 +27,7 @@ describe('getSiteContent()', () => {
 
     for (const key of keys) {
       expect(content).toHaveProperty(key);
-      expect(Array.isArray((content as Record<string, unknown>)[key])).toBe(true);
+      expect(Array.isArray((content as unknown as Record<string, unknown>)[key])).toBe(true);
     }
   });
 

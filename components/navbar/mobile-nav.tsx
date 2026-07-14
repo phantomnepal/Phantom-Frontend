@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { NavItemTrigger } from "./nav-item-trigger";
+import { getSiteContent } from "@/data/content";
 import type { NavItem } from "@/data/types";
 
 interface MobileNavProps {
@@ -63,7 +64,7 @@ export function MobileNav({
                         >
                           {child.label}
                           {child.description && (
-                            <p className="text-xs text-gray-400 mt-0.5">
+                            <p className="text-xs text-gray-500 mt-0.5">
                               {child.description}
                             </p>
                           )}
@@ -129,6 +130,12 @@ export function MobileNav({
         >
           <Search className="w-4 h-4" />
         </button>
+        <a
+          href={getSiteContent().storeUrl}
+          className="border border-[#0f1e2e] text-[#0f1e2e] px-4 py-2.5 rounded-md flex-1 text-center text-sm hover:bg-gray-50 transition"
+        >
+          Go to Store
+        </a>
         <Link
           href="/contact"
           className="bg-[#0f1e2e] text-white px-4 py-2.5 rounded-md flex-1 text-center text-sm hover:bg-[#1a3147] transition"

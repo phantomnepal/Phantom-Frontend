@@ -16,10 +16,10 @@ export function ReconnectTerminal() {
     >
       <Link
         href="/"
-        className="group relative inline-flex items-center gap-3 px-5 py-3 bg-[#A10F1A] text-white font-mono text-sm tracking-wider rounded-sm overflow-hidden transition-all duration-300 ease-out hover:shadow-lg hover:shadow-[#A10F1A]/20 focus:outline-none focus:ring-2 focus:ring-[#A10F1A] focus:ring-offset-2 focus:ring-offset-white"
+        className="group relative inline-flex items-center gap-3 px-5 py-3 bg-brand text-white font-mono text-sm tracking-wider rounded-sm overflow-hidden transition-all duration-300 ease-out hover:shadow-lg hover:shadow-brand/20 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 focus:ring-offset-white"
       >
         {/* Static Fill Background */}
-        <span className="absolute inset-0 bg-[#8A0D16] transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0" />
+        <span className="absolute inset-0 bg-brand-dark transform -translate-x-full transition-transform duration-300 ease-out group-hover:translate-x-0" />
 
         {/* Button Content - Fixed width container */}
         <span className="relative z-10 flex items-center gap-2">

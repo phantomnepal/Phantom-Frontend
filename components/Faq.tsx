@@ -29,7 +29,7 @@ function FAQAccordion({ items }: FAQAccordionProps) {
           <AccordionTrigger
             className="w-full py-5 text-left text-sm font-semibold
                 text-gray-800 transition-colors duration-200
-                hover:text-[#A10F1A] md:text-base"
+                hover:text-brand md:text-base"
           >
             {question}
           </AccordionTrigger>
@@ -41,7 +41,7 @@ function FAQAccordion({ items }: FAQAccordionProps) {
               <ul className="mt-2 space-y-2">
                 {list.map((item: string, i: number) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#A10F1A]" />
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -61,7 +61,7 @@ export default function HomeAccordion() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-10 flex flex-col items-start gap-2">
-          <span className=" px-2 py-1 text-md font-semibold uppercase tracking-widest text-[#A10F1A]">
+          <span className=" px-2 py-1 text-md font-semibold uppercase tracking-widest text-brand">
             FAQ
           </span>
 
@@ -74,7 +74,7 @@ export default function HomeAccordion() {
             you&apos;re looking for, feel free to{" "}
             <a
               href="/contact"
-              className="font-medium text-[#A10F1A] underline underline-offset-2 hover:opacity-80"
+              className="font-medium text-brand underline underline-offset-2 hover:opacity-80"
             >
               contact us
             </a>

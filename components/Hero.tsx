@@ -66,7 +66,7 @@ export default function Hero() {
             className="text-[40px] sm:text-[52px] lg:text-[60px] font-bold text-gray-900 leading-[1.1] tracking-[-0.02em] mb-5"
           >
             Creating Systems <br />
-            with <span className="text-[#A10F1A]">Purpose.</span>
+            with <span className="text-brand">Purpose.</span>
           </motion.h1>
 
           {/* Description */}
@@ -106,7 +106,7 @@ export default function Hero() {
             onClick={() => setCurrentIndex(idx)}
             aria-label={`Go to slide ${idx + 1}`}
             className={`h-3 w-3 rounded-full transition-all duration-500 ${
-              idx === currentIndex ? "w-8 bg-[#A10F1A]" : "bg-gray-300"
+              idx === currentIndex ? "w-8 bg-brand" : "bg-gray-300"
             }`}
           />
         ))}

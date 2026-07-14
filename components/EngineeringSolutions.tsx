@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getSiteContent } from "@/data/content";
 import { solutionIcons } from "@/data/icons";
@@ -9,7 +10,7 @@ export default function EngineeringSolutions() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <p className="text-[#A10F1A] font-semibold text-sm tracking-wider mb-3">
+          <p className="text-brand font-semibold text-sm tracking-wider mb-3">
             OUR ENGINEERING SOLUTIONS
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -34,7 +35,7 @@ export default function EngineeringSolutions() {
                   {item.layer}
                 </p>
 
-                <div className="text-[#A10F1A] mb-5">
+                <div className="text-brand mb-5">
                   <Icon className="w-10 h-10" strokeWidth={1.5} />
                 </div>
 
@@ -57,12 +58,12 @@ export default function EngineeringSolutions() {
                   ))}
                 </div>
 
-                <a
-                  href="#"
-                  className="inline-flex items-center gap-2 text-[#A10F1A] font-semibold text-sm hover:gap-3 transition-all"
+                <Link
+                  href="/engineering"
+                  className="inline-flex items-center gap-2 text-brand font-semibold text-sm hover:gap-3 transition-all"
                 >
                   Explore More <ArrowRight className="w-4 h-4" />
-                </a>
+                </Link>
               </div>
             );
           })}

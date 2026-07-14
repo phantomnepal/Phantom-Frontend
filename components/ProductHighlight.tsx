@@ -10,7 +10,7 @@ export default function ProductHighlight() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div>
-            <p className="text-[#A10F1A] font-semibold mb-2">
+            <p className="text-brand font-semibold mb-2">
               Featured Systems
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
@@ -47,7 +47,7 @@ export default function ProductHighlight() {
               </div>
 
               {/* Title */}
-              <h3 className="mt-4 text-lg font-bold text-gray-900 group-hover:text-[#A10F1A] transition-colors">
+              <h3 className="mt-4 text-lg font-bold text-gray-900 group-hover:text-brand transition-colors">
                 {product.title}
               </h3>
             </Link>

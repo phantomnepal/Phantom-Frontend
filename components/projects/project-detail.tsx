@@ -30,19 +30,19 @@ export function ProjectDetail({ project }: { project: Project }) {
         {/* Meta row */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-3xl">
           <div>
-            <p className="text-[#A10F1A] text-sm font-medium mb-1">Category</p>
+            <p className="text-brand text-sm font-medium mb-1">Category</p>
             <p className="text-gray-900 font-medium">
               {project.category.trim()}
             </p>
           </div>
           <div>
-            <p className="text-[#A10F1A] text-sm font-medium mb-1">Status</p>
+            <p className="text-brand text-sm font-medium mb-1">Status</p>
             <p className={`font-medium ${statusStyles[project.badgeVariant]}`}>
               {project.badge}
             </p>
           </div>
           <div>
-            <p className="text-[#A10F1A] text-sm font-medium mb-1">Focus</p>
+            <p className="text-brand text-sm font-medium mb-1">Focus</p>
             <p className="text-gray-900 font-medium">
               {project.tags.join(", ")}
             </p>
@@ -56,7 +56,7 @@ export function ProjectDetail({ project }: { project: Project }) {
 
         {/* Hero collage */}
         <div className="mt-8 grid grid-cols-3 grid-rows-2 gap-2 h-[300px] sm:h-[400px] lg:h-[500px]">
-          <div className="col-span-3 sm:col-span-2 row-span-2 relative overflow-hidden rounded-xl bg-gray-100 shadow-[0_0_20px_-6px_rgba(0,0,0,0.2)]">
+          <div className="col-span-3 sm:col-span-2 row-span-2 relative overflow-hidden rounded-xl bg-gray-100 shadow-md">
             <Image
               src={project.heroImage || project.image}
               alt={project.title}
@@ -67,7 +67,7 @@ export function ProjectDetail({ project }: { project: Project }) {
             />
           </div>
           {project.gallery && project.gallery[0] && (
-            <div className="hidden sm:block relative overflow-hidden rounded-xl bg-gray-100 shadow-[0_0_15px_-5px_rgba(0,0,0,0.15)]">
+            <div className="hidden sm:block relative overflow-hidden rounded-xl bg-gray-100 shadow-sm">
               <Image
                 src={project.gallery[0]}
                 alt={`${project.title} gallery 1`}
@@ -78,7 +78,7 @@ export function ProjectDetail({ project }: { project: Project }) {
             </div>
           )}
           {project.gallery && project.gallery[1] && (
-            <div className="hidden sm:block relative overflow-hidden rounded-xl bg-gray-100 shadow-[0_0_15px_-5px_rgba(0,0,0,0.15)]">
+            <div className="hidden sm:block relative overflow-hidden rounded-xl bg-gray-100 shadow-sm">
               <Image
                 src={project.gallery[1]}
                 alt={`${project.title} gallery 2`}
@@ -92,7 +92,7 @@ export function ProjectDetail({ project }: { project: Project }) {
 
         {/* Overview */}
         <div className="mt-16 lg:mt-20 max-w-4xl">
-          <p className="text-[#A10F1A] text-sm font-medium mb-4">
+          <p className="text-brand text-sm font-medium mb-4">
             Project Overview
           </p>
           <p className="text-2xl md:text-3xl font-bold text-gray-900 leading-[1.3] tracking-tight">
@@ -117,7 +117,7 @@ export function ProjectDetail({ project }: { project: Project }) {
             {/* Challenge + Approach */}
             <div className="mt-16 lg:mt-20 grid lg:grid-cols-2 gap-12 lg:gap-16">
               <div>
-                <p className="text-[#A10F1A] text-sm font-medium mb-3">
+                <p className="text-brand text-sm font-medium mb-3">
                   The Challenge
                 </p>
                 <p className="text-gray-600 leading-relaxed">
@@ -125,7 +125,7 @@ export function ProjectDetail({ project }: { project: Project }) {
                 </p>
               </div>
               <div>
-                <p className="text-[#A10F1A] text-sm font-medium mb-3">
+                <p className="text-brand text-sm font-medium mb-3">
                   Our Approach
                 </p>
                 <p className="text-gray-600 leading-relaxed">
@@ -136,7 +136,7 @@ export function ProjectDetail({ project }: { project: Project }) {
 
             {/* Highlights */}
             <div className="mt-16 lg:mt-20">
-              <p className="text-[#A10F1A] text-sm font-bold mb-6">
+              <p className="text-brand text-sm font-bold mb-6">
                 Highlights
               </p>
               <div className="grid sm:grid-cols-2 gap-x-12">
@@ -161,7 +161,7 @@ export function ProjectDetail({ project }: { project: Project }) {
       {content && (
         <section className="bg-gray-50">
           <div className="max-w-7xl mx-auto px-6 py-16 lg:py-20">
-            <p className="text-[#A10F1A] text-sm font-medium mb-4">
+            <p className="text-brand text-sm font-medium mb-4">
               Design Impact
             </p>
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-[1.2] tracking-tight max-w-4xl">

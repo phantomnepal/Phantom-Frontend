@@ -6,6 +6,8 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-dark);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
@@ -63,6 +65,8 @@
 
 :root {
   --background: oklch(1 0 0);
+  --brand: #a10f1a;
+  --brand-dark: #8a0d16;
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -98,6 +102,8 @@
 
 .dark {
   --background: oklch(0.145 0 0);
+  --brand: #a10f1a;
+  --brand-dark: #8a0d16;
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -136,6 +142,17 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+    border-radius: 3px;
   }
   html {
     @apply font-sans;

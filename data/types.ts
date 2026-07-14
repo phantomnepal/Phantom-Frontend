@@ -77,6 +77,8 @@ export interface Project {
   title: string;
   description: string;
   tags: string[];
+  /** For productCatalog items: the store PDP slug this maps to (store.phantom.com.np/products/<slug>). */
+  storeSlug?: string;
 }
 
 export interface CoreValue {
@@ -111,6 +113,7 @@ export interface HeroImage {
 }
 
 export interface SiteContent {
+  storeUrl: string;
   navItems: NavItem[];
   searchableItems: SearchableItem[];
   footerQuickLinks: FooterLink[];
@@ -123,6 +126,7 @@ export interface SiteContent {
   faqLeft: FAQItem[];
   faqRight: FAQItem[];
   projects: Project[];
+  productCatalog: Project[];
   coreValues: CoreValue[];
   roadmap: RoadmapItem[];
   contactInfo: ContactInfo[];

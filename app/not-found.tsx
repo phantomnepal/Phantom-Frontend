@@ -26,7 +26,7 @@ export default function NotFound() {
         {/* 2. Status */}
         <div className="flex items-center gap-3 mt-2 mb-6">
           <div className="h-px w-8 bg-gray-200" />
-          <span className="font-mono text-xs tracking-widest text-[#A10F1A] font-bold">
+          <span className="font-mono text-xs tracking-widest text-brand font-bold">
             SIGNAL_DEGRADED
           </span>
           <div className="h-px w-8 bg-gray-200" />
@@ -37,7 +37,7 @@ export default function NotFound() {
           <h1 className="text-7xl md:text-9xl font-black text-[#1A1A1A] tracking-tighter leading-none mb-2">
             404
           </h1>
-          <p className="text-xl md:text-2xl font-bold text-[#A10F1A] tracking-[0.3em] uppercase">
+          <p className="text-xl md:text-2xl font-bold text-brand tracking-[0.3em] uppercase">
             Not Found
           </p>
         </div>
@@ -50,12 +50,12 @@ export default function NotFound() {
             <div className="absolute top-2 left-2 w-2 h-2 rounded-full bg-[#E8E8E8]" />
             <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#E8E8E8]" />
             <div className="absolute bottom-2 left-2 w-2 h-2 rounded-full bg-[#E8E8E8]" />
-            <div className="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-[#A10F1A]" />
+            <div className="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-brand" />
 
             {/* Broken trace indicators inside the line */}
             <div className="absolute inset-0 flex items-center justify-center gap-1">
               <div className="w-16 h-0.5 bg-[#E8E8E8]" />
-              <div className="w-2 h-2 rounded-full bg-[#A10F1A] animate-pulse" />
+              <div className="w-2 h-2 rounded-full bg-brand animate-pulse" />
               <div className="w-16 h-0.5 bg-[#E8E8E8]" />
             </div>
           </div>

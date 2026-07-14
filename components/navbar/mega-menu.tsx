@@ -40,7 +40,7 @@ export function MegaMenuContent({ menu }: { menu: MegaMenu }) {
             return (
               <motion.div key={column.title} variants={columnVariants}>
                 <div className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-100">
-                  {Icon && <Icon className="w-3.5 h-3.5 text-[#A10F1A]" />}
+                  {Icon && <Icon className="w-3.5 h-3.5 text-brand" />}
                   <h3 className="text-[11px] font-semibold text-gray-500 uppercase tracking-[0.12em]">
                     {column.title}
                   </h3>

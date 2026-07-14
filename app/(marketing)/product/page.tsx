@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { getSiteContent } from "@/data/content";
 
 export const metadata: Metadata = {
@@ -23,7 +24,7 @@ export default function ProductPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
             Precision Engineering for the{" "}
-            <span className="text-[#A10F1A]">Next Frontier</span>
+            <span className="text-brand">Next Frontier</span>
           </h1>
           <p className="mt-6 max-w-2xl mx-auto text-lg text-gray-600 leading-relaxed">
             PHANTOM is dedicated to pushing the boundaries of high-performance
@@ -38,10 +39,10 @@ export default function ProductPage() {
       <section className="pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {content.projects.map((project, index) => (
+            {content.productCatalog.map((project, index) => (
               <div
                 key={project.id}
-                className="group border border-gray-200 bg-white flex flex-col rounded-md overflow-hidden transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1"
+                className="group border border-gray-200 bg-white flex flex-col rounded-md overflow-hidden transition-all duration-300 ease-in-out hover:shadow-md hover:-translate-y-1"
               >
                 {/* Image */}
                 <div className="relative aspect-[4/3] overflow-hidden bg-gray-50">
@@ -58,7 +59,7 @@ export default function ProductPage() {
                 {/* Content */}
                 <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-start justify-between mb-3 gap-4">
-                    <span className="text-xs font-bold tracking-widest text-[#A10F1A]">
+                    <span className="text-xs font-bold tracking-widest text-brand">
                       {project.category}
                     </span>
                     <span
@@ -88,12 +89,14 @@ export default function ProductPage() {
                       ))}
                     </div>
 
-                    <a
-                      href="#"
-                      className="inline-flex items-center gap-1 text-sm font-semibold text-[#A10F1A] hover:text-[#A10F1A] transition-colors"
-                    >
-                      VIEW DETAILS <span className="text-base">→</span>
-                    </a>
+                    {project.storeSlug && (
+                      <Link
+                        href={`${content.storeUrl}/products/${project.storeSlug}`}
+                        className="inline-flex items-center gap-1 text-sm font-semibold text-brand hover:text-brand transition-colors"
+                      >
+                        VIEW DETAILS <span className="text-base">→</span>
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>

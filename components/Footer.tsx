@@ -121,11 +121,11 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-sm text-gray-400">
-                <MapPin className="w-4 h-4 text-[#A10F1A] flex-shrink-0" />
+                <MapPin className="w-4 h-4 text-brand flex-shrink-0" />
                 <span>Kathmandu, Nepal</span>
               </li>
               <li className="flex items-center gap-3 text-sm text-gray-400">
-                <Phone className="w-4 h-4 text-[#A10F1A] flex-shrink-0" />
+                <Phone className="w-4 h-4 text-brand flex-shrink-0" />
                 <a
                   href="tel:9863942274"
                   className="hover:text-white transition-colors"
@@ -134,7 +134,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-3 text-sm text-gray-400">
-                <Mail className="w-4 h-4 text-[#A10F1A] flex-shrink-0" />
+                <Mail className="w-4 h-4 text-brand flex-shrink-0" />
                 <a
                   href="mailto:info@phantom.com.np"
                   className="hover:text-white transition-colors"

@@ -18,7 +18,7 @@ export function CircuitField() {
       {/* Subtle crosshair markers at intersections */}
       <div className="absolute top-1/4 left-1/4 w-4 h-4 border border-gray-300/20 rotate-45" />
       <div className="absolute top-3/4 right-1/4 w-4 h-4 border border-gray-300/20 rotate-45" />
-      <div className="absolute bottom-1/3 left-1/3 w-2 h-2 bg-[#A10F1A]/5 rounded-full" />
+      <div className="absolute bottom-1/3 left-1/3 w-2 h-2 bg-brand/5 rounded-full" />
 
       {/* Ambient breathing animation layer */}
       <div

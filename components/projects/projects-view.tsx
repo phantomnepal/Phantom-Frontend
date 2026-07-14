@@ -18,7 +18,7 @@ export function ProjectsView({ projects }: { projects: Project[] }) {
           initial={reduce ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-[#A10F1A] text-sm font-medium mb-4"
+          className="text-brand text-sm font-medium mb-4"
         >
           Our Work
         </motion.p>
@@ -70,7 +70,7 @@ export function ProjectsView({ projects }: { projects: Project[] }) {
                 {/* Text */}
                 <div className="md:col-span-3 relative pr-10">
                   <ArrowDownRight className="absolute right-0 top-0 h-6 w-6 shrink-0 text-gray-300 transition-all duration-300 group-hover:text-gray-900 group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
-                  <p className="text-[#A10F1A] text-sm font-medium mb-2">
+                  <p className="text-brand text-sm font-medium mb-2">
                     {project.category.trim()}
                   </p>
                   <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 tracking-tight transition-colors group-hover:text-gray-600">

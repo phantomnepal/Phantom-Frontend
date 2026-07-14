@@ -12,7 +12,7 @@ export default function AboutPage() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* LEFT — Text */}
           <div>
-            <p className="text-[#9b1c1c] text-sm font-medium mb-4">
+            <p className="text-brand-dark text-sm font-medium mb-4">
               About - Company
             </p>
             <h1 className="text-[40px] sm:text-[52px] lg:text-[60px] font-bold text-gray-900 leading-[1.1] mb-5">
@@ -55,9 +55,9 @@ export default function AboutPage() {
           {/* RIGHT — Image with decorative corners */}
           <div className="relative">
             {/* Top-right corner decoration */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 border-t-2 border-r-2 border-[#9b1c1c] z-10" />
+            <div className="absolute -top-4 -right-4 w-24 h-24 border-t-2 border-r-2 border-brand-dark z-10" />
             {/* Bottom-left corner decoration */}
-            <div className="absolute -bottom-4 -left-4 w-24 h-24 border-b-2 border-l-2 border-[#9b1c1c] z-10" />
+            <div className="absolute -bottom-4 -left-4 w-24 h-24 border-b-2 border-l-2 border-brand-dark z-10" />
 
             <div className="relative w-full aspect-[4/3] overflow-hidden rounded-md">
               <Image
@@ -78,7 +78,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-6">
           {/* Heading */}
           <div className="text-center mb-14">
-            <p className="text-[#9b1c1c] text-sm font-medium mb-3">
+            <p className="text-brand-dark text-sm font-medium mb-3">
               Our Core Value
             </p>
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
@@ -93,7 +93,7 @@ export default function AboutPage() {
                 key={value.number}
                 className="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition border border-gray-100"
               >
-                <h3 className="text-4xl font-bold text-[#9b1c1c] mb-6">
+                <h3 className="text-4xl font-bold text-brand-dark mb-6">
                   {value.number}
                 </h3>
                 <h4 className="text-xl font-semibold text-gray-900 mb-4">
@@ -112,7 +112,7 @@ export default function AboutPage() {
       <section className="max-w-7xl mx-auto px-6 py-20">
         {/* Heading */}
         <div className="mb-16">
-          <p className="text-[#9b1c1c] text-sm font-semibold tracking-wider mb-3">
+          <p className="text-brand-dark text-sm font-semibold tracking-wider mb-3">
             ROADMAP
           </p>
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">
@@ -134,7 +134,7 @@ export default function AboutPage() {
                 {/* Year */}
                 <p
                   className={`text-4xl font-bold mb-2 leading-none ${
-                    item.isCurrent ? "text-[#9b1c1c]" : "text-[#e8b4b4]"
+                    item.isCurrent ? "text-brand-dark" : "text-[#e8b4b4]"
                   }`}
                 >
                   {item.year}
@@ -151,13 +151,13 @@ export default function AboutPage() {
                     {/* Outer halo ring */}
                     <div
                       className={`absolute w-4 h-4 rounded-full ${
-                        item.isCurrent ? "bg-[#9b1c1c]/15" : "bg-gray-200"
+                        item.isCurrent ? "bg-brand-dark/15" : "bg-gray-200"
                       }`}
                     />
                     {/* Inner solid dot */}
                     <div
                       className={`w-2 h-2 rounded-full relative z-10 ${
-                        item.isCurrent ? "bg-[#9b1c1c]" : "bg-gray-400"
+                        item.isCurrent ? "bg-brand-dark" : "bg-gray-400"
                       }`}
                     />
                   </div>

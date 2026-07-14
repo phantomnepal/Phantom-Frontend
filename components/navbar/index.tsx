@@ -114,6 +114,13 @@ export default function Navbar() {
               </kbd>
             </button>
 
+            <a
+              href={content.storeUrl}
+              className="border border-[#0f1e2e] text-[#0f1e2e] text-[14px] px-5 py-2.5 rounded-md hover:bg-gray-50 transition"
+            >
+              Go to Store
+            </a>
+
             <Link
               href="/contact"
               className="bg-[#0f1e2e] text-white text-[14px] px-5 py-2.5 rounded-md hover:bg-[#1a3147] transition"
