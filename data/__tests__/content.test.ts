@@ -13,7 +13,8 @@ describe('getSiteContent()', () => {
       'footerProductLinks',
       'solutions',
       'capabilities',
-      'products',
+      'productCategories',
+      'catalog',
       'logos',
       'faqLeft',
       'faqRight',
@@ -27,7 +28,9 @@ describe('getSiteContent()', () => {
 
     for (const key of keys) {
       expect(content).toHaveProperty(key);
-      expect(Array.isArray((content as Record<string, unknown>)[key])).toBe(true);
+      expect(
+        Array.isArray((content as unknown as Record<string, unknown>)[key]),
+      ).toBe(true);
     }
   });
 
@@ -77,13 +80,35 @@ describe('getSiteContent()', () => {
     });
   });
 
-  describe('products', () => {
+  describe('productCategories', () => {
+    it('each category has slug, title, description, image', () => {
+      for (const c of content.productCategories) {
+        expect(typeof c.slug).toBe('string');
+        expect(typeof c.title).toBe('string');
+        expect(typeof c.description).toBe('string');
+        expect(typeof c.image).toBe('string');
+      }
+    });
+  });
+
+  describe('catalog', () => {
     it('each product has required fields', () => {
-      for (const p of content.products) {
-        expect(typeof p.category).toBe('string');
+      for (const p of content.catalog) {
+        expect(typeof p.slug).toBe('string');
         expect(typeof p.title).toBe('string');
+        expect(typeof p.category).toBe('string');
         expect(typeof p.image).toBe('string');
-        expect(typeof p.href).toBe('string');
+        expect(typeof p.description).toBe('string');
+        expect(['prototype', 'in-development', 'available']).toContain(p.status);
+        expect(Array.isArray(p.specs)).toBe(true);
+        expect(typeof p.overview).toBe('string');
+        expect(p.overview.length).toBeGreaterThan(0);
+        expect(p.applications.length).toBeGreaterThan(0);
+        expect(p.faqs.length).toBeGreaterThan(0);
+        for (const spec of p.specs) {
+          expect(typeof spec.label).toBe('string');
+          expect(typeof spec.value).toBe('string');
+        }
       }
     });
   });

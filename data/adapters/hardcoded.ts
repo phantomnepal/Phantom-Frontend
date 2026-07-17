@@ -1,4 +1,625 @@
-import type { SiteContent } from "../types";
+import type {
+  MegaMenuColumn,
+  Product,
+  ProductCategory,
+  ProductPageContent,
+  SearchableItem,
+  SiteContent,
+} from "../types";
+
+const productCategories: ProductCategory[] = [
+  {
+    slug: "embedded-systems",
+    title: "Embedded Systems",
+    description:
+      "Custom PCBs, dev boards and sensor hardware for rapid prototyping.",
+    image: "/embedded-systems.jpg",
+  },
+  {
+    slug: "iot-robotics",
+    title: "IoT & Robotics",
+    description:
+      "Connected sensing, monitoring and programmable robotic platforms.",
+    image: "/iot-robotics.jpg",
+  },
+  {
+    slug: "uav-systems",
+    title: "UAV Systems",
+    description:
+      "Flight controllers and power electronics for FPV and light UAVs.",
+    image: "/products/flight-controller.png",
+  },
+  {
+    slug: "educational-kits",
+    title: "Educational Kits",
+    description:
+      "Hands-on kits that take learners from first circuit to working system.",
+    image: "/engineering-kits.png",
+  },
+];
+
+/**
+ * Every product Phantom sells or is building.
+ *
+ * The mega menu, /product/[category] and site search all derive from this list,
+ * so a product added here appears everywhere at once.
+ *
+ * Self-contained by design: product pages carry their own specs and never defer
+ * to /projects. `specs: []` means nothing is published yet, and the page says so
+ * rather than inventing detail.
+ *
+ * `overview`, `applications` and `faqs` are DRAFT placeholder copy — see
+ * data/types.ts. Review before this ships publicly.
+ */
+const catalog: Product[] = [
+  {
+    slug: "advance-usb-c-power-supply",
+    title: "Advance USB-C Power Supply",
+    category: "embedded-systems",
+    // Real photograph of this board, shared with the /projects entry for the
+    // same hardware. Replace if a dedicated product shot is taken.
+    image: "/project/project7.png",
+    description:
+      "A custom power supply for selectable, high-current voltage output.",
+    status: "prototype",
+    statusNote:
+      "This product has completed its final design phase and has entered the prototype stage for testing and manufacturing.",
+    overview:
+      "The Advance USB-C Power Supply is a custom STM32G0-based power supply built for high-power embedded and robotics projects. It delivers selectable, high-current voltage rails in an ultra-compact PCB, giving students, researchers, and engineers clean, reliable power without the bulk of a traditional bench supply.",
+    applications: [
+      "Variable power supply for projects",
+      "Powering multiple actuators simultaneously",
+      "Stable, safe voltage delivery for sensitive components",
+    ],
+    // Restructured from the authored highlights on the /projects entry for this
+    // same board — no new claims.
+    specs: [
+      { label: "MCU", value: "STM32G030K6Tx" },
+      {
+        label: "USB-PD controller",
+        value: "STUSB4500QTR, for negotiated voltage selection",
+      },
+      {
+        label: "Power path",
+        value: "High-efficiency STL6P3LLH6 P-channel MOSFETs",
+      },
+      { label: "Selectable output", value: "5V, 9V, 12V and 20V" },
+      { label: "Continuous current", value: "Up to 3A" },
+      { label: "Input", value: "USB-C 2.0" },
+      {
+        label: "Voltage selection",
+        value: "Push-button, with onboard LED indicators",
+      },
+      { label: "PCB", value: "4-layer, for power integrity and thermal performance" },
+      { label: "Power delivery", value: "Low-noise, for reduced EMI" },
+      {
+        label: "Form factor",
+        value: "Ultra-compact, for space-constrained projects",
+      },
+    ],
+    whyChoose: [
+      {
+        title: "Designed and assembled in Nepal",
+        description:
+          "Our hardware is engineered here, not rebadged. That means the people who designed the board are the people who answer when you ask about it.",
+      },
+      {
+        title: "Disciplined design",
+        description:
+          "We follow rigorous engineering standards so every PCB and firmware module is deterministic and reliable.",
+      },
+      {
+        title: "Built for real power demands",
+        description:
+          "From motor drivers to flight controllers, we design around actual current draw and thermal load, not just datasheet best-case numbers.",
+      },
+      {
+        title: "Built to be understood",
+        description:
+          "Our kits and platforms are made to be taken apart, programmed, and debugged — not treated as a black box.",
+      },
+    ],
+    faqs: [
+      {
+        question: "Is the output regulated and safe for sensitive components?",
+        answer:
+          "Yes. Voltage output is regulated through high-efficiency P-channel MOSFET switching.",
+      },
+      {
+        question:
+          "Can I use it with a standard USB-C charger, or does it need a specific PD adapter?",
+        answer: "It works with any USB-C PD-compliant charger or power source.",
+      },
+      {
+        question: "Are specifications available?",
+        answer: "Yes — see the specifications table above.",
+      },
+    ],
+  },
+  {
+    slug: "sensor-modules",
+    title: "Sensor Modules",
+    category: "embedded-systems",
+    image: "/embedded-systems.jpg",
+    description: "Integrated sensor solutions for data acquisition",
+    status: "in-development",
+    overview:
+      "Sensor modules handle the analog front end, power, and interface so your application code only deals with clean data. Each module is designed to drop into an existing project without redesigning the board around it.",
+    applications: [
+      "Data acquisition and logging",
+      "Environmental and condition monitoring",
+      "Adding sensing to an existing system",
+    ],
+    specs: [],
+    faqs: [
+      {
+        question: "Can I buy this today?",
+        answer:
+          "Not yet — it is still in development. Get in touch and we will tell you where it stands and when to expect it.",
+      },
+      {
+        question: "Can I influence the design?",
+        answer:
+          "Yes. Early conversations shape what we build, so tell us what you need it to do.",
+      },
+      {
+        question: "Are specifications available?",
+        answer:
+          "Not yet. We publish specifications once the hardware is real enough for us to stand behind them.",
+      },
+    ],
+  },
+  {
+    slug: "4-dof-robotic-arm",
+    title: "4-DOF Robotic Arm",
+    category: "iot-robotics",
+    image: "/iot-robotics.jpg",
+    description: "Programmable robotic arm for education and automation",
+    status: "in-development",
+    overview:
+      "A four-degree-of-freedom arm is enough to teach the fundamentals of kinematics, motion planning, and control without the cost and complexity of an industrial cell. It is built to be programmed, taken apart, and understood.",
+    applications: [
+      "Teaching kinematics and motion control",
+      "Automation demonstrations and pick-and-place",
+      "Robotics coursework and competitions",
+    ],
+    specs: [],
+    faqs: [
+      {
+        question: "Can I buy this today?",
+        answer:
+          "Not yet — it is still in development. Get in touch and we will tell you where it stands and when to expect it.",
+      },
+      {
+        question: "Can I influence the design?",
+        answer:
+          "Yes. Early conversations shape what we build, so tell us what you need it to do.",
+      },
+      {
+        question: "Are specifications available?",
+        answer:
+          "Not yet. We publish specifications once the hardware is real enough for us to stand behind them.",
+      },
+    ],
+  },
+  {
+    slug: "smart-sensor",
+    title: "Smart Sensor",
+    category: "iot-robotics",
+    image: "/iot-robotics.jpg",
+    description: "Intelligent sensing platform with wireless connectivity",
+    status: "in-development",
+    overview:
+      "A sensing platform with the processing and connectivity already on board, so readings arrive somewhere useful instead of stopping at a pin. Designed for deployments where running a wire is not practical.",
+    applications: [
+      "Wireless condition monitoring",
+      "Distributed sensing deployments",
+      "IoT prototypes and field trials",
+    ],
+    specs: [],
+    faqs: [
+      {
+        question: "Can I buy this today?",
+        answer:
+          "Not yet — it is still in development. Get in touch and we will tell you where it stands and when to expect it.",
+      },
+      {
+        question: "Can I influence the design?",
+        answer:
+          "Yes. Early conversations shape what we build, so tell us what you need it to do.",
+      },
+      {
+        question: "Are specifications available?",
+        answer:
+          "Not yet. We publish specifications once the hardware is real enough for us to stand behind them.",
+      },
+    ],
+  },
+  {
+    slug: "industrial-monitoring-devices",
+    title: "Industrial Monitoring Devices",
+    category: "iot-robotics",
+    image: "/iot-robotics.jpg",
+    description: "Real-time industrial monitoring and control hardware",
+    status: "in-development",
+    overview:
+      "Monitoring hardware built for environments that are noisier, hotter, and less forgiving than a bench. The focus is on getting a reliable reading out of a plant and into a system that can act on it.",
+    applications: [
+      "Plant and equipment monitoring",
+      "Process telemetry and alerting",
+      "Retrofitting instrumentation to existing machinery",
+    ],
+    specs: [],
+    faqs: [
+      {
+        question: "Can I buy this today?",
+        answer:
+          "Not yet — it is still in development. Get in touch and we will tell you where it stands and when to expect it.",
+      },
+      {
+        question: "Can I influence the design?",
+        answer:
+          "Yes. Early conversations shape what we build, so tell us what you need it to do.",
+      },
+      {
+        question: "Are specifications available?",
+        answer:
+          "Not yet. We publish specifications once the hardware is real enough for us to stand behind them.",
+      },
+    ],
+  },
+  {
+    slug: "phantom-f405",
+    title: "Phantom F405",
+    category: "uav-systems",
+    image: "/products/phantom-f405.png",
+    description: "STM32F405-based flight controller for FPV drones",
+    status: "available",
+    overview:
+      "The F405 pairs a proven, widely supported flight controller core with a compact, resilient layout that covers the majority of FPV and light UAV work. Designed and assembled in Nepal.",
+    applications: [
+      "FPV freestyle and racing builds",
+      "Light UAV and fixed-wing platforms",
+      "Flight control coursework and experimentation",
+    ],
+    specs: [
+      { label: "MCU", value: "STM32F405" },
+      { label: "Layout", value: "Compact, for tight builds" },
+      { label: "Suited to", value: "FPV and light UAV platforms" },
+      { label: "Origin", value: "Designed and assembled in Nepal" },
+    ],
+    faqs: [
+      {
+        question: "How does the F405 differ from the F722?",
+        answer:
+          "The F405 covers the majority of FPV and light UAV work. The F722 targets builds where control-loop precision matters most.",
+      },
+      {
+        question: "Is firmware support available?",
+        answer:
+          "The STM32F405 core is proven and widely supported. Contact us about your setup.",
+      },
+      {
+        question: "Where is it made?",
+        answer:
+          "Designed and assembled in Nepal.",
+      },
+    ],
+  },
+  {
+    slug: "phantom-f722",
+    title: "Phantom F722",
+    category: "uav-systems",
+    image: "/products/flight-controller.png",
+    description: "High-performance F722 flight controller for industrial UAVs",
+    status: "prototype",
+    overview:
+      "The F722-Analog was engineered around one goal: an ultra-precise IMU, fully isolated on its own power rail. It is built with premium components to minimise EMI and keep power delivery clean, with nothing else competing for board space or signal integrity.",
+    applications: [
+      "High-performance analog FPV builds",
+      "Industrial and inspection UAVs",
+      "Platforms where control-loop precision matters most",
+    ],
+    specs: [
+      { label: "MCU", value: "STM32F722RETx" },
+      { label: "IMU", value: "ICM42688-P, isolated on a dedicated LDO" },
+      { label: "Barometer", value: "BMP280" },
+      { label: "Battery input", value: "2S–6S" },
+      { label: "PCB", value: "6-layer, for signal and power integrity" },
+      { label: "Power", value: "Ultra-low-noise buck converter, for reduced EMI" },
+      { label: "Motor outputs", value: "DShot600 on all four channels, via Timer8" },
+      { label: "UARTs", value: "5" },
+      { label: "Mounting", value: "Plug-and-play with soldering pads" },
+      { label: "Designed for", value: "Ultra-clean analog systems only" },
+    ],
+    faqs: [
+      {
+        question: "Is the F722 available to buy?",
+        answer:
+          "It is a prototype. Talk to us about your build and we will tell you where it stands.",
+      },
+      {
+        question: "Does it support digital VTX systems?",
+        answer:
+          "It is purpose-built for analog systems only. Get in touch if you need a digital-capable board.",
+      },
+      {
+        question: "Where is it made?",
+        answer:
+          "Designed and assembled in Nepal.",
+      },
+    ],
+  },
+  {
+    slug: "esc-stack",
+    title: "ESC Stack",
+    category: "uav-systems",
+    image: "/products/flight-controller.png",
+    description: "High-current ESC modules for multirotor platforms",
+    status: "in-development",
+    overview:
+      "An ESC stack handles the power side of a multirotor, turning control signals into motor drive without becoming the weak link in the build. Designed to pair cleanly with our flight controllers.",
+    applications: [
+      "Multirotor and FPV power trains",
+      "Higher-current UAV platforms",
+      "Paired flight controller and ESC builds",
+    ],
+    specs: [],
+    faqs: [
+      {
+        question: "Can I buy this today?",
+        answer:
+          "Not yet — it is still in development. Get in touch and we will tell you where it stands and when to expect it.",
+      },
+      {
+        question: "Can I influence the design?",
+        answer:
+          "Yes. Early conversations shape what we build, so tell us what you need it to do.",
+      },
+      {
+        question: "Are specifications available?",
+        answer:
+          "Not yet. We publish specifications once the hardware is real enough for us to stand behind them.",
+      },
+    ],
+  },
+  {
+    slug: "electronics-starter-kit",
+    title: "Electronics Starter Kit",
+    category: "educational-kits",
+    image: "/engineering-kits.png",
+    description: "Beginner-friendly kit for learning electronics fundamentals",
+    status: "available",
+    overview:
+      "Learning electronics from theory alone rarely sticks — beginners need to build real circuits to understand them. This kit packages a curated set of components with guided projects that take someone from their first LED to working circuits.",
+    applications: [
+      "First steps into electronics",
+      "Classroom and workshop teaching",
+      "Self-paced learning at home",
+    ],
+    specs: [
+      { label: "Contents", value: "Curated components covering the fundamentals" },
+      { label: "Projects", value: "Guided and hands-on" },
+      { label: "Level", value: "Beginner" },
+      { label: "Format", value: "Built for self-paced learning" },
+    ],
+    faqs: [
+      {
+        question: "Do I need any experience?",
+        answer:
+          "No. The kit is built for people starting from their first LED.",
+      },
+      {
+        question: "Is it suitable for a classroom?",
+        answer:
+          "Yes — it is used for both classroom teaching and self-paced learning.",
+      },
+      {
+        question: "What do I need to supply?",
+        answer:
+          "Get in touch and we will confirm what is in the box for your intake.",
+      },
+    ],
+  },
+  {
+    slug: "embedded-systems-kit",
+    title: "Embedded Systems Kit",
+    category: "educational-kits",
+    image: "/engineering-kits.png",
+    description: "Advanced kit for embedded systems development",
+    status: "available",
+    overview:
+      "Embedded development has a steep first step, from toolchains to hardware. This kit pairs industry-relevant hardware with a structured path into embedded programming and real-time systems.",
+    applications: [
+      "Learning firmware and real-time systems",
+      "Bridging hobby work and professional practice",
+      "University embedded coursework",
+    ],
+    specs: [
+      { label: "Hardware", value: "Industry-relevant embedded hardware" },
+      { label: "Path", value: "Structured, into firmware" },
+      { label: "Topics", value: "Real-time systems fundamentals" },
+      { label: "Level", value: "Bridges hobby and professional work" },
+    ],
+    faqs: [
+      {
+        question: "How is this different from the Starter Kit?",
+        answer:
+          "The Starter Kit teaches electronics fundamentals. This kit is a step up, into firmware and real-time systems.",
+      },
+      {
+        question: "Do I need prior firmware experience?",
+        answer:
+          "It is built as an on-ramp, but assumes you are ready to go deeper than a first kit.",
+      },
+      {
+        question: "Is it used professionally?",
+        answer:
+          "The hardware is industry-relevant and bridges hobby and professional practice.",
+      },
+    ],
+  },
+  {
+    slug: "robotics-kit",
+    title: "Robotics Kit",
+    category: "educational-kits",
+    image: "/engineering-kits.png",
+    description: "Build and program your own robots",
+    status: "available",
+    overview:
+      "Robotics ties together mechanics, electronics, and code, which is where most learners get stuck. This kit walks builders through motion control, sensors, and actuators with projects that assemble into a working robot.",
+    applications: [
+      "Project-based robotics learning",
+      "Teaching sensors, actuators, and control together",
+      "Clubs, workshops, and competitions",
+    ],
+    specs: [
+      { label: "Covers", value: "Motion control, sensors and actuators" },
+      { label: "Format", value: "Project-based" },
+      { label: "Disciplines", value: "Mechanics, electronics and code" },
+      { label: "Outcome", value: "Program your own behaviours" },
+    ],
+    faqs: [
+      {
+        question: "What will I build?",
+        answer:
+          "Projects assemble into a working robot you program yourself.",
+      },
+      {
+        question: "Do I need to know how to code?",
+        answer:
+          "The kit walks through motion control, sensors and actuators together, so the code comes with the build.",
+      },
+      {
+        question: "Is it suitable for a club or competition?",
+        answer:
+          "Yes — it is used for clubs, workshops and competitions.",
+      },
+    ],
+  },
+  {
+    slug: "educational-1u-cubesat",
+    title: "Educational 1U CubeSat",
+    category: "educational-kits",
+    image: "/products/cubesat.png",
+    description: "Learn satellite systems with this 1U CubeSat platform",
+    status: "available",
+    overview:
+      "Teaching orbital systems is expensive and abstract, and students rarely touch real satellite hardware. This 1U platform mirrors a real CubeSat — structure, power, compute, and a communications link students can program end to end.",
+    applications: [
+      "Teaching satellite and orbital systems",
+      "University aerospace laboratories",
+      "Hands-on telemetry and ground-link exercises",
+    ],
+    specs: [
+      { label: "Form factor", value: "1U aluminium frame, matching real CubeSat geometry" },
+      { label: "Subsystems", value: "Modular power, compute and communications" },
+      { label: "Telemetry", value: "Programmable, with a ground-link workflow" },
+      { label: "Built for", value: "Classroom and lab use" },
+    ],
+    faqs: [
+      {
+        question: "Is this a flight-qualified CubeSat?",
+        answer:
+          "No. It is an educational platform that mirrors real CubeSat geometry and subsystems for teaching.",
+      },
+      {
+        question: "Who is it for?",
+        answer:
+          "University aerospace labs and courses that want students to assemble, program and debug real satellite subsystems.",
+      },
+      {
+        question: "Can students program it end to end?",
+        answer:
+          "Yes — power, compute and the communications link are all programmable.",
+      },
+    ],
+  },
+];
+
+/**
+ * Shared by every product page. Site-level claims only — nothing here is
+ * specific to a product, so it stays true as the catalog changes.
+ */
+const productPageContent: ProductPageContent = {
+  whyChoose: [
+    {
+      title: "Designed and assembled in Nepal",
+      description:
+        "Our hardware is engineered here, not rebadged. That means the people who designed the board are the people who answer when you ask about it.",
+    },
+    {
+      title: "Disciplined design",
+      description:
+        "We follow rigorous engineering standards so every PCB and firmware module is deterministic and reliable.",
+    },
+    {
+      title: "Mission focused",
+      description:
+        "Whether it is a sensor node or a CubeSat, we design with end-mission success as the primary metric.",
+    },
+    {
+      title: "Built to be understood",
+      description:
+        "Our kits and platforms are made to be taken apart, programmed, and debugged — not treated as a black box.",
+    },
+  ],
+  /**
+   * NOTE: these steps describe the store — quantity selection, cart, checkout —
+   * which does not exist on `main`. The product CTA here is "Enquire now" and
+   * links to /contact; the cart lives on the `ecommerce-phase1` branch, pending
+   * the store.phantom.com.np subdomain. Written at the user's explicit
+   * instruction, knowing that. The bulk-pricing threshold is still unspecified,
+   * so no number is claimed.
+   */
+  orderSteps: [
+    {
+      title: "Choose your quantity",
+      description:
+        "Select unit quantity on the product page — single units for individual use, or bulk tiers for labs, classrooms, and production runs.",
+    },
+    {
+      title: "Add to cart and check out",
+      description:
+        "Confirm your shipping details and complete payment securely online. Bulk orders get tiered pricing automatically.",
+    },
+    {
+      title: "We build and ship",
+      description:
+        "Orders are fulfilled from stock or current production batch, tested, and shipped to your address with tracking.",
+    },
+  ],
+};
+
+/** Mega-menu columns, one per category, derived from the catalog. */
+const productMegaMenuColumns: MegaMenuColumn[] = productCategories.map(
+  (category) => ({
+    title: category.title,
+    items: catalog
+      .filter((product) => product.category === category.slug)
+      .map((product) => ({
+        label: product.title,
+        href: `/product/${product.slug}`,
+        description: product.description,
+      })),
+  }),
+);
+
+/** Search entries for every product and category, derived from the catalog. */
+const catalogSearchItems: SearchableItem[] = [
+  ...productCategories.map((category) => ({
+    title: category.title,
+    href: `/product/${category.slug}`,
+    category: "Product Line",
+  })),
+  ...catalog.map((product) => ({
+    title: product.title,
+    href: `/product/${product.slug}`,
+    category:
+      productCategories.find((c) => c.slug === product.category)?.title ??
+      "Products",
+  })),
+];
 
 export const hardcodedContent: SiteContent = {
   navItems: [
@@ -6,97 +627,7 @@ export const hardcodedContent: SiteContent = {
     { label: "About Us", href: "/about" },
     {
       label: "Product",
-      megaMenu: {
-        columns: [
-          {
-            title: "Embedded Systems",
-            items: [
-              {
-                label: "Development Boards",
-                href: "/product",
-                description: "Custom PCBs and dev boards for rapid prototyping",
-              },
-              {
-                label: "Sensor Modules",
-                href: "/product",
-                description: "Integrated sensor solutions for data acquisition",
-              },
-            ],
-          },
-          {
-            title: "IoT & Robotics",
-            items: [
-              {
-                label: "4-DOF Robotic Arm",
-                href: "/product",
-                description:
-                  "Programmable robotic arm for education and automation",
-              },
-              {
-                label: "Smart Sensor",
-                href: "/product",
-                description:
-                  "Intelligent sensing platform with wireless connectivity",
-              },
-              {
-                label: "Industrial Monitoring Devices",
-                href: "/product",
-                description:
-                  "Real-time industrial monitoring and control hardware",
-              },
-            ],
-          },
-          {
-            title: "UAV Systems",
-            items: [
-              {
-                label: "Phantom F405",
-                href: "/product",
-                description: "STM32F405-based flight controller for FPV drones",
-              },
-              {
-                label: "Phantom F722",
-                href: "/product",
-                description:
-                  "High-performance F722 flight controller for industrial UAVs",
-              },
-              {
-                label: "ESC Stack",
-                href: "/product",
-                description:
-                  "High-current ESC modules for multirotor platforms",
-              },
-            ],
-          },
-          {
-            title: "Educational Kits",
-            items: [
-              {
-                label: "Electronics Starter Kit",
-                href: "/product",
-                description:
-                  "Beginner-friendly kit for learning electronics fundamentals",
-              },
-              {
-                label: "Embedded Systems Kit",
-                href: "/product",
-                description: "Advanced kit for embedded systems development",
-              },
-              {
-                label: "Robotics Kit",
-                href: "/product",
-                description: "Build and program your own robots",
-              },
-              {
-                label: "Educational 1U CubeSat",
-                href: "/product",
-                description:
-                  "Learn satellite systems with this 1U CubeSat platform",
-              },
-            ],
-          },
-        ],
-      },
+      megaMenu: { columns: productMegaMenuColumns },
     },
     {
       label: "Engineering",
@@ -196,66 +727,7 @@ export const hardcodedContent: SiteContent = {
   searchableItems: [
     { title: "Home", href: "/", category: "Page" },
     { title: "About Us", href: "/about", category: "Page" },
-    {
-      title: "Development Boards",
-      href: "/product",
-      category: "Embedded Systems",
-    },
-    {
-      title: "Sensor Modules",
-      href: "/product",
-      category: "Embedded Systems",
-    },
-    {
-      title: "4-DOF Robotic Arm",
-      href: "/product",
-      category: "IoT & Robotics",
-    },
-    {
-      title: "Smart Sensor",
-      href: "/product",
-      category: "IoT & Robotics",
-    },
-    {
-      title: "Industrial Monitoring Devices",
-      href: "/product",
-      category: "IoT & Robotics",
-    },
-    {
-      title: "Phantom F405",
-      href: "/product",
-      category: "UAV Systems",
-    },
-    {
-      title: "Phantom F722",
-      href: "/product",
-      category: "UAV Systems",
-    },
-    {
-      title: "ESC Stack",
-      href: "/product",
-      category: "UAV Systems",
-    },
-    {
-      title: "Electronics Starter Kit",
-      href: "/product",
-      category: "Educational Kits",
-    },
-    {
-      title: "Embedded Systems Kit",
-      href: "/product",
-      category: "Educational Kits",
-    },
-    {
-      title: "Robotics Kit",
-      href: "/product",
-      category: "Educational Kits",
-    },
-    {
-      title: "Educational 1U CubeSat",
-      href: "/product",
-      category: "Educational Kits",
-    },
+    ...catalogSearchItems,
     {
       title: "Schematic & PCB Design",
       href: "/engineering/hardware/schematic-pcb-design",
@@ -420,26 +892,9 @@ export const hardcodedContent: SiteContent = {
     },
   ],
 
-  products: [
-    {
-      category: "Instrumentation",
-      title: "Embedded Systems",
-      image: "/embedded-systems.jpg",
-      href: "/product",
-    },
-    {
-      category: "Aerospace",
-      title: "Engineering Kits",
-      image: "/engineering-kits.png",
-      href: "/product",
-    },
-    {
-      category: "Development",
-      title: "IoT & Robotics",
-      image: "/iot-robotics.jpg",
-      href: "/product",
-    },
-  ],
+  productCategories,
+  catalog,
+  productPageContent,
 
   logos: [
     { src: "/logos/matlab.svg", alt: "MATLAB" },

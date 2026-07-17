@@ -47,11 +47,87 @@ export interface Capability {
   image: string;
 }
 
-export interface Product {
-  category: string;
+/** Lifecycle stage of a product. Mirrors Project['badgeVariant']. */
+export type ProductStatus = 'prototype' | 'in-development' | 'available';
+
+/** One row of a product's capabilities table. */
+export interface SpecRow {
+  label: string;
+  value: string;
+}
+
+export interface ProductFaq {
+  question: string;
+  answer: string;
+}
+
+/** One "Why Choose Phantom?" panel. */
+export interface WhyChooseItem {
   title: string;
+  description: string;
+}
+
+/**
+ * Defaults for every product page. A product may override `whyChoose` with its
+ * own list; `orderSteps` is site-level only, because how you order does not
+ * vary by product.
+ */
+export interface ProductPageContent {
+  whyChoose: WhyChooseItem[];
+  orderSteps: { title: string; description: string }[];
+}
+
+/**
+ * A product Phantom sells or is building. The catalog is the single source of
+ * truth for the product nav, the category pages, and site search — derive,
+ * don't duplicate.
+ *
+ * Deliberately carries no price: pricing lives in the store's database and is
+ * joined by slug. Marketing metadata only.
+ */
+export interface Product {
+  slug: string;
+  title: string;
+  /** Slug of the owning ProductCategory. */
+  category: string;
   image: string;
-  href: string;
+  /** One-line summary. Used on cards, in the mega menu, and as meta description. */
+  description: string;
+  status: ProductStatus;
+  /**
+   * Optional detail on what `status` means for this product specifically —
+   * e.g. how far through prototyping it is. Rendered beside the badge.
+   */
+  statusNote?: string;
+  /**
+   * DRAFT PLACEHOLDER COPY — not reviewed, not true of any specific hardware.
+   * Written to shape the page layout; replace before this ships publicly.
+   */
+  overview: string;
+  /** DRAFT PLACEHOLDER COPY — see `overview`. */
+  applications: string[];
+  /** DRAFT PLACEHOLDER COPY — see `overview`. */
+  faqs: ProductFaq[];
+  /**
+   * Capabilities table rows. Restructured from the previously authored
+   * highlights — no new claims. Empty means nothing is published yet, and the
+   * page says so rather than inventing detail.
+   */
+  specs: SpecRow[];
+  /**
+   * Overrides the site-level `whyChoose` for this product only. Use when a
+   * reason to choose Phantom is specific to this hardware and would read as
+   * nonsense on the rest of the catalog. Omit to inherit the site default.
+   */
+  whyChoose?: WhyChooseItem[];
+}
+
+/** A product line. Groups the catalog and backs /product/[category]. */
+export interface ProductCategory {
+  slug: string;
+  title: string;
+  description: string;
+  image: string;
 }
 
 export interface Logo {
@@ -118,7 +194,9 @@ export interface SiteContent {
   footerProductLinks: FooterLink[];
   solutions: Solution[];
   capabilities: Capability[];
-  products: Product[];
+  productCategories: ProductCategory[];
+  catalog: Product[];
+  productPageContent: ProductPageContent;
   logos: Logo[];
   faqLeft: FAQItem[];
   faqRight: FAQItem[];

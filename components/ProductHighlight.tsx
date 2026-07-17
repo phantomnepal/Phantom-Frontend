@@ -27,29 +27,31 @@ export default function ProductHighlight() {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {content.products.map((product, idx) => (
-            <Link key={idx} href={product.href} className="group block">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {content.productCategories.map((category) => (
+            <Link
+              key={category.slug}
+              href={`/product/${category.slug}`}
+              className="group block"
+            >
               {/* Image Container */}
               <div className="relative w-full aspect-square overflow-hidden rounded-md">
                 <Image
-                  src={product.image}
-                  alt={product.title}
+                  src={category.image}
+                  alt={category.title}
                   fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 ease-in-out group-hover:scale-105"
                 />
-
-                {/* Category Tag */}
-                <span className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-gray-900 text-sm font-medium px-4 py-2 rounded-full shadow-sm">
-                  {product.category}
-                </span>
               </div>
 
               {/* Title */}
               <h3 className="mt-4 text-lg font-bold text-gray-900 group-hover:text-[#A10F1A] transition-colors">
-                {product.title}
+                {category.title}
               </h3>
+              <p className="mt-1 text-sm text-gray-600 leading-relaxed">
+                {category.description}
+              </p>
             </Link>
           ))}
         </div>

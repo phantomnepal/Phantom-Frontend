@@ -7,6 +7,9 @@ export default defineConfig({
   test: {
     environment: 'happy-dom',
     include: ['**/*.test.{ts,tsx}'],
+    // Git worktrees live under .claude/worktrees and carry their own copies of
+    // these tests; collecting them runs another branch's suite against this one.
+    exclude: ['**/node_modules/**', '**/dist/**', '**/.next/**', '**/.claude/**'],
     globals: true,
   },
   resolve: {
