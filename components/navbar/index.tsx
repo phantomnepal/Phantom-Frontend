@@ -137,11 +137,14 @@ export default function Navbar() {
         </div>
 
         {activeMegaLabel && (
-          <div
-            className="hidden lg:flex absolute left-0 right-0 z-50 justify-center"
-            {...getPanelHandlers()}
-          >
-            <div className="w-full max-w-5xl">
+          <div className="hidden lg:flex absolute left-0 right-0 z-50 justify-center pointer-events-none">
+            {/* Hover handlers belong on the panel itself, not the full-width
+                wrapper: the wrapper spans the viewport, so its onMouseLeave
+                only fires far outside the visible menu. */}
+            <div
+              className="w-full max-w-5xl pointer-events-auto"
+              {...getPanelHandlers()}
+            >
               <AnimatePresence mode="popLayout">
                 {currentMegaMenu && (
                   <motion.div
