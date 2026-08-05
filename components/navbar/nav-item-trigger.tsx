@@ -40,7 +40,8 @@ export function NavItemTrigger({
   }
 
   const matchesPath = item.megaMenu
-    ? item.megaMenu.columns.some((column) =>
+    ? pathname === item.href ||
+      item.megaMenu.columns.some((column) =>
         column.items.some((menuItem) => menuItem.href === pathname),
       )
     : item.dropdown?.some((d) => d.href === pathname);
@@ -55,26 +56,50 @@ export function NavItemTrigger({
         }
       : {};
 
-  return (
-    <button
-      className={`${
-        variant === "desktop"
-          ? "flex items-center gap-1 transition hover:text-black"
-          : "flex justify-between w-full items-center py-2 hover:text-black transition"
-      } ${
-        isActive && variant === "desktop"
-          ? `text-black${matchesPath ? " font-semibold" : ""}`
-          : ""
-      }`}
-      onClick={variant === "mobile" ? onTrigger : undefined}
-      {...handlers}
-    >
+  const className = `${
+    variant === "desktop"
+      ? "flex items-center gap-1 transition hover:text-black"
+      : "flex justify-between w-full items-center py-2 hover:text-black transition"
+  } ${
+    isActive && variant === "desktop"
+      ? `text-black${matchesPath ? " font-semibold" : ""}`
+      : ""
+  }`;
+
+  const label = (
+    <>
       {item.label}
       <ChevronDown
         className={`w-4 h-4 transition-transform duration-200 ${
           isExpanded ? "rotate-180" : ""
         }`}
       />
+    </>
+  );
+
+  /**
+   * On desktop the label doubles as a link to the section landing page while
+   * hover still opens the panel — the panel is the only thing the pointer
+   * drives, so nothing about the hover behaviour changes.
+   *
+   * Mobile stays a button: there is no hover there, so the tap has to be what
+   * expands the submenu.
+   */
+  if (variant === "desktop" && item.href) {
+    return (
+      <Link href={item.href} className={className} {...handlers}>
+        {label}
+      </Link>
+    );
+  }
+
+  return (
+    <button
+      className={className}
+      onClick={variant === "mobile" ? onTrigger : undefined}
+      {...handlers}
+    >
+      {label}
     </button>
   );
 }

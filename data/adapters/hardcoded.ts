@@ -692,12 +692,17 @@ export const hardcodedContent: SiteContent = {
   navItems: [
     { label: "Home", href: "/" },
     { label: "About Us", href: "/about" },
+    // Mega-menu items carry an href as well: hovering opens the panel, and
+    // clicking the label goes to the section landing page. Without this the
+    // nav had no route to /product at all.
     {
       label: "Product",
+      href: "/product",
       megaMenu: { columns: productMegaMenuColumns },
     },
     {
       label: "Engineering",
+      href: "/engineering",
       megaMenu: {
         columns: [
           {
