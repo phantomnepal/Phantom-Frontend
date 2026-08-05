@@ -8,6 +8,7 @@ import {
   AccordionContent,
 } from "@/components/animate-ui/primitives/radix/accordion";
 import type { Product, ProductCategory, ProductPageContent } from "@/data/types";
+import { applicationIcons } from "@/data/icons";
 import { getCategoryBySlug } from "@/lib/catalog";
 
 /**
@@ -39,29 +40,41 @@ export function SectionShell({
 }
 
 /**
- * Applications band — one card per authored application sentence.
+ * Applications band — icon, all-caps label and sentence per card.
  *
- * The Figma gives each card an icon and a short all-caps title. Neither exists
- * in the content: `applications` is a plain sentence per entry, and inventing
- * titles or picking icons per product would mean writing copy about hardware
- * that is mostly still in development. The sentence renders alone instead.
+ * Only the power supply's three entries are authored copy; the rest carry the
+ * previously written sentence unchanged with a label added. See
+ * ProductApplication.
  */
 export function ApplicationsBand({ product }: { product: Product }) {
   if (product.applications.length === 0) return null;
   return (
     <section className="bg-[#F5F6F8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {product.applications.map((application) => (
-            <div
-              key={application}
-              className="rounded-md border border-gray-200 bg-white px-6 py-6 shadow-sm"
-            >
-              <p className="text-sm leading-relaxed text-gray-700">
-                {application}
-              </p>
-            </div>
-          ))}
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {product.applications.map((application) => {
+            const Icon = applicationIcons[application.iconName];
+            return (
+              <div
+                key={application.title}
+                className="flex items-start gap-5 rounded-md bg-white px-6 py-6 shadow-sm"
+              >
+                {Icon && (
+                  <span className="shrink-0 rounded border border-gray-200 p-2.5 text-[#A10F1A]">
+                    <Icon className="h-5 w-5" strokeWidth={1.75} />
+                  </span>
+                )}
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-wider text-gray-600">
+                    {application.title}
+                  </p>
+                  <p className="mt-1.5 leading-relaxed text-gray-900">
+                    {application.description}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -110,6 +123,18 @@ export function TechnicalSpecsSection({ product }: { product: Product }) {
                 {spec.value}
               </dd>
             </div>
+          ))}
+          {/* Close the rectangle. A spec count that is not a multiple of three
+              would otherwise leave the last row unbordered on the right, which
+              reads as a rendering fault rather than a datasheet. */}
+          {Array.from({
+            length: (3 - (product.specs.length % 3)) % 3,
+          }).map((_, i) => (
+            <div
+              key={`filler-${i}`}
+              aria-hidden="true"
+              className="hidden border-b border-r border-white/10 lg:block"
+            />
           ))}
         </dl>
       </div>

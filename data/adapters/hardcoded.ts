@@ -70,35 +70,58 @@ const catalog: Product[] = [
     overview:
       "The Advance USB-C Power Supply is a custom STM32G0-based power supply built for high-power embedded and robotics projects. It delivers selectable, high-current voltage rails in an ultra-compact PCB, giving students, researchers, and engineers clean, reliable power without the bulk of a traditional bench supply.",
     applications: [
-      "Variable power supply for projects",
-      "Powering multiple actuators simultaneously",
-      "Stable, safe voltage delivery for sensitive components",
+      // Authored — taken verbatim from the design for this board.
+      {
+        iconName: "Zap",
+        title: "Dynamic power",
+        description: "5V-20V switching for variable power needs.",
+      },
+      {
+        iconName: "Bot",
+        title: "High-current actuators",
+        description: "Powers multiple actuators without sag.",
+      },
+      {
+        iconName: "Vibrate",
+        title: "Sensitive electronics",
+        description: "Low-noise delivery for MCU/RF signals.",
+      },
     ],
     // Restructured from the authored highlights on the /projects entry for this
     // same board — no new claims.
+    // Nine rows, filling the design's 3x3 grid exactly. Values are terse for
+    // the same reason. The previous tenth row ("Power delivery: Low-noise, for
+    // reduced EMI") left an orphan cell on a fourth row and is already said by
+    // the "Sensitive electronics" application card, so it was dropped rather
+    // than reworded.
+    //
+    // "Form factor" deliberately keeps its original wording: the design reads
+    // "Ultra-compact 45x25mm", and that dimension is not in the authored specs.
     specs: [
       { label: "MCU", value: "STM32G030K6Tx" },
-      {
-        label: "USB-PD controller",
-        value: "STUSB4500QTR, for negotiated voltage selection",
-      },
+      { label: "PD controller", value: "STUSB4500QTR" },
       {
         label: "Power path",
-        value: "High-efficiency STL6P3LLH6 P-channel MOSFETs",
+        value: "High-efficiency STL6P3LLH6 P-MOSFETs",
       },
-      { label: "Selectable output", value: "5V, 9V, 12V and 20V" },
+      { label: "Selectable output", value: "5V, 9V, 12V, 20V" },
       { label: "Continuous current", value: "Up to 3A" },
-      { label: "Input", value: "USB-C 2.0" },
+      { label: "Input interface", value: "USB-C 2.0" },
       {
         label: "Voltage selection",
-        value: "Push-button, with onboard LED indicators",
+        value: "Push-button w/ onboard LEDs",
       },
-      { label: "PCB", value: "4-layer, for power integrity and thermal performance" },
-      { label: "Power delivery", value: "Low-noise, for reduced EMI" },
+      { label: "PCB design", value: "4-layer, power optimized" },
       {
         label: "Form factor",
-        value: "Ultra-compact, for space-constrained projects",
+        value: "Ultra-compact",
       },
+    ],
+    // Terse summary for the hero strip — every value restates a spec above.
+    highlights: [
+      { label: "Input source", value: "USB-C 2.0" },
+      { label: "Max output", value: "20V / 3A" },
+      { label: "PCB grade", value: "4-Layer" },
     ],
     whyChoose: [
       {
@@ -151,9 +174,21 @@ const catalog: Product[] = [
     overview:
       "Sensor modules handle the analog front end, power, and interface so your application code only deals with clean data. Each module is designed to drop into an existing project without redesigning the board around it.",
     applications: [
-      "Data acquisition and logging",
-      "Environmental and condition monitoring",
-      "Adding sensing to an existing system",
+      {
+        iconName: "Database",
+        title: "Data logging",
+        description: "Data acquisition and logging.",
+      },
+      {
+        iconName: "Gauge",
+        title: "Condition monitoring",
+        description: "Environmental and condition monitoring.",
+      },
+      {
+        iconName: "Puzzle",
+        title: "Retrofit",
+        description: "Adding sensing to an existing system.",
+      },
     ],
     specs: [],
     faqs: [
@@ -190,9 +225,21 @@ const catalog: Product[] = [
     overview:
       "A development board built around whichever architecture your project actually targets, rather than forcing the project to fit a board. We handle the layout, power, and programming interface so you can start writing firmware against real hardware instead of a breadboard.",
     applications: [
-      "Bringing up firmware for a new architecture",
-      "Teaching and lab work on real hardware",
-      "Evaluating a design before committing to a custom board",
+      {
+        iconName: "Cpu",
+        title: "Firmware bring-up",
+        description: "Bringing up firmware for a new architecture.",
+      },
+      {
+        iconName: "GraduationCap",
+        title: "Teaching and labs",
+        description: "Teaching and lab work on real hardware.",
+      },
+      {
+        iconName: "FlaskConical",
+        title: "Design evaluation",
+        description: "Evaluating a design before committing to a custom board.",
+      },
     ],
     specs: [],
     faqs: [
@@ -224,9 +271,21 @@ const catalog: Product[] = [
     overview:
       "A four-degree-of-freedom arm is enough to teach the fundamentals of kinematics, motion planning, and control without the cost and complexity of an industrial cell. It is built to be programmed, taken apart, and understood.",
     applications: [
-      "Teaching kinematics and motion control",
-      "Automation demonstrations and pick-and-place",
-      "Robotics coursework and competitions",
+      {
+        iconName: "Waypoints",
+        title: "Kinematics",
+        description: "Teaching kinematics and motion control.",
+      },
+      {
+        iconName: "Grab",
+        title: "Pick and place",
+        description: "Automation demonstrations and pick-and-place.",
+      },
+      {
+        iconName: "Trophy",
+        title: "Coursework",
+        description: "Robotics coursework and competitions.",
+      },
     ],
     specs: [],
     faqs: [
@@ -258,9 +317,21 @@ const catalog: Product[] = [
     overview:
       "A sensing platform with the processing and connectivity already on board, so readings arrive somewhere useful instead of stopping at a pin. Designed for deployments where running a wire is not practical.",
     applications: [
-      "Wireless condition monitoring",
-      "Distributed sensing deployments",
-      "IoT prototypes and field trials",
+      {
+        iconName: "Wifi",
+        title: "Wireless monitoring",
+        description: "Wireless condition monitoring.",
+      },
+      {
+        iconName: "Network",
+        title: "Distributed sensing",
+        description: "Distributed sensing deployments.",
+      },
+      {
+        iconName: "FlaskConical",
+        title: "Field trials",
+        description: "IoT prototypes and field trials.",
+      },
     ],
     specs: [],
     faqs: [
@@ -292,9 +363,21 @@ const catalog: Product[] = [
     overview:
       "Monitoring hardware built for environments that are noisier, hotter, and less forgiving than a bench. The focus is on getting a reliable reading out of a plant and into a system that can act on it.",
     applications: [
-      "Plant and equipment monitoring",
-      "Process telemetry and alerting",
-      "Retrofitting instrumentation to existing machinery",
+      {
+        iconName: "Factory",
+        title: "Plant monitoring",
+        description: "Plant and equipment monitoring.",
+      },
+      {
+        iconName: "BellRing",
+        title: "Telemetry and alerts",
+        description: "Process telemetry and alerting.",
+      },
+      {
+        iconName: "Wrench",
+        title: "Retrofit",
+        description: "Retrofitting instrumentation to existing machinery.",
+      },
     ],
     specs: [],
     faqs: [
@@ -326,9 +409,21 @@ const catalog: Product[] = [
     overview:
       "The F405 pairs a proven, widely supported flight controller core with a compact, resilient layout that covers the majority of FPV and light UAV work. Designed and assembled in Nepal.",
     applications: [
-      "FPV freestyle and racing builds",
-      "Light UAV and fixed-wing platforms",
-      "Flight control coursework and experimentation",
+      {
+        iconName: "Gamepad2",
+        title: "FPV builds",
+        description: "FPV freestyle and racing builds.",
+      },
+      {
+        iconName: "Plane",
+        title: "Light UAV",
+        description: "Light UAV and fixed-wing platforms.",
+      },
+      {
+        iconName: "GraduationCap",
+        title: "Coursework",
+        description: "Flight control coursework and experimentation.",
+      },
     ],
     specs: [
       { label: "MCU", value: "STM32F405" },
@@ -367,9 +462,21 @@ const catalog: Product[] = [
     overview:
       "The F722-Analog was engineered around one goal: an ultra-precise IMU, fully isolated on its own power rail. It is built with premium components to minimise EMI and keep power delivery clean, with nothing else competing for board space or signal integrity.",
     applications: [
-      "High-performance analog FPV builds",
-      "Industrial and inspection UAVs",
-      "Platforms where control-loop precision matters most",
+      {
+        iconName: "Gamepad2",
+        title: "Analog FPV",
+        description: "High-performance analog FPV builds.",
+      },
+      {
+        iconName: "Plane",
+        title: "Inspection UAV",
+        description: "Industrial and inspection UAVs.",
+      },
+      {
+        iconName: "Timer",
+        title: "Control precision",
+        description: "Platforms where control-loop precision matters most.",
+      },
     ],
     specs: [
       { label: "MCU", value: "STM32F722RETx" },
@@ -382,6 +489,13 @@ const catalog: Product[] = [
       { label: "UARTs", value: "5" },
       { label: "Mounting", value: "Plug-and-play with soldering pads" },
       { label: "Designed for", value: "Ultra-clean analog systems only" },
+    ],
+    // Terse summary for the hero strip — the leading spec rows are part
+    // numbers and a sentence, which wrap over several lines there.
+    highlights: [
+      { label: "MCU", value: "STM32F722RETx" },
+      { label: "Battery input", value: "2S–6S" },
+      { label: "PCB", value: "6-layer" },
     ],
     faqs: [
       {
@@ -412,9 +526,21 @@ const catalog: Product[] = [
     overview:
       "An ESC stack handles the power side of a multirotor, turning control signals into motor drive without becoming the weak link in the build. Designed to pair cleanly with our flight controllers.",
     applications: [
-      "Multirotor and FPV power trains",
-      "Higher-current UAV platforms",
-      "Paired flight controller and ESC builds",
+      {
+        iconName: "Zap",
+        title: "Power trains",
+        description: "Multirotor and FPV power trains.",
+      },
+      {
+        iconName: "Plane",
+        title: "High-current UAV",
+        description: "Higher-current UAV platforms.",
+      },
+      {
+        iconName: "Layers",
+        title: "Stacked builds",
+        description: "Paired flight controller and ESC builds.",
+      },
     ],
     specs: [],
     faqs: [
@@ -446,9 +572,21 @@ const catalog: Product[] = [
     overview:
       "Learning electronics from theory alone rarely sticks — beginners need to build real circuits to understand them. This kit packages a curated set of components with guided projects that take someone from their first LED to working circuits.",
     applications: [
-      "First steps into electronics",
-      "Classroom and workshop teaching",
-      "Self-paced learning at home",
+      {
+        iconName: "Lightbulb",
+        title: "First steps",
+        description: "First steps into electronics.",
+      },
+      {
+        iconName: "GraduationCap",
+        title: "Classroom",
+        description: "Classroom and workshop teaching.",
+      },
+      {
+        iconName: "BookOpen",
+        title: "Self-paced",
+        description: "Self-paced learning at home.",
+      },
     ],
     specs: [
       { label: "Contents", value: "Curated components covering the fundamentals" },
@@ -485,9 +623,21 @@ const catalog: Product[] = [
     overview:
       "Embedded development has a steep first step, from toolchains to hardware. This kit pairs industry-relevant hardware with a structured path into embedded programming and real-time systems.",
     applications: [
-      "Learning firmware and real-time systems",
-      "Bridging hobby work and professional practice",
-      "University embedded coursework",
+      {
+        iconName: "Terminal",
+        title: "Firmware",
+        description: "Learning firmware and real-time systems.",
+      },
+      {
+        iconName: "Layers",
+        title: "Hobby to professional",
+        description: "Bridging hobby work and professional practice.",
+      },
+      {
+        iconName: "GraduationCap",
+        title: "University",
+        description: "University embedded coursework.",
+      },
     ],
     specs: [
       { label: "Hardware", value: "Industry-relevant embedded hardware" },
@@ -524,9 +674,21 @@ const catalog: Product[] = [
     overview:
       "Robotics ties together mechanics, electronics, and code, which is where most learners get stuck. This kit walks builders through motion control, sensors, and actuators with projects that assemble into a working robot.",
     applications: [
-      "Project-based robotics learning",
-      "Teaching sensors, actuators, and control together",
-      "Clubs, workshops, and competitions",
+      {
+        iconName: "Bot",
+        title: "Project-based",
+        description: "Project-based robotics learning.",
+      },
+      {
+        iconName: "Waypoints",
+        title: "Sensors and control",
+        description: "Teaching sensors, actuators, and control together.",
+      },
+      {
+        iconName: "Trophy",
+        title: "Clubs and competitions",
+        description: "Clubs, workshops, and competitions.",
+      },
     ],
     specs: [
       { label: "Covers", value: "Motion control, sensors and actuators" },
@@ -563,15 +725,32 @@ const catalog: Product[] = [
     overview:
       "Teaching orbital systems is expensive and abstract, and students rarely touch real satellite hardware. This 1U platform mirrors a real CubeSat — structure, power, compute, and a communications link students can program end to end.",
     applications: [
-      "Teaching satellite and orbital systems",
-      "University aerospace laboratories",
-      "Hands-on telemetry and ground-link exercises",
+      {
+        iconName: "Satellite",
+        title: "Orbital systems",
+        description: "Teaching satellite and orbital systems.",
+      },
+      {
+        iconName: "FlaskConical",
+        title: "Aerospace labs",
+        description: "University aerospace laboratories.",
+      },
+      {
+        iconName: "RadioTower",
+        title: "Telemetry",
+        description: "Hands-on telemetry and ground-link exercises.",
+      },
     ],
     specs: [
       { label: "Form factor", value: "1U aluminium frame, matching real CubeSat geometry" },
       { label: "Subsystems", value: "Modular power, compute and communications" },
       { label: "Telemetry", value: "Programmable, with a ground-link workflow" },
       { label: "Built for", value: "Classroom and lab use" },
+    ],
+    highlights: [
+      { label: "Form factor", value: "1U aluminium" },
+      { label: "Subsystems", value: "Power, compute, comms" },
+      { label: "Built for", value: "Classroom and lab" },
     ],
     faqs: [
       {

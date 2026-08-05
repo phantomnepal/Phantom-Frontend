@@ -61,6 +61,22 @@ export interface ProductFaq {
   answer: string;
 }
 
+/**
+ * One card in the applications band: an icon, a short all-caps label and the
+ * sentence describing the use case.
+ *
+ * `iconName` is a key into `applicationIcons` in data/icons.ts, so content
+ * stays plain data. Only the Advance USB-C Power Supply's three entries are
+ * user-authored — the rest are DRAFT PLACEHOLDER, with the `description`
+ * carrying the previously written sentence unchanged and `title` added purely
+ * as a label. No new claims about any hardware.
+ */
+export interface ProductApplication {
+  iconName: string;
+  title: string;
+  description: string;
+}
+
 /** One "Why Choose Phantom?" panel. */
 export interface WhyChooseItem {
   title: string;
@@ -130,8 +146,8 @@ export interface Product {
    * Written to shape the page layout; replace before this ships publicly.
    */
   overview: string;
-  /** DRAFT PLACEHOLDER COPY — see `overview`. */
-  applications: string[];
+  /** See ProductApplication — only the power supply's entries are authored. */
+  applications: ProductApplication[];
   /** DRAFT PLACEHOLDER COPY — see `overview`. */
   faqs: ProductFaq[];
   /**
@@ -140,6 +156,16 @@ export interface Product {
    * page says so rather than inventing detail.
    */
   specs: SpecRow[];
+  /**
+   * The three short figures shown beside the buy box.
+   *
+   * Curated rather than derived: taking the first three `specs` rows produced
+   * part numbers and full sentences that wrapped over several lines, where the
+   * design wants terse values ("USB-C 2.0", "20V / 3A", "4-Layer"). Every value
+   * must restate something already in `specs` — this is a summary, never a
+   * place for a new claim. Falls back to the first three spec rows when unset.
+   */
+  highlights?: SpecRow[];
   /**
    * Overrides the site-level `whyChoose` for this product only. Use when a
    * reason to choose Phantom is specific to this hardware and would read as

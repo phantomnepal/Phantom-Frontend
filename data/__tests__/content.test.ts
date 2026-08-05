@@ -105,6 +105,17 @@ describe('getSiteContent()', () => {
         expect(p.overview.length).toBeGreaterThan(0);
         expect(p.applications.length).toBeGreaterThan(0);
         expect(p.faqs.length).toBeGreaterThan(0);
+        for (const application of p.applications) {
+          expect(typeof application.iconName).toBe('string');
+          expect(application.title.length).toBeGreaterThan(0);
+          expect(application.description.length).toBeGreaterThan(0);
+        }
+        // Highlights summarise the spec table; a product cannot advertise a
+        // figure it does not also publish in full.
+        if (p.highlights !== undefined) {
+          expect(p.highlights.length).toBe(3);
+          expect(p.specs.length).toBeGreaterThan(0);
+        }
         // Optional, but when set it is a display label rendered verbatim.
         if (p.price !== undefined) {
           expect(typeof p.price).toBe('string');

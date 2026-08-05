@@ -39,10 +39,10 @@ export function ProductDetail({
   related: Product[];
   pageContent: ProductPageContent;
 }) {
-  // The Figma highlights three specs beside the buy box. Taken verbatim from
-  // the top of the spec table rather than curated per product, so nothing is
-  // reworded into a new claim.
-  const highlights = product.specs.slice(0, 3);
+  // Three short figures beside the buy box. Curated per product where the
+  // leading spec rows are part numbers or full sentences that wrap badly; falls
+  // back to the top of the spec table otherwise. See Product['highlights'].
+  const highlights = product.highlights ?? product.specs.slice(0, 3);
 
   return (
     <main>
