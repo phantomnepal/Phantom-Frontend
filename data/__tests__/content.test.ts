@@ -105,6 +105,11 @@ describe('getSiteContent()', () => {
         expect(p.overview.length).toBeGreaterThan(0);
         expect(p.applications.length).toBeGreaterThan(0);
         expect(p.faqs.length).toBeGreaterThan(0);
+        // Optional, but when set it is a display label rendered verbatim.
+        if (p.price !== undefined) {
+          expect(typeof p.price).toBe('string');
+          expect(p.price.length).toBeGreaterThan(0);
+        }
         for (const spec of p.specs) {
           expect(typeof spec.label).toBe('string');
           expect(typeof spec.value).toBe('string');

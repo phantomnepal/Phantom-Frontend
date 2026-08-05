@@ -124,17 +124,12 @@ export function MobileNav({
             onMobileClose();
             onSearch();
           }}
-          className="flex items-center gap-2 px-3 py-2 rounded-md border border-gray-200 text-gray-500"
+          className="flex items-center gap-2 px-3 py-2 rounded-md border border-gray-200 text-gray-500 flex-1"
           aria-label="Search"
         >
           <Search className="w-4 h-4" />
+          <span className="text-sm">Search...</span>
         </button>
-        <Link
-          href="/contact"
-          className="bg-[#0f1e2e] text-white px-4 py-2.5 rounded-md flex-1 text-center text-sm hover:bg-[#1a3147] transition"
-        >
-          Get In Touch
-        </Link>
       </div>
     </nav>
   );

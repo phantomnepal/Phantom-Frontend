@@ -59,6 +59,7 @@ const catalog: Product[] = [
     // Real photograph of this board, shared with the /projects entry for the
     // same hardware. Replace if a dedicated product shot is taken.
     image: "/project/project7.png",
+    price: "$45.00",
     description:
       "A custom power supply for selectable, high-current voltage output.",
     status: "prototype",
@@ -141,7 +142,9 @@ const catalog: Product[] = [
     title: "Sensor Modules",
     category: "embedded-systems",
     image: "/embedded-systems.jpg",
-    description: "Integrated sensor solutions for data acquisition",
+    price: "$120.00",
+    description:
+      "Integrated sensor solutions for high-precision data acquisition and industrial monitoring.",
     status: "in-development",
     overview:
       "Sensor modules handle the analog front end, power, and interface so your application code only deals with clean data. Each module is designed to drop into an existing project without redesigning the board around it.",
@@ -170,10 +173,50 @@ const catalog: Product[] = [
     ],
   },
   {
+    slug: "custom-dev-board",
+    title: "Custom Dev Board",
+    category: "embedded-systems",
+    image: "/embedded-systems.jpg",
+    price: "$89.00",
+    description:
+      "Versatile development platforms for various microcontroller and FPGA architectures.",
+    // Badged in-development, not "available" as the design mock shows: nothing
+    // is published about this board yet, so the detail page renders the
+    // "In development" block. Flip to "available" once specs exist.
+    status: "in-development",
+    // DRAFT PLACEHOLDER — the user is authoring the real copy for this product.
+    overview:
+      "A development board built around whichever architecture your project actually targets, rather than forcing the project to fit a board. We handle the layout, power, and programming interface so you can start writing firmware against real hardware instead of a breadboard.",
+    applications: [
+      "Bringing up firmware for a new architecture",
+      "Teaching and lab work on real hardware",
+      "Evaluating a design before committing to a custom board",
+    ],
+    specs: [],
+    faqs: [
+      {
+        question: "Can I buy this today?",
+        answer:
+          "Not yet — it is still in development. Get in touch and we will tell you where it stands and when to expect it.",
+      },
+      {
+        question: "Which architectures will it support?",
+        answer:
+          "That depends on what you need it to do. Tell us the target and we will tell you whether it is something we can build.",
+      },
+      {
+        question: "Are specifications available?",
+        answer:
+          "Not yet. We publish specifications once the hardware is real enough for us to stand behind them.",
+      },
+    ],
+  },
+  {
     slug: "4-dof-robotic-arm",
     title: "4-DOF Robotic Arm",
     category: "iot-robotics",
     image: "/iot-robotics.jpg",
+    price: "$249.00",
     description: "Programmable robotic arm for education and automation",
     status: "in-development",
     overview:
@@ -207,6 +250,7 @@ const catalog: Product[] = [
     title: "Smart Sensor",
     category: "iot-robotics",
     image: "/iot-robotics.jpg",
+    price: "$59.00",
     description: "Intelligent sensing platform with wireless connectivity",
     status: "in-development",
     overview:
@@ -240,6 +284,7 @@ const catalog: Product[] = [
     title: "Industrial Monitoring Devices",
     category: "iot-robotics",
     image: "/iot-robotics.jpg",
+    price: "$399.00",
     description: "Real-time industrial monitoring and control hardware",
     status: "in-development",
     overview:
@@ -273,6 +318,7 @@ const catalog: Product[] = [
     title: "Phantom F405",
     category: "uav-systems",
     image: "/products/phantom-f405.png",
+    price: "$69.00",
     description: "STM32F405-based flight controller for FPV drones",
     status: "available",
     overview:
@@ -311,6 +357,7 @@ const catalog: Product[] = [
     title: "Phantom F722",
     category: "uav-systems",
     image: "/products/flight-controller.png",
+    price: "$99.00",
     description: "High-performance F722 flight controller for industrial UAVs",
     status: "prototype",
     overview:
@@ -355,6 +402,7 @@ const catalog: Product[] = [
     title: "ESC Stack",
     category: "uav-systems",
     image: "/products/flight-controller.png",
+    price: "$79.00",
     description: "High-current ESC modules for multirotor platforms",
     status: "in-development",
     overview:
@@ -388,6 +436,7 @@ const catalog: Product[] = [
     title: "Electronics Starter Kit",
     category: "educational-kits",
     image: "/engineering-kits.png",
+    price: "$39.00",
     description: "Beginner-friendly kit for learning electronics fundamentals",
     status: "available",
     overview:
@@ -426,6 +475,7 @@ const catalog: Product[] = [
     title: "Embedded Systems Kit",
     category: "educational-kits",
     image: "/engineering-kits.png",
+    price: "$79.00",
     description: "Advanced kit for embedded systems development",
     status: "available",
     overview:
@@ -464,6 +514,7 @@ const catalog: Product[] = [
     title: "Robotics Kit",
     category: "educational-kits",
     image: "/engineering-kits.png",
+    price: "$129.00",
     description: "Build and program your own robots",
     status: "available",
     overview:
@@ -502,6 +553,7 @@ const catalog: Product[] = [
     title: "Educational 1U CubeSat",
     category: "educational-kits",
     image: "/products/cubesat.png",
+    price: "$349.00",
     description: "Learn satellite systems with this 1U CubeSat platform",
     status: "available",
     overview:

@@ -11,16 +11,37 @@ export function ProductCategoryView({
   products: Product[];
 }) {
   return (
-    <main className="bg-white">
+    <main className="bg-[#F5F6F8]">
       <section className="pt-12 pb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav aria-label="Breadcrumb" className="mb-6">
-            <Link
-              href="/product"
-              className="text-sm text-gray-500 hover:text-[#A10F1A] transition-colors"
-            >
-              ← All products
-            </Link>
+            <ol className="flex flex-wrap items-center gap-2 text-xs font-semibold tracking-widest uppercase">
+              <li>
+                <Link
+                  href="/"
+                  className="text-gray-500 hover:text-[#A10F1A] transition-colors"
+                >
+                  Home
+                </Link>
+              </li>
+              <li aria-hidden="true" className="text-gray-300">
+                /
+              </li>
+              <li>
+                <Link
+                  href="/product"
+                  className="text-gray-500 hover:text-[#A10F1A] transition-colors"
+                >
+                  Products
+                </Link>
+              </li>
+              <li aria-hidden="true" className="text-gray-300">
+                /
+              </li>
+              <li className="text-[#A10F1A]" aria-current="page">
+                {category.title}
+              </li>
+            </ol>
           </nav>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
             {category.title}
@@ -66,6 +87,13 @@ export function ProductCategoryView({
                   <p className="text-gray-600 text-sm leading-relaxed">
                     {product.description}
                   </p>
+
+                  {/* Draft placeholder pricing — see Product['price']. Omitted
+                      entirely when unset, so the slot collapses rather than
+                      leaving a gap. */}
+                  {product.price && (
+                    <p className="mt-6 text-lg text-gray-900">{product.price}</p>
+                  )}
 
                   <span className="mt-auto pt-6 inline-flex items-center gap-1 text-sm font-semibold text-[#A10F1A]">
                     VIEW DETAILS <span className="text-base">→</span>

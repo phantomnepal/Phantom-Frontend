@@ -264,6 +264,11 @@ export function RelatedProductsSection({
               <p className="text-gray-600 text-sm leading-relaxed">
                 {product.description}
               </p>
+              {/* Same price slot as the category grid, so a card does not
+                  appear to lose its price when seen from a detail page. */}
+              {product.price && (
+                <p className="mt-4 text-lg text-gray-900">{product.price}</p>
+              )}
             </div>
           </Link>
         ))}

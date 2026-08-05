@@ -6,7 +6,7 @@ export function ProductLanding() {
   const categories = allCategories();
 
   return (
-    <main className="bg-white">
+    <main className="bg-[#F5F6F8]">
       <section className="pt-16 pb-12 md:pt-16 md:pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">

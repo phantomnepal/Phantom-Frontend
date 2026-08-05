@@ -82,8 +82,6 @@ export interface ProductPageContent {
  * truth for the product nav, the category pages, and site search — derive,
  * don't duplicate.
  *
- * Deliberately carries no price: pricing lives in the store's database and is
- * joined by slug. Marketing metadata only.
  */
 export interface Product {
   slug: string;
@@ -91,6 +89,19 @@ export interface Product {
   /** Slug of the owning ProductCategory. */
   category: string;
   image: string;
+  /**
+   * DRAFT PLACEHOLDER PRICING — display label only, rendered verbatim on
+   * product cards (category grids and related-product rails), never on the
+   * detail page. Fixed figures only — no "from" or "starting at" prefixes.
+   *
+   * These are USD design-mock figures, not quotes: three come from the Figma,
+   * the rest were filled in to match. The store branch prices in NPR. Replace
+   * with real numbers before this ships publicly, and note that a priced card
+   * still leads to an "Enquire now" CTA — main has no checkout.
+   *
+   * Omit for products with nothing to publish; the card leaves the slot empty.
+   */
+  price?: string;
   /** One-line summary. Used on cards, in the mega menu, and as meta description. */
   description: string;
   status: ProductStatus;

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, startTransition } from "react";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X, Search, ShoppingCart, User } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -114,26 +114,54 @@ export default function Navbar() {
               </kbd>
             </button>
 
-            <Link
-              href="/contact"
-              className="bg-[#0f1e2e] text-white text-[14px] px-5 py-2.5 rounded-md hover:bg-[#1a3147] transition"
+            {/* Store affordances from the design mock. Deliberately inert:
+                main has no cart and no auth — those live on ecommerce-phase1,
+                pending store.phantom.com.np. Wire them up when it ships. */}
+            <button
+              type="button"
+              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition"
+              aria-label="Cart"
             >
-              Get In Touch
-            </Link>
+              <ShoppingCart className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition"
+              aria-label="Account"
+            >
+              <User className="w-5 h-5" />
+            </button>
           </div>
 
-          <button
-            className="lg:hidden p-1 rounded-md hover:bg-gray-100 transition"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-            aria-expanded={mobileOpen}
-          >
-            {mobileOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
+          <div className="lg:hidden flex items-center gap-1">
+            {/* Inert, same as the desktop pair above. */}
+            <button
+              type="button"
+              className="p-2 rounded-md text-gray-600 hover:bg-gray-100 transition"
+              aria-label="Cart"
+            >
+              <ShoppingCart className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              className="p-2 rounded-md text-gray-600 hover:bg-gray-100 transition"
+              aria-label="Account"
+            >
+              <User className="w-5 h-5" />
+            </button>
+            <button
+              className="p-1 rounded-md hover:bg-gray-100 transition"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+              aria-expanded={mobileOpen}
+            >
+              {mobileOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
         </div>
 
         {activeMegaLabel && (
