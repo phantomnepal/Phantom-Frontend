@@ -68,13 +68,22 @@ export interface WhyChooseItem {
 }
 
 /**
- * Defaults for every product page. A product may override `whyChoose` with its
- * own list; `orderSteps` is site-level only, because how you order does not
- * vary by product.
+ * Defaults for every product page.
+ *
+ * `whyChoose` and `orderSteps` are currently UNRENDERED: the product page was
+ * rebuilt to the Figma design, which has no "Why Choose Phantom" or "How to
+ * Order" section. The content is kept rather than deleted so those sections can
+ * return without being rewritten.
  */
 export interface ProductPageContent {
   whyChoose: WhyChooseItem[];
   orderSteps: { title: string; description: string }[];
+  /**
+   * Closing enquiry strip above the footer. Site-level and deliberately
+   * generic: it renders on all 13 products, so it must be true of a CubeSat
+   * and a robotics kit as well as a power supply.
+   */
+  enquire: { title: string; subtitle: string; cta: string };
 }
 
 /**
@@ -89,6 +98,12 @@ export interface Product {
   /** Slug of the owning ProductCategory. */
   category: string;
   image: string;
+  /**
+   * Extra real photographs of this hardware, shown as a thumbnail strip beside
+   * the hero image. Real shots only — never pad this to fill the strip; a
+   * product with nothing more to show simply renders no thumbnails.
+   */
+  gallery?: string[];
   /**
    * DRAFT PLACEHOLDER PRICING — display label only, rendered verbatim on
    * product cards (category grids and related-product rails), never on the

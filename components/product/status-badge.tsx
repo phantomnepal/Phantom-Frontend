@@ -7,7 +7,7 @@ const styles: Record<ProductStatus, string> = {
 };
 
 const labels: Record<ProductStatus, string> = {
-  prototype: "PROTOTYPE",
+  prototype: "DEVELOPMENT PROTOTYPE",
   "in-development": "IN DEVELOPMENT",
   available: "AVAILABLE",
 };

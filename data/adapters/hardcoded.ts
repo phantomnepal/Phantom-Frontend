@@ -59,7 +59,9 @@ const catalog: Product[] = [
     // Real photograph of this board, shared with the /projects entry for the
     // same hardware. Replace if a dedicated product shot is taken.
     image: "/project/project7.png",
-    price: "$45.00",
+    // Further real shots of the same board, shared with its /projects entry.
+    gallery: ["/project/project8.png", "/project/project9.png"],
+    price: "$49.00",
     description:
       "A custom power supply for selectable, high-current voltage output.",
     status: "prototype",
@@ -142,7 +144,7 @@ const catalog: Product[] = [
     title: "Sensor Modules",
     category: "embedded-systems",
     image: "/embedded-systems.jpg",
-    price: "$120.00",
+    price: "$24.00",
     description:
       "Integrated sensor solutions for high-precision data acquisition and industrial monitoring.",
     status: "in-development",
@@ -216,7 +218,7 @@ const catalog: Product[] = [
     title: "4-DOF Robotic Arm",
     category: "iot-robotics",
     image: "/iot-robotics.jpg",
-    price: "$249.00",
+    price: "$149.00",
     description: "Programmable robotic arm for education and automation",
     status: "in-development",
     overview:
@@ -318,7 +320,7 @@ const catalog: Product[] = [
     title: "Phantom F405",
     category: "uav-systems",
     image: "/products/phantom-f405.png",
-    price: "$69.00",
+    price: "$79.00",
     description: "STM32F405-based flight controller for FPV drones",
     status: "available",
     overview:
@@ -357,6 +359,8 @@ const catalog: Product[] = [
     title: "Phantom F722",
     category: "uav-systems",
     image: "/products/flight-controller.png",
+    // Real shots of the F722-Analog, shared with its /projects entry.
+    gallery: ["/project/project2.png", "/project/projects3.png"],
     price: "$99.00",
     description: "High-performance F722 flight controller for industrial UAVs",
     status: "prototype",
@@ -436,7 +440,7 @@ const catalog: Product[] = [
     title: "Electronics Starter Kit",
     category: "educational-kits",
     image: "/engineering-kits.png",
-    price: "$39.00",
+    price: "$35.00",
     description: "Beginner-friendly kit for learning electronics fundamentals",
     status: "available",
     overview:
@@ -594,6 +598,19 @@ const catalog: Product[] = [
  * specific to a product, so it stays true as the catalog changes.
  */
 const productPageContent: ProductPageContent = {
+  /**
+   * The Figma's closing strip pitches "custom power management for industrial
+   * fleets" — true of the power supply, false of the other twelve products.
+   * This line is deliberately generic instead, because the strip renders on
+   * every product page.
+   */
+  enquire: {
+    title: "Talk to us about your needs",
+    subtitle:
+      "Our engineers can adapt this hardware to your requirements, or design something new around them.",
+    cta: "Enquire now",
+  },
+  /** UNRENDERED — the product page has no "Why Choose Phantom" section. */
   whyChoose: [
     {
       title: "Designed and assembled in Nepal",
@@ -617,12 +634,10 @@ const productPageContent: ProductPageContent = {
     },
   ],
   /**
-   * NOTE: these steps describe the store — quantity selection, cart, checkout —
-   * which does not exist on `main`. The product CTA here is "Enquire now" and
-   * links to /contact; the cart lives on the `ecommerce-phase1` branch, pending
-   * the store.phantom.com.np subdomain. Written at the user's explicit
-   * instruction, knowing that. The bulk-pricing threshold is still unspecified,
-   * so no number is claimed.
+   * UNRENDERED — the product page has no "How to Order" section. These steps
+   * describe a store (quantity, cart, checkout) that does not exist on `main`;
+   * the page now shows the cart controls from the Figma instead, and they are
+   * inert for the same reason. Kept for when the store ships.
    */
   orderSteps: [
     {

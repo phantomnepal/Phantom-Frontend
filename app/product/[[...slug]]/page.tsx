@@ -10,6 +10,7 @@ import {
   getCategoryBySlug,
   getProductBySlug,
   productsInCategory,
+  relatedProducts,
 } from "@/lib/catalog";
 
 /**
@@ -108,9 +109,9 @@ export default async function ProductPage({
       const product = getProductBySlug(resolved.slug)!;
       const category = getCategoryBySlug(product.category);
       if (!category) notFound();
-      const related = productsInCategory(category.slug).filter(
-        (p) => p.slug !== product.slug,
-      );
+      // Category siblings first, topped up from the rest of the catalog so the
+      // "Complete Your Build" grid always fills. See lib/catalog.
+      const related = relatedProducts(product);
       return (
         <ProductDetail
           product={product}

@@ -1,26 +1,32 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Product, ProductCategory, ProductPageContent } from "@/data/types";
 import { hasSpecs } from "@/lib/catalog";
 import { StatusBadge } from "./status-badge";
+import { BuyBox } from "./buy-box";
+import { ProductGallery } from "./product-gallery";
 import {
-  ApplicationsSection,
-  CapabilitiesSection,
-  OrderStepsSection,
-  OverviewSection,
-  ProductCtaSection,
+  ApplicationsBand,
+  CompleteYourBuildSection,
+  EnquireStrip,
   ProductFaqSection,
-  RelatedProductsSection,
-  WhyChooseSection,
+  TechnicalSpecsSection,
 } from "./product-sections";
 
 /**
- * Product detail page, following the anatomy of jlcpcb.com's FR4 page in
- * Phantom's own UI. See docs/research/PRODUCT_PAGE_TOPOLOGY.md.
+ * Product detail page, built to the Figma product page design.
  *
- * Two source sections are deliberately omitted: customer testimonials (Phantom
- * has no reviews, and inventing them is not an option) and the resources/blog
- * grid (there is no blog to link to).
+ * Two things on this page do not work, and both are deliberate:
+ *
+ *  - The cart controls (quantity, add to cart, buy now, and the companion
+ *    cards' buttons) are inert. `main` has no cart or checkout; the store is on
+ *    `ecommerce-phase1`, pending store.phantom.com.np.
+ *  - "Get full datasheet" is inert. No product has a datasheet file yet.
+ *
+ * The stock pill and lead time in the hero are shown on every product at the
+ * user's explicit instruction, including products still in development. Nothing
+ * in the repo backs either claim — there is no inventory or fulfilment system.
+ *
+ * The enquiry strip above the footer is the only working call to action.
  */
 export function ProductDetail({
   product,
@@ -33,11 +39,15 @@ export function ProductDetail({
   related: Product[];
   pageContent: ProductPageContent;
 }) {
+  // The Figma highlights three specs beside the buy box. Taken verbatim from
+  // the top of the spec table rather than curated per product, so nothing is
+  // reworded into a new claim.
+  const highlights = product.specs.slice(0, 3);
+
   return (
     <main>
-      {/* Section 1 — hero */}
       <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
           <nav aria-label="Breadcrumb" className="mb-8">
             <Link
               href={`/product/${category.slug}`}
@@ -48,45 +58,63 @@ export function ProductDetail({
           </nav>
 
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-gray-50">
-              <Image
-                src={product.image}
-                alt={product.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                priority
-              />
-            </div>
+            <ProductGallery product={product} />
 
             <div className="flex flex-col">
-              <div className="flex items-center gap-4 mb-4">
-                <span className="text-xs font-bold tracking-widest text-[#A10F1A]">
-                  {category.title}
-                </span>
+              <div className="mb-4">
                 <StatusBadge status={product.status} />
               </div>
 
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight mb-4">
+              <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-4">
                 {product.title}
               </h1>
 
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-base leading-relaxed text-gray-600">
                 {product.description}
               </p>
 
               {product.statusNote && (
-                <p className="mt-4 text-sm text-gray-500 leading-relaxed">
+                <p className="mt-4 text-sm leading-relaxed text-gray-500">
                   {product.statusNote}
                 </p>
               )}
 
+              {product.price && (
+                <div className="mt-8 flex flex-wrap items-baseline gap-4">
+                  <span className="text-3xl font-semibold text-gray-900">
+                    {product.price}
+                  </span>
+                  {/* Lead time from the Figma. See the note in this file's
+                      docblock: nothing backs this. */}
+                  <span className="text-sm text-gray-500">
+                    Ships in 2-4 Weeks
+                  </span>
+                </div>
+              )}
+
+              <BuyBox />
+
+              {highlights.length > 0 && (
+                <dl className="mt-8 grid grid-cols-1 gap-6 border-t border-gray-200 pt-6 sm:grid-cols-3">
+                  {highlights.map((spec) => (
+                    <div key={spec.label}>
+                      <dt className="text-[11px] font-semibold uppercase tracking-[0.15em] text-gray-500">
+                        {spec.label}
+                      </dt>
+                      <dd className="mt-1 text-sm font-medium text-gray-900">
+                        {spec.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+
               {!hasSpecs(product) && (
-                <div className="mt-8 border border-gray-200 rounded-md p-6 bg-gray-50">
-                  <p className="font-semibold text-gray-900 mb-2">
+                <div className="mt-8 rounded-md border border-gray-200 bg-gray-50 p-6">
+                  <p className="mb-2 font-semibold text-gray-900">
                     In development
                   </p>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-sm leading-relaxed text-gray-600">
                     This product is still being engineered, so we haven&apos;t
                     published specifications yet. If you have a requirement in
                     mind, talk to us about it — early conversations shape what
@@ -94,35 +122,16 @@ export function ProductDetail({
                   </p>
                 </div>
               )}
-
-              <div className="mt-8">
-                <Link
-                  href="/contact"
-                  className="inline-block bg-[#0f1e2e] text-white px-6 py-3 rounded-md text-sm font-medium hover:bg-[#1a3147] transition-colors"
-                >
-                  Enquire about this product
-                </Link>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <OverviewSection product={product} />
-      <ApplicationsSection product={product} />
-      {hasSpecs(product) && (
-        <CapabilitiesSection product={product} specs={product.specs} />
-      )}
-      {/* A product may override the site-level reasons where they would read as
-          nonsense on the rest of the catalog. */}
-      <WhyChooseSection content={product.whyChoose ?? pageContent.whyChoose} />
-      <OrderStepsSection product={product} steps={pageContent.orderSteps} />
+      <ApplicationsBand product={product} />
+      {hasSpecs(product) && <TechnicalSpecsSection product={product} />}
       <ProductFaqSection product={product} />
-      <RelatedProductsSection
-        products={related}
-        categoryTitle={category.title}
-      />
-      <ProductCtaSection product={product} />
+      <CompleteYourBuildSection products={related} category={category} />
+      <EnquireStrip content={pageContent.enquire} />
     </main>
   );
 }

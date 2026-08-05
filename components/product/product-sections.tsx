@@ -1,21 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Download } from "lucide-react";
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
 } from "@/components/animate-ui/primitives/radix/accordion";
-import type { Product, ProductPageContent, SpecRow } from "@/data/types";
-import { StatusBadge } from "./status-badge";
+import type { Product, ProductCategory, ProductPageContent } from "@/data/types";
+import { getCategoryBySlug } from "@/lib/catalog";
 
 /**
- * Product page sections, following the anatomy of
- * jlcpcb.com/pcb-fabrication/fr4-pcb (see docs/research/PRODUCT_PAGE_TOPOLOGY.md)
- * rendered in Phantom's own UI.
+ * Product page sections, following the Figma product page.
  *
- * Sections are separated by an alternating white / #F5F6F8 rhythm, as on the
- * source page.
+ * Order: hero (see product-detail) → applications band → technical
+ * specifications on dark → FAQ → Complete Your Build → closing enquiry strip.
+ *
+ * The previous JLCPCB-derived anatomy (docs/research/PRODUCT_PAGE_TOPOLOGY.md)
+ * had three sections the design drops: the "What is it" overview prose, "Why
+ * Choose Phantom", and "How to Order". Their content survives in
+ * `productPageContent` and `Product.overview`, unrendered.
  */
 
 export function SectionShell({
@@ -34,188 +38,109 @@ export function SectionShell({
   );
 }
 
-export function SectionHeading({
-  eyebrow,
-  title,
-}: {
-  eyebrow?: string;
-  title: string;
-}) {
+/**
+ * Applications band — one card per authored application sentence.
+ *
+ * The Figma gives each card an icon and a short all-caps title. Neither exists
+ * in the content: `applications` is a plain sentence per entry, and inventing
+ * titles or picking icons per product would mean writing copy about hardware
+ * that is mostly still in development. The sentence renders alone instead.
+ */
+export function ApplicationsBand({ product }: { product: Product }) {
+  if (product.applications.length === 0) return null;
   return (
-    <div className="mb-10">
-      {eyebrow && (
-        <p className="text-[#A10F1A] font-semibold text-sm tracking-wider mb-3">
-          {eyebrow}
-        </p>
-      )}
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
-        {title}
-      </h2>
-    </div>
-  );
-}
-
-/** Section 2 — "What is the {product}?" */
-export function OverviewSection({ product }: { product: Product }) {
-  return (
-    <SectionShell>
-      <div className="max-w-3xl">
-        <SectionHeading title={`What is the ${product.title}?`} />
-        <p className="text-gray-600 leading-relaxed text-lg">
-          {product.overview}
-        </p>
+    <section className="bg-[#F5F6F8]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {product.applications.map((application) => (
+            <div
+              key={application}
+              className="rounded-md border border-gray-200 bg-white px-6 py-6 shadow-sm"
+            >
+              <p className="text-sm leading-relaxed text-gray-700">
+                {application}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
-    </SectionShell>
+    </section>
   );
 }
 
-/** Section 3 — Applications. Source uses 3 image cards; we use numbered cards. */
-export function ApplicationsSection({ product }: { product: Product }) {
+/**
+ * Technical specifications, on dark.
+ *
+ * Rendered only when the product has specs — the five in-development SKUs show
+ * the "In development" note in the hero instead, rather than an empty grid.
+ */
+export function TechnicalSpecsSection({ product }: { product: Product }) {
   return (
-    <SectionShell tinted>
-      <SectionHeading title={`Common Applications of the ${product.title}`} />
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {product.applications.map((application, i) => (
-          <div
-            key={application}
-            className="bg-white border border-gray-200 rounded-md p-6"
+    <section className="bg-[#0f1e2e]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+        <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400 mb-3">
+              Architecture &amp; Performance
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
+              Technical Specifications
+            </h2>
+          </div>
+          {/* Inert: there is no datasheet PDF in the repo for any product. */}
+          <button
+            type="button"
+            className="inline-flex items-center gap-2 rounded-md border border-white/25 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white transition hover:border-white/50"
           >
-            <span className="font-mono text-sm text-[#A10F1A]">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <p className="mt-3 text-gray-700 leading-relaxed">{application}</p>
-          </div>
-        ))}
+            Get Full Datasheet
+            <Download className="h-3.5 w-3.5" />
+          </button>
+        </div>
+
+        <dl className="grid border-t border-l border-white/10 sm:grid-cols-2 lg:grid-cols-3">
+          {product.specs.map((spec) => (
+            <div
+              key={spec.label}
+              className="border-b border-r border-white/10 px-6 py-6"
+            >
+              <dt className="text-[11px] font-semibold uppercase tracking-[0.15em] text-gray-400">
+                {spec.label}
+              </dt>
+              <dd className="mt-2 text-sm font-medium text-white">
+                {spec.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
-    </SectionShell>
+    </section>
   );
 }
 
-/** Section 6 — Capabilities table. Mirrors the source's Features|Capabilities grid. */
-export function CapabilitiesSection({
-  product,
-  specs,
-}: {
-  product: Product;
-  specs: SpecRow[];
-}) {
-  return (
-    <SectionShell>
-      <SectionHeading title={`${product.title} Specifications`} />
-      <div className="overflow-x-auto border border-gray-200 rounded-md">
-        <table className="w-full text-left border-collapse min-w-[520px]">
-          <thead>
-            <tr className="bg-[#0f1e2e] text-white">
-              <th className="py-4 px-6 text-sm font-semibold w-1/3">Feature</th>
-              <th className="py-4 px-6 text-sm font-semibold">Specification</th>
-            </tr>
-          </thead>
-          <tbody>
-            {specs.map((spec, i) => (
-              <tr
-                key={spec.label}
-                className={i % 2 === 1 ? "bg-[#F5F6F8]" : "bg-white"}
-              >
-                <th
-                  scope="row"
-                  className="py-4 px-6 text-sm font-medium text-gray-900 align-top border-t border-gray-200"
-                >
-                  {spec.label}
-                </th>
-                <td className="py-4 px-6 text-sm text-gray-700 border-t border-gray-200">
-                  {spec.value}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </SectionShell>
-  );
-}
-
-/** Section 7 — Why Choose Phantom. Site-level, shared across products. */
-export function WhyChooseSection({
-  content,
-}: {
-  content: ProductPageContent["whyChoose"];
-}) {
-  return (
-    <SectionShell tinted>
-      <SectionHeading title="Why Choose Phantom?" />
-      <div className="grid gap-8 sm:grid-cols-2">
-        {content.map((item) => (
-          <div key={item.title} className="border-t border-gray-300 pt-5">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">
-              {item.title}
-            </h3>
-            <p className="text-gray-600 text-sm leading-relaxed">
-              {item.description}
-            </p>
-          </div>
-        ))}
-      </div>
-    </SectionShell>
-  );
-}
-
-/** Section 8 — How to order, in 3 steps. */
-export function OrderStepsSection({
-  product,
-  steps,
-}: {
-  product: Product;
-  steps: ProductPageContent["orderSteps"];
-}) {
-  return (
-    <SectionShell>
-      <SectionHeading title={`How to Order the ${product.title}`} />
-      <div className="grid gap-8 md:grid-cols-3">
-        {steps.map((step, i) => (
-          <div key={step.title}>
-            <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#A10F1A] text-white font-mono text-sm">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <h3 className="mt-4 text-lg font-bold text-gray-900 mb-2">
-              {step.title}
-            </h3>
-            <p className="text-gray-600 text-sm leading-relaxed">
-              {step.description}
-            </p>
-          </div>
-        ))}
-      </div>
-    </SectionShell>
-  );
-}
-
-/** Section 9 — FAQ. Source: accordion, none open by default. */
+/** FAQ — accordion, closed by default, centred heading per the design. */
 export function ProductFaqSection({ product }: { product: Product }) {
   return (
     <SectionShell tinted>
-      <div className="max-w-3xl">
-        <SectionHeading
-          title={`Frequently Asked Questions About the ${product.title}`}
-        />
-        <Accordion
-          type="single"
-          collapsible
-          className="w-full overflow-hidden rounded-md border border-gray-200 bg-white"
-        >
-          {product.faqs.map((faq, index) => (
+      <div className="mx-auto max-w-3xl">
+        <div className="mb-8 text-center">
+          <h2 className="text-lg font-semibold text-gray-900">
+            Frequently Asked Questions
+          </h2>
+          <p className="mt-2 text-sm text-gray-500">
+            Technical and operational inquiries regarding the {product.title}.
+          </p>
+        </div>
+        <Accordion type="single" collapsible className="w-full space-y-3">
+          {product.faqs.map((faq) => (
             <AccordionItem
               key={faq.question}
               value={faq.question}
-              className={`px-5 ${
-                index !== product.faqs.length - 1
-                  ? "border-b border-gray-100"
-                  : ""
-              }`}
+              className="overflow-hidden rounded-md border border-gray-200 bg-white px-5"
             >
               <AccordionTrigger className="w-full py-5 text-left text-sm font-semibold text-gray-900">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="pb-5 text-sm text-gray-600 leading-relaxed">
+              <AccordionContent className="pb-5 text-sm leading-relaxed text-gray-600">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
@@ -226,87 +151,115 @@ export function ProductFaqSection({ product }: { product: Product }) {
   );
 }
 
-/** Section 11 — Related products. Derived from the catalog, same category. */
-export function RelatedProductsSection({
+/**
+ * Per-card action in the companion rail.
+ *
+ * Derived from status rather than hardcoded: the Figma mixes "Add to cart",
+ * "Notify me" and "View details" across four cards with no stated rule. Both
+ * buttons are inert for the same reason as the hero buy box.
+ */
+function cardCta(status: Product["status"]): string {
+  return status === "available" ? "ADD TO CART" : "NOTIFY ME";
+}
+
+/** "Complete Your Build" — companion products. */
+export function CompleteYourBuildSection({
   products,
-  categoryTitle,
+  category,
 }: {
   products: Product[];
-  categoryTitle: string;
+  category: ProductCategory;
 }) {
   if (products.length === 0) return null;
   return (
     <SectionShell>
-      <SectionHeading title={`More in ${categoryTitle}`} />
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {products.map((product) => (
-          <Link
-            key={product.slug}
-            href={`/product/${product.slug}`}
-            className="group border border-gray-200 bg-white rounded-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-          >
-            <div className="relative aspect-[4/3] overflow-hidden bg-gray-50">
-              <Image
-                src={product.image}
-                alt={product.title}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
-            </div>
-            <div className="p-5">
-              <div className="flex items-start justify-between gap-3 mb-2">
-                <h3 className="font-bold text-gray-900 group-hover:text-[#A10F1A] transition-colors">
-                  {product.title}
-                </h3>
-                <StatusBadge status={product.status} />
-              </div>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                {product.description}
+      <div className="mb-10 flex items-end justify-between gap-6">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900">
+          Complete Your Build
+        </h2>
+        <Link
+          href={`/product/${category.slug}`}
+          className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold text-[#A10F1A] hover:underline"
+        >
+          View All <span className="text-base">→</span>
+        </Link>
+      </div>
+
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {products.map((product) => {
+          const productCategory = getCategoryBySlug(product.category);
+          return (
+            <div
+              key={product.slug}
+              className="flex flex-col rounded-md border border-gray-200 bg-white p-4 transition hover:shadow-lg"
+            >
+              <Link
+                href={`/product/${product.slug}`}
+                className="group relative block aspect-[4/3] overflow-hidden rounded bg-[#F5F6F8]"
+              >
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  fill
+                  className="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 25vw"
+                />
+              </Link>
+
+              <p className="mt-4 text-[11px] font-semibold uppercase tracking-wider text-gray-500">
+                {productCategory?.title ?? product.category}
               </p>
-              {/* Same price slot as the category grid, so a card does not
-                  appear to lose its price when seen from a detail page. */}
+              <Link
+                href={`/product/${product.slug}`}
+                className="mt-1 font-semibold text-gray-900 hover:text-[#A10F1A] transition-colors"
+              >
+                {product.title}
+              </Link>
               {product.price && (
-                <p className="mt-4 text-lg text-gray-900">{product.price}</p>
+                <p className="mt-2 text-lg font-semibold text-[#A10F1A]">
+                  {product.price}
+                </p>
               )}
+
+              <button
+                type="button"
+                className="mt-auto w-full rounded border border-gray-300 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-gray-900 transition hover:border-gray-400"
+              >
+                {cardCta(product.status)}
+              </button>
             </div>
-          </Link>
-        ))}
+          );
+        })}
       </div>
     </SectionShell>
   );
 }
 
 /**
- * Section 12 — Closing CTA.
+ * Closing enquiry strip.
  *
- * Layout follows sequencehq.com's closing CTA: a bordered, rounded card
- * floating on the page rather than a full-bleed band — a centred stack of
- * heading, subline and a pill button. Rendered in Phantom's own UI, on the
- * same #F5F6F8 the tinted sections use.
+ * Site-level copy, deliberately generic — the Figma's subline is specific to
+ * the power supply and would be false on the other twelve products. This is the
+ * only working call to action on the page.
  */
-export function ProductCtaSection({ product }: { product: Product }) {
+export function EnquireStrip({
+  content,
+}: {
+  content: ProductPageContent["enquire"];
+}) {
   return (
-    <section className="bg-white border-t border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="rounded-2xl border border-gray-200 shadow-sm bg-[#F5F6F8] px-6 py-[52px] flex flex-col items-center gap-12 text-center">
-          <div className="flex flex-col items-center gap-4">
-            <h2 className="max-w-[420px] text-3xl md:text-4xl font-bold leading-tight tracking-tight text-gray-900">
-              Talk to us about the {product.title}
-            </h2>
-            <p className="max-w-[280px] text-sm leading-relaxed text-gray-500">
-              Tell us what you need it to do, and we will tell you where it
-              stands.
-            </p>
-          </div>
-
-          <Link
-            href="/contact"
-            className="inline-flex items-center whitespace-nowrap rounded-full bg-[#0f1e2e] px-5 py-3 text-sm leading-none text-white transition-colors duration-150 hover:bg-[#A10F1A]"
-          >
-            Enquire now
-          </Link>
+    <section className="bg-[#0f1e2e] border-b border-white/10">
+      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-6 px-4 sm:px-6 lg:px-8 py-10">
+        <div>
+          <h2 className="text-lg font-semibold text-white">{content.title}</h2>
+          <p className="mt-1 text-sm text-gray-400">{content.subtitle}</p>
         </div>
+        <Link
+          href="/contact"
+          className="inline-flex shrink-0 items-center rounded bg-white px-7 py-3 text-xs font-semibold uppercase tracking-wider text-[#0f1e2e] transition hover:bg-gray-100"
+        >
+          {content.cta}
+        </Link>
       </div>
     </section>
   );
