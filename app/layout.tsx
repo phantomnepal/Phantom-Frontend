@@ -87,8 +87,17 @@ export default function RootLayout({
             }),
           }}
         />
+        {/* First focusable element on every page: the header carries a logo,
+            five nav items, search and two icon buttons ahead of the content,
+            and the mega menu adds thirteen more once focused. */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-[#0f1e2e] focus:px-4 focus:py-2 focus:text-sm focus:text-white"
+        >
+          Skip to content
+        </a>
         <Navbar />
-        {children}
+        <div id="main-content">{children}</div>
         <Footer />
         <Analytics />
       </body>

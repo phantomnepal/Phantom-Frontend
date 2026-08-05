@@ -7,6 +7,7 @@ import { Menu, X, Search, ShoppingCart, User } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 
+import { MEGA_PANEL_ID } from "./nav-item-trigger";
 import { useCommandSearch } from "./use-command-search";
 import { useMegaPanel } from "./use-mega-panel";
 import { SearchModal } from "./search-modal";
@@ -52,6 +53,16 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Escape closes the mobile drawer, as it does the mega panel and search.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [mobileOpen]);
 
   useEffect(() => {
     startTransition(() => {
@@ -119,14 +130,14 @@ export default function Navbar() {
                 pending store.phantom.com.np. Wire them up when it ships. */}
             <button
               type="button"
-              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition"
+              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A10F1A]"
               aria-label="Cart"
             >
               <ShoppingCart className="w-5 h-5" />
             </button>
             <button
               type="button"
-              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition"
+              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A10F1A]"
               aria-label="Account"
             >
               <User className="w-5 h-5" />
@@ -137,14 +148,14 @@ export default function Navbar() {
             {/* Inert, same as the desktop pair above. */}
             <button
               type="button"
-              className="p-2 rounded-md text-gray-600 hover:bg-gray-100 transition"
+              className="p-2 rounded-md text-gray-600 hover:bg-gray-100 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A10F1A]"
               aria-label="Cart"
             >
               <ShoppingCart className="w-5 h-5" />
             </button>
             <button
               type="button"
-              className="p-2 rounded-md text-gray-600 hover:bg-gray-100 transition"
+              className="p-2 rounded-md text-gray-600 hover:bg-gray-100 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A10F1A]"
               aria-label="Account"
             >
               <User className="w-5 h-5" />
@@ -170,6 +181,7 @@ export default function Navbar() {
                 wrapper: the wrapper spans the viewport, so its onMouseLeave
                 only fires far outside the visible menu. */}
             <div
+              id={MEGA_PANEL_ID}
               className="w-full max-w-5xl pointer-events-auto"
               {...getPanelHandlers()}
             >
@@ -190,7 +202,11 @@ export default function Navbar() {
           </div>
         )}
 
+        {/* The drawer collapses to zero height but stays in the DOM, so
+            without `inert` every link inside remained in the tab order while
+            invisible — keyboard focus would disappear into a closed menu. */}
         <div
+          inert={!mobileOpen}
           className={`lg:hidden transition-all duration-300 overflow-hidden ${
             mobileOpen ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"
           }`}

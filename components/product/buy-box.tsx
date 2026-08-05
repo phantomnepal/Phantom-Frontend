@@ -22,22 +22,25 @@ export function BuyBox() {
           type="button"
           onClick={() => setQuantity((q) => Math.max(1, q - 1))}
           disabled={quantity === 1}
-          className="px-3 py-3 text-gray-500 hover:text-gray-900 disabled:opacity-40"
+          className="px-3 py-3 text-gray-500 hover:text-gray-900 disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#A10F1A]"
           aria-label="Decrease quantity"
         >
           <Minus className="h-4 w-4" />
         </button>
+        {/* A bare span takes no accessible name, so aria-label on it is
+            unreliable; the hidden word carries the meaning and the live region
+            announces the number as it changes. */}
         <span
+          role="status"
           className="w-10 text-center text-sm font-medium text-gray-900"
-          aria-live="polite"
-          aria-label={`Quantity: ${quantity}`}
         >
+          <span className="sr-only">Quantity: </span>
           {quantity}
         </span>
         <button
           type="button"
           onClick={() => setQuantity((q) => q + 1)}
-          className="px-3 py-3 text-gray-500 hover:text-gray-900"
+          className="px-3 py-3 text-gray-500 hover:text-gray-900 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#A10F1A]"
           aria-label="Increase quantity"
         >
           <Plus className="h-4 w-4" />
@@ -46,7 +49,7 @@ export function BuyBox() {
 
       <button
         type="button"
-        className="flex flex-1 items-center justify-center gap-2 rounded-md bg-[#0f1e2e] px-8 py-3 text-sm font-semibold tracking-wide text-white transition hover:bg-[#1a3147]"
+        className="flex flex-1 items-center justify-center gap-2 rounded-md bg-[#0f1e2e] px-8 py-3 text-sm font-semibold tracking-wide text-white transition hover:bg-[#1a3147] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0f1e2e]"
       >
         <ShoppingCart className="h-4 w-4" />
         ADD TO CART
@@ -54,7 +57,7 @@ export function BuyBox() {
 
       <button
         type="button"
-        className="rounded-md border border-gray-300 px-8 py-3 text-sm font-semibold tracking-wide text-gray-900 transition hover:border-gray-400"
+        className="rounded-md border border-gray-300 px-8 py-3 text-sm font-semibold tracking-wide text-gray-900 transition hover:border-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0f1e2e]"
       >
         BUY NOW
       </button>

@@ -103,7 +103,7 @@ export function TechnicalSpecsSection({ product }: { product: Product }) {
           {/* Inert: there is no datasheet PDF in the repo for any product. */}
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-md border border-white/25 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white transition hover:border-white/50"
+            className="inline-flex items-center gap-2 rounded-md border border-white/25 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white transition hover:border-white/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             Get Full Datasheet
             <Download className="h-3.5 w-3.5" />
@@ -248,7 +248,7 @@ export function CompleteYourBuildSection({
 
               <button
                 type="button"
-                className="mt-auto w-full rounded border border-gray-300 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-gray-900 transition hover:border-gray-400"
+                className="mt-auto w-full rounded border border-gray-300 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-gray-900 transition hover:border-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0f1e2e]"
               >
                 {cardCta(product.status)}
               </button>
@@ -281,7 +281,7 @@ export function EnquireStrip({
         </div>
         <Link
           href="/contact"
-          className="inline-flex shrink-0 items-center rounded bg-white px-7 py-3 text-xs font-semibold uppercase tracking-wider text-[#0f1e2e] transition hover:bg-gray-100"
+          className="inline-flex shrink-0 items-center rounded bg-white px-7 py-3 text-xs font-semibold uppercase tracking-wider text-[#0f1e2e] transition hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
           {content.cta}
         </Link>

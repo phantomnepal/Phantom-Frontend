@@ -13,6 +13,8 @@ interface DesktopNavProps {
   getTriggerHandlers: (label: string) => {
     onMouseEnter: () => void;
     onMouseLeave: () => void;
+    onFocus: () => void;
+    onBlur: () => void;
   };
 }
 

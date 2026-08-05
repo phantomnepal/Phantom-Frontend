@@ -43,8 +43,11 @@ export function ProductGallery({ product }: { product: Product }) {
               type="button"
               onClick={() => setActive(i)}
               aria-label={`View image ${i + 1} of ${images.length}`}
-              aria-current={i === active}
-              className={`relative aspect-square overflow-hidden rounded-md bg-[#F5F6F8] transition ${
+              // The selected thumbnail is marked by a coloured ring, which is
+              // colour alone; aria-pressed carries the same state to assistive
+              // technology.
+              aria-pressed={i === active}
+              className={`relative aspect-square overflow-hidden rounded-md bg-[#F5F6F8] transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A10F1A] ${
                 i === active
                   ? "ring-2 ring-[#A10F1A]"
                   : "ring-1 ring-gray-200 hover:ring-gray-300"

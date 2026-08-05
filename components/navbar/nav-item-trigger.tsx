@@ -4,6 +4,9 @@ import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import type { NavItem } from "@/data/types";
 
+/** Shared between the trigger's aria-controls and the panel's id. */
+export const MEGA_PANEL_ID = "mega-menu-panel";
+
 interface NavItemTriggerProps {
   item: NavItem;
   variant: "desktop" | "mobile";
@@ -85,9 +88,21 @@ export function NavItemTrigger({
    * Mobile stays a button: there is no hover there, so the tap has to be what
    * expands the submenu.
    */
+  // The panel's open state belongs on whichever control reveals it, so screen
+  // readers announce "collapsed"/"expanded" rather than leaving the panel's
+  // appearance a purely visual event.
+  const expandedProps = item.megaMenu
+    ? { "aria-expanded": isExpanded, "aria-controls": MEGA_PANEL_ID }
+    : {};
+
   if (variant === "desktop" && item.href) {
     return (
-      <Link href={item.href} className={className} {...handlers}>
+      <Link
+        href={item.href}
+        className={className}
+        {...expandedProps}
+        {...handlers}
+      >
         {label}
       </Link>
     );
@@ -97,6 +112,7 @@ export function NavItemTrigger({
     <button
       className={className}
       onClick={variant === "mobile" ? onTrigger : undefined}
+      {...expandedProps}
       {...handlers}
     >
       {label}

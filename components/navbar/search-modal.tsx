@@ -27,11 +27,18 @@ export function SearchModal({
   onClose,
 }: SearchModalProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const previouslyFocused = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    if (open) {
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
+    if (!open) return;
+    // Remember what opened the dialog so focus can go back there on close,
+    // rather than being dumped at the top of the document.
+    previouslyFocused.current = document.activeElement as HTMLElement | null;
+    const id = setTimeout(() => inputRef.current?.focus(), 100);
+    return () => {
+      clearTimeout(id);
+      previouslyFocused.current?.focus();
+    };
   }, [open]);
 
   if (!open) return null;
@@ -44,25 +51,33 @@ export function SearchModal({
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
 
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Search"
         className="relative w-full max-w-lg mx-4 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-200">
-          <Search className="w-5 h-5 text-gray-400 shrink-0" />
+          <Search className="w-5 h-5 text-gray-400 shrink-0" aria-hidden="true" />
           <input
             ref={inputRef}
             type="text"
+            aria-label="Search pages and products"
             placeholder="Search pages, docs, features..."
             value={searchQuery}
             onChange={(e) => onQueryChange(e.target.value)}
             className="flex-1 text-[15px] text-gray-800 placeholder:text-gray-400 outline-none bg-transparent"
           />
-          <kbd
+          {/* Was a kbd with an onClick — a hint element carrying an action, so
+              it was unreachable by keyboard and announced nothing. */}
+          <button
+            type="button"
             onClick={onClose}
-            className="px-2 py-0.5 text-[11px] font-medium text-gray-500 bg-gray-100 rounded border border-gray-200 cursor-pointer hover:bg-gray-200 transition"
+            aria-label="Close search"
+            className="px-2 py-0.5 text-[11px] font-medium text-gray-500 bg-gray-100 rounded border border-gray-200 cursor-pointer hover:bg-gray-200 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A10F1A]"
           >
             ESC
-          </kbd>
+          </button>
         </div>
 
         <div className="max-h-[320px] overflow-y-auto">
