@@ -9,9 +9,9 @@ import type {
 export const projects: Project[] = [
   {
     id: 1,
-    heroImage: "/project/project1.png",
-    image: "/project/project1.png",
-    gallery: ["/project/project2.png", "/project/projects3.png"],
+    heroImage: "/products/phantom-f722/top.png",
+    image: "/products/phantom-f722/top.png",
+    gallery: ["/products/phantom-f722/bottom.png", "/products/phantom-f722/angle.png"],
     category: "FPV FLIGHT CONTROLLER",
     badge: "PROTOTYPE",
     badgeVariant: "prototype",
@@ -22,9 +22,9 @@ export const projects: Project[] = [
   },
   {
     id: 2,
-    heroImage: "/project/project7.png",
-    image: "/project/project7.png",
-    gallery: ["/project/project8.png", "/project/project9.png"],
+    heroImage: "/products/advance-usb-c-power-supply/top.png",
+    image: "/products/advance-usb-c-power-supply/top.png",
+    gallery: ["/products/advance-usb-c-power-supply/bottom.png", "/products/advance-usb-c-power-supply/angle.png"],
     category: "VARIABLE POWER SUPPLY",
     badge: "PROTOTYPE",
     badgeVariant: "prototype",

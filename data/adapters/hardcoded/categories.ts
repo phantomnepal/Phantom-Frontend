@@ -8,7 +8,7 @@ export const productCategories: ProductCategory[] = [
     title: "Embedded Systems",
     description:
       "Custom PCBs, dev boards and sensor hardware for rapid prototyping.",
-    image: "/embedded-systems.jpg",
+    image: "/categories/embedded-systems.jpg",
   },
   /* Parked. Replaced by Flight Electronics below (formerly UAV Systems).
      Its three products are commented out with it further down — a product
@@ -20,7 +20,7 @@ export const productCategories: ProductCategory[] = [
     title: "IoT & Robotics",
     description:
       "Connected sensing, monitoring and programmable robotic platforms.",
-    image: "/iot-robotics.jpg",
+    image: "/categories/iot-robotics.jpg",
   },
   */
   {
@@ -28,13 +28,13 @@ export const productCategories: ProductCategory[] = [
     title: "Flight Electronics",
     description:
       "Flight controllers and power electronics for FPV and light UAVs.",
-    image: "/products/flight-controller.png",
+    image: "/categories/flight-electronics.png",
   },
   {
     slug: "educational-kits",
     title: "Educational Kits",
     description:
       "Hands-on kits that take learners from first circuit to working system.",
-    image: "/engineering-kits.png",
+    image: "/categories/educational-kits.png",
   },
 ];

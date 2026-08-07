@@ -149,11 +149,19 @@ The user will provide real **content and images later**. Until then:
 - `whyChoose` is site-level with an **optional per-product override**
   (`Product.whyChoose`). Only the power supply overrides it, because "Built for
   real power demands" would read as nonsense on the Robotics Kit or CubeSat.
-- **Real photos exist for 4 products**: `/products/cubesat.png`,
-  `/products/phantom-f405.png`, `/products/flight-controller.png` (F722), and
-  `/project/project7.png` (power supply — shared with its `/projects` entry;
-  swap if a dedicated product shot is taken). The kits and the 5 aspirational
-  SKUs use category placeholder images.
+- **Real Phantom hardware imagery exists for 3 products**, as three renders each
+  for two of them: `/products/phantom-f722/{top,bottom,angle}.png`,
+  `/products/advance-usb-c-power-supply/{top,bottom,angle}.png` (shared with its
+  `/projects` entry) and `/products/phantom-f405/top.png`. Everything else is a
+  generic placeholder. See `public/README.md` for the folder convention.
+
+  A previous version of this note was **wrong** and worth not repeating:
+  it listed `/products/flight-controller.png` as the F722. It is not — it is a
+  generic green PCB render whose silkscreen is garbled nonsense text, now at
+  `/categories/flight-electronics.png` and used as the category card and the ESC
+  placeholder. It also called `cubesat.png` a real photo; it is a render.
+  An image makes claims the same way a spec row does — check what one actually
+  shows before attaching it to a product.
 - **"Development Boards" no longer exists.** It was a placeholder SKU; the user
   replaced it with the Advance USB-C Power Supply (`advance-usb-c-power-supply`,
   `embedded-systems`, `prototype`). Its specs were restructured from the

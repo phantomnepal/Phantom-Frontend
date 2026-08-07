@@ -8,9 +8,9 @@ export const embeddedSystemsProducts: Product[] = [
     category: "embedded-systems",
     // Real photograph of this board, shared with the /projects entry for the
     // same hardware. Replace if a dedicated product shot is taken.
-    image: "/project/project7.png",
+    image: "/products/advance-usb-c-power-supply/top.png",
     // Further real shots of the same board, shared with its /projects entry.
-    gallery: ["/project/project8.png", "/project/project9.png"],
+    gallery: ["/products/advance-usb-c-power-supply/bottom.png", "/products/advance-usb-c-power-supply/angle.png"],
     priceUsd: 49,
     description:
       "A custom power supply for selectable, high-current voltage output.",
@@ -116,7 +116,7 @@ export const embeddedSystemsProducts: Product[] = [
     slug: "sensor-modules",
     title: "Phantom BEC",
     category: "embedded-systems",
-    image: "/embedded-systems.jpg",
+    image: "/categories/embedded-systems.jpg",
     priceUsd: 24,
     description:
       "Integrated sensor solutions for high-precision data acquisition and industrial monitoring.",

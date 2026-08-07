@@ -61,7 +61,7 @@ export default function AboutPage() {
 
             <div className="relative w-full aspect-[4/3] overflow-hidden rounded-md">
               <Image
-                src="/about-hero.png"
+                src="/site/about-hero.png"
                 alt="Engineering blueprints"
                 fill
                 className="object-cover grayscale hover:grayscale-0 transition-all duration-500 ease-in-out hover:scale-105"

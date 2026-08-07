@@ -6,7 +6,7 @@ export default function AboutUs() {
     <section className="relative w-full overflow-hidden">
       {/* Background Image */}
       <Image
-        src="/lab-background.png"
+        src="/site/lab-background.png"
         alt="Embedded Engineering Lab"
         fill
         priority

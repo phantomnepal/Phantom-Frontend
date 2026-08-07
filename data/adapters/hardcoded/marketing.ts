@@ -49,7 +49,7 @@ export const capabilities: Capability[] = [
       "Testing, Validation & Debugging",
       "Optimisation & Production Readiness",
     ],
-    image: "/hardware2.png",
+    image: "/site/hardware.png",
   },
   {
     category: "ENGINEERING CAPABILITIES",
@@ -65,7 +65,7 @@ export const capabilities: Capability[] = [
       "Performance & Power Optimisation",
       "Deployment & Field Updates",
     ],
-    image: "/software.jpg",
+    image: "/site/software.jpg",
   },
   {
     category: "ENGINEERING CAPABILITIES",
@@ -81,23 +81,23 @@ export const capabilities: Capability[] = [
       "Testing & Design Iteration",
       "Production-Ready Design",
     ],
-    image: "/mechanical.jpg",
+    image: "/site/mechanical.jpg",
   },
 ];
 
 export const logos: Logo[] = [
-  { src: "/logos/matlab.svg", alt: "MATLAB" },
-  { src: "/logos/LT.svg", alt: "LTspice" },
-  { src: "/logos/aws-freertos.svg", alt: "FreeRTOS" },
-  { src: "/logos/blender.svg", alt: "Blender" },
-  { src: "/logos/Altium.png", alt: "Altium Designer" },
-  { src: "/logos/platformio.svg", alt: "PlatformIO" },
-  { src: "/logos/visual-studio-code.svg", alt: "VS Code" },
-  { src: "/logos/arduino.svg", alt: "Arduino" },
-  { src: "/logos/OpenVSP.png", alt: "OpenVSP" },
-  { src: "/logos/kicad.svg", alt: "KiCad" },
-  { src: "/logos/fusion.svg", alt: "Fusion" },
-  { src: "/logos/stmicroelectronics.svg", alt: "STM32CubeIDE" },
+  { src: "/tools/matlab.svg", alt: "MATLAB" },
+  { src: "/tools/LT.svg", alt: "LTspice" },
+  { src: "/tools/aws-freertos.svg", alt: "FreeRTOS" },
+  { src: "/tools/blender.svg", alt: "Blender" },
+  { src: "/tools/Altium.png", alt: "Altium Designer" },
+  { src: "/tools/platformio.svg", alt: "PlatformIO" },
+  { src: "/tools/visual-studio-code.svg", alt: "VS Code" },
+  { src: "/tools/arduino.svg", alt: "Arduino" },
+  { src: "/tools/OpenVSP.png", alt: "OpenVSP" },
+  { src: "/tools/kicad.svg", alt: "KiCad" },
+  { src: "/tools/fusion.svg", alt: "Fusion" },
+  { src: "/tools/stmicroelectronics.svg", alt: "STM32CubeIDE" },
 ];
 
-export const heroImages: HeroImage[] = [{ src: "/images/hero1.png" }, { src: "/images/hero2.png" }];
+export const heroImages: HeroImage[] = [{ src: "/site/hero-1.png" }, { src: "/site/hero-2.png" }];
