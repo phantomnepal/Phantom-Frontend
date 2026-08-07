@@ -82,57 +82,6 @@ export const educationalKitsProducts: Product[] = [
     ],
   },
   {
-    slug: "embedded-systems-kit",
-    title: "Embedded Systems Kit",
-    category: "educational-kits",
-    image: "/categories/educational-kits.png",
-    priceUsd: 79,
-    description: "Advanced kit for embedded systems development",
-    status: "available",
-    overview:
-      "Embedded development has a steep first step, from toolchains to hardware. This kit pairs industry-relevant hardware with a structured path into embedded programming and real-time systems.",
-    applications: [
-      {
-        iconName: "Terminal",
-        title: "Firmware",
-        description: "Learning firmware and real-time systems.",
-      },
-      {
-        iconName: "Layers",
-        title: "Hobby to professional",
-        description: "Bridging hobby work and professional practice.",
-      },
-      {
-        iconName: "GraduationCap",
-        title: "University",
-        description: "University embedded coursework.",
-      },
-    ],
-    specs: [
-      { label: "Hardware", value: "Industry-relevant embedded hardware" },
-      { label: "Path", value: "Structured, into firmware" },
-      { label: "Topics", value: "Real-time systems fundamentals" },
-      { label: "Level", value: "Bridges hobby and professional work" },
-    ],
-    faqs: [
-      {
-        question: "How is this different from the Starter Kit?",
-        answer:
-          "The Starter Kit teaches electronics fundamentals. This kit is a step up, into firmware and real-time systems.",
-      },
-      {
-        question: "Do I need prior firmware experience?",
-        answer:
-          "It is built as an on-ramp, but assumes you are ready to go deeper than a first kit.",
-      },
-      {
-        question: "Is it used professionally?",
-        answer:
-          "The hardware is industry-relevant and bridges hobby and professional practice.",
-      },
-    ],
-  },
-  {
     slug: "educational-1u-cubesat",
     title: "Educational 1U CubeSat",
     category: "educational-kits",

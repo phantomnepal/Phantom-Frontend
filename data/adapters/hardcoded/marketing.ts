@@ -100,4 +100,9 @@ export const logos: Logo[] = [
   { src: "/tools/stmicroelectronics.svg", alt: "STM32CubeIDE" },
 ];
 
-export const heroImages: HeroImage[] = [{ src: "/site/hero-1.png" }, { src: "/site/hero-2.png" }];
+/**
+ * The hero background. One image, by choice: the rotating carousel and its
+ * indicator pills were removed, so anything past the first entry would never
+ * render. `hero-1.png` and `hero-2.png` are still in public/site/.
+ */
+export const heroImages: HeroImage[] = [{ src: "/site/hero.jpg" }];

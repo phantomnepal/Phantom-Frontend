@@ -61,7 +61,7 @@ from them:
 | `footer.ts` / `marketing.ts` / `faq.ts` / `about.ts` / `contact.ts` | the rest |
 
 ### Product catalog — the single source of truth
-`catalog: Product[]` (7 products) and `productCategories: ProductCategory[]`
+`catalog: Product[]` (6 products) and `productCategories: ProductCategory[]`
 (3 categories). **The product mega menu and site search derive from the catalog**
 (`productMegaMenuColumns`, `catalogSearchItems` in `navigation.ts`) — add a
 product and it appears in nav, category page, and search at once. Do not
@@ -132,13 +132,13 @@ in `data/adapters/hardcoded/`. There is no external source of Phantom product co
 ### Current content state (user is supplying the rest)
 The user will provide real **content and images later**. Until then:
 
-- `overview`, `applications`, `faqs` are **DRAFT PLACEHOLDER** on 2 of the 7
-  live products — Phantom F722 and Embedded Systems Kit — marked as such in
-  `data/types.ts`. Written to make no performance, dimensional, or component
-  claims. Unreviewed — they speak for the company if shipped. The other five are
-  **user-authored and real**: Advance USB-C Power Supply, Advance BEC Power
-  Module, Educational 1U CubeSat, 4WD Robotics Kit, Electronics Starter Kit.
-  Their entries are marked `USER-AUTHORED` — do not rewrite them.
+- `overview`, `applications`, `faqs` are **DRAFT PLACEHOLDER** on only 1 of the 6
+  live products now — Phantom F722 — marked as such in `data/types.ts`. Written
+  to make no performance, dimensional, or component claims. Unreviewed — it
+  speaks for the company if shipped. The other five are **user-authored and
+  real**: Advance USB-C Power Supply, Advance BEC Power Module, Educational 1U
+  CubeSat, 4WD Robotics Kit, Electronics Starter Kit. Their entries are marked
+  `USER-AUTHORED` — do not rewrite them.
 - `specs` are real. **Every live product now publishes a specs table**; the
   `specs: []` products were either filled in by the user (BEC) or parked (ESC
   Stack, and the three `iot-robotics` entries). The "In development" fallback
@@ -167,11 +167,13 @@ The user will provide real **content and images later**. Until then:
   placeholder. See `public/README.md` for the folder convention and the full
   list. `/products/phantom-f405/top.png` is kept though that product is parked.
 
-  Four Unsplash drone shots are in `public/site/` and are **deliberately
-  unreferenced**: every one shows a competitor's aircraft (DJI Mavic, Parrot
-  Anafi with the logo legible, an iFlight quad with a Caddx camera). The user
-  intends to place them on the hero and the flight-electronics section of the
-  landing page and will say which goes where.
+  Two Unsplash drone shots are now **in use at the user's explicit direction**,
+  both showing a competitor's aircraft: `site/hero.jpg` (DJI Mavic) is the
+  landing hero, and `categories/flight-electronics.jpg` (an iFlight quad with a
+  Caddx camera, both logos legible) is the Flight Electronics category card.
+  This was flagged before they chose the files and reaffirmed — do not
+  "fix" it back. Two more Parrot/Mavic shots remain unreferenced in
+  `public/site/`.
 
   A previous version of this note was **wrong** and worth not repeating:
   it listed `/products/flight-controller.png` as the F722. It is not — it is a
@@ -213,15 +215,34 @@ The user will provide real **content and images later**. Until then:
 
 `.env.local` holds secrets and is gitignored. Never commit it.
 
+## Hero and mega menu
+
+`components/Hero.tsx` is **deliberately static and a server component**. It was
+a Framer Motion carousel — two backgrounds cross-fading on a 6s interval with an
+8s scale drift, staggered entrance animations on every text block, and indicator
+pills whose active state was the brand red. All removed at the user's request,
+which is why `heroImages` holds exactly one entry and the background is
+`next/image` with `priority` (it is the LCP element). Do not reinstate the
+carousel or the pills.
+
+`MegaMenu.footer` is the optional "browse all" row. The Product menu declares
+one; **Engineering deliberately declares none.** This used to be inferred in the
+component from `columns.length === 4`, which broke silently when parking
+`iot-robotics` took the product menu to three columns — the *products* menu
+started offering "Browse all engineering services" and linking to
+`/engineering`. Pinned in `data/__tests__/content.test.ts`.
+
 ## Known open items
 
 - `/engineering`'s 12 mega-menu items all fall through to one "Check back soon"
   placeholder (`app/engineering/[[...slug]]`, noindex) — the same dead-link
   problem `/product` had. The user asked about giving it the catalog treatment;
   unanswered.
-- Hero (`components/Hero.tsx`) CTAs "Explore Products" and "Engineering Solutions"
-  are bare `<button>`s with no link or handler. Hero background uses a raw `<img>`
-  with no `priority`, hurting LCP.
+- Hero CTAs "Explore Products" and "Engineering Solutions" are still bare
+  `<button>`s with no link or handler.
+- `components/EngineeringCapabilities.tsx` still has its own auto-advancing
+  carousel with indicator pills. The hero de-animation request was scoped to the
+  hero; this one was left alone.
 - The user was asking to change the enquire CTA layout when it was redirected to
   the Sequence clone; only the closing CTA was restyled.
 

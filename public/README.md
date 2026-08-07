@@ -79,10 +79,17 @@ photographs of Phantom's own hardware:
   file wrongly called a stock Arduino photo. It is Phantom's own kit.
 - `products/4wd-robotics-kit/{assembled,contents-flat-lay,contents-angle}.jpg`
 
-`site/drone-*.jpg` and `site/fpv-quad-outdoor.jpg` are Unsplash stock and every
-one of them shows **a competitor's aircraft** — DJI Mavic, Parrot Anafi (logo
-legible), an iFlight quad with a Caddx camera. They are placed but unreferenced;
-using them on a Phantom page implies Phantom built that airframe.
+The Unsplash drone stock is now **in use, knowingly**, and every one of these
+shows **a competitor's aircraft** — using them on a Phantom page implies Phantom
+built that airframe:
+
+- `site/hero.jpg` — DJI Mavic over mountains. The landing hero. Encoded at
+  **2560px**, not 1600: it is full-bleed, so 1600 upscales about 2x on a retina
+  display.
+- `categories/flight-electronics.jpg` — an iFlight quad with a Caddx camera,
+  both logos legible. The Flight Electronics category card.
+- `site/drone-studio-portrait.jpg`, `site/drone-studio-detail.jpg` — Parrot
+  Anafi (logo legible) and a second Mavic. Still unreferenced.
 
 Same rule as the specs in CLAUDE.md: don't let an image assert something the
 hardware doesn't.

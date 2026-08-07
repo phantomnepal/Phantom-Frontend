@@ -18,6 +18,16 @@ export interface MegaMenuColumn {
 
 export interface MegaMenu {
   columns: MegaMenuColumn[];
+  /**
+   * Optional "browse all" row across the bottom of the panel. Omit it and the
+   * row is not rendered — the Engineering menu does exactly that.
+   *
+   * This is explicit because it used to be inferred from `columns.length === 4`,
+   * which silently broke: parking the `iot-robotics` category took the product
+   * menu down to three columns, so it started offering "Browse all engineering
+   * services" and linking to /engineering.
+   */
+  footer?: { label: string; href: string };
 }
 
 export interface SearchableItem {

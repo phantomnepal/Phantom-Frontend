@@ -58,18 +58,18 @@ export function MegaMenuContent({ menu }: { menu: MegaMenu }) {
         </motion.div>
       </div>
 
-      <div className="border-t border-gray-100">
-        <Link
-          href={menu.columns.length === 4 ? "/product" : "/engineering"}
-          className="group flex items-center justify-between px-6 py-3 text-[13px] text-gray-400 hover:text-gray-700 transition-colors"
-        >
-          <span>
-            Browse all{" "}
-            {menu.columns.length === 4 ? "products" : "engineering services"}
-          </span>
-          <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </Link>
-      </div>
+      {/* Rendered only when the menu declares one — see MegaMenu['footer']. */}
+      {menu.footer && (
+        <div className="border-t border-gray-100">
+          <Link
+            href={menu.footer.href}
+            className="group flex items-center justify-between px-6 py-3 text-[13px] text-gray-400 hover:text-gray-700 transition-colors"
+          >
+            <span>{menu.footer.label}</span>
+            <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

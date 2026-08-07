@@ -54,6 +54,22 @@ describe('getSiteContent()', () => {
       expect(labels).toContain('About Us');
       expect(labels).toContain('Projects');
     });
+
+    it('gives the Product mega menu a browse-all row and Engineering none', () => {
+      // This used to be inferred in the component from `columns.length === 4`.
+      // Parking the iot-robotics category dropped the product menu to three
+      // columns, so it silently started offering "Browse all engineering
+      // services" and linking to /engineering. The row is declared in the data
+      // now; assert both menus, not just the one that broke.
+      const byLabel = (label: string) =>
+        content.navItems.find((n) => n.label === label);
+
+      expect(byLabel('Product')?.megaMenu?.footer).toEqual({
+        label: 'Browse all products',
+        href: '/product',
+      });
+      expect(byLabel('Engineering')?.megaMenu?.footer).toBeUndefined();
+    });
   });
 
   describe('solutions', () => {

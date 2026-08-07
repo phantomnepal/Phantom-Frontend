@@ -28,7 +28,10 @@ export const productCategories: ProductCategory[] = [
     title: "Flight Electronics",
     description:
       "Flight controllers and power electronics for FPV and light UAVs.",
-    image: "/categories/flight-electronics.png",
+    // Stock photography of an iFlight quad, not Phantom hardware — the
+    // silkscreen-garbled generic render it replaced is still at
+    // /categories/flight-electronics.png for the parked ESC entry.
+    image: "/categories/flight-electronics.jpg",
   },
   {
     slug: "educational-kits",

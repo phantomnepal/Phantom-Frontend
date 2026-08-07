@@ -43,12 +43,17 @@ export const navItems: NavItem[] = [
   {
     label: "Product",
     href: "/product",
-    megaMenu: { columns: productMegaMenuColumns },
+    megaMenu: {
+      columns: productMegaMenuColumns,
+      footer: { label: "Browse all products", href: "/product" },
+    },
   },
   {
     label: "Engineering",
     href: "/engineering",
     megaMenu: {
+      // No `footer`: the "Browse all engineering services" row was removed at
+      // the user's request.
       columns: [
         {
           title: "Embedded Hardware Development",
