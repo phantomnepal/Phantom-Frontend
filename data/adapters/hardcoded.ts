@@ -15,6 +15,7 @@ const productCategories: ProductCategory[] = [
       "Custom PCBs, dev boards and sensor hardware for rapid prototyping.",
     image: "/embedded-systems.jpg",
   },
+  /*
   {
     slug: "iot-robotics",
     title: "IoT & Robotics",
@@ -22,9 +23,10 @@ const productCategories: ProductCategory[] = [
       "Connected sensing, monitoring and programmable robotic platforms.",
     image: "/iot-robotics.jpg",
   },
+  */
   {
     slug: "uav-systems",
-    title: "UAV Systems",
+    title: "Flight Electronics",
     description:
       "Flight controllers and power electronics for FPV and light UAVs.",
     image: "/products/flight-controller.png",
@@ -164,7 +166,7 @@ const catalog: Product[] = [
   },
   {
     slug: "sensor-modules",
-    title: "Sensor Modules",
+    title: "Phantom BEC",
     category: "embedded-systems",
     image: "/embedded-systems.jpg",
     price: "$24.00",
@@ -209,7 +211,7 @@ const catalog: Product[] = [
       },
     ],
   },
-  {
+  /*{
     slug: "custom-dev-board",
     title: "Custom Dev Board",
     category: "embedded-systems",
@@ -259,7 +261,7 @@ const catalog: Product[] = [
           "Not yet. We publish specifications once the hardware is real enough for us to stand behind them.",
       },
     ],
-  },
+  }*/
   {
     slug: "4-dof-robotic-arm",
     title: "4-DOF Robotic Arm",
@@ -451,9 +453,9 @@ const catalog: Product[] = [
   },
   {
     slug: "phantom-f722",
-    title: "Phantom F722",
+    title: "Phantom F722 Analog",
     category: "uav-systems",
-    image: "/products/flight-controller.png",
+    image: "/project/project1.png",
     // Real shots of the F722-Analog, shared with its /projects entry.
     gallery: ["/project/project2.png", "/project/projects3.png"],
     price: "$99.00",
@@ -517,7 +519,7 @@ const catalog: Product[] = [
   },
   {
     slug: "esc-stack",
-    title: "ESC Stack",
+    title: "ESC ",
     category: "uav-systems",
     image: "/products/flight-controller.png",
     price: "$79.00",
@@ -663,7 +665,7 @@ const catalog: Product[] = [
       },
     ],
   },
-  {
+  /*{
     slug: "robotics-kit",
     title: "Robotics Kit",
     category: "educational-kits",
@@ -713,7 +715,7 @@ const catalog: Product[] = [
           "Yes — it is used for clubs, workshops and competitions.",
       },
     ],
-  },
+  },*/
   {
     slug: "educational-1u-cubesat",
     title: "Educational 1U CubeSat",
@@ -1061,7 +1063,7 @@ export const hardcodedContent: SiteContent = {
   footerProductLinks: [
     { label: "Embedded Systems", href: "#" },
     { label: "IOT & Robotics", href: "#" },
-    { label: "UAV", href: "#" },
+    { label: "Flight Electronics", href: "#" },
     { label: "Educational Kits", href: "#" },
   ],
 

@@ -57,7 +57,7 @@ export function ProductDetail({
             </Link>
           </nav>
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+          <div className="grid lg:grid-cols-2 gap-0 lg:gap-0">
             <ProductGallery product={product} />
 
             <div className="flex flex-col">

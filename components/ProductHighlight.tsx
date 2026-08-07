@@ -27,7 +27,7 @@ export default function ProductHighlight() {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {content.productCategories.map((category) => (
             <Link
               key={category.slug}

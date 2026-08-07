@@ -17,50 +17,49 @@ export function ProductGallery({ product }: { product: Product }) {
   const [active, setActive] = useState(0);
 
   return (
-    <div>
-      <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-[#F5F6F8]">
-        <Image
-          src={images[active]}
-          alt={product.title}
-          fill
-          className="object-contain p-8"
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          priority
-        />
-        {/* Stock pill from the Figma. See Product docs: main has no inventory
-            system behind this. */}
-        <span className="absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[11px] font-semibold tracking-wider text-gray-700 shadow-sm">
-          <span className="h-2 w-2 rounded-full bg-green-500" />
-          IN STOCK
-        </span>
-      </div>
-
-      {images.length > 1 && (
-        <div className="mt-4 grid grid-cols-4 gap-3">
-          {images.map((src, i) => (
-            <button
-              key={src}
-              type="button"
-              onClick={() => setActive(i)}
-              aria-label={`View image ${i + 1} of ${images.length}`}
-              aria-current={i === active}
-              className={`relative aspect-square overflow-hidden rounded-md bg-[#F5F6F8] transition ${
-                i === active
-                  ? "ring-2 ring-[#A10F1A]"
-                  : "ring-1 ring-gray-200 hover:ring-gray-300"
-              }`}
-            >
-              <Image
-                src={src}
-                alt=""
-                fill
-                className="object-contain p-2"
-                sizes="120px"
-              />
-            </button>
-          ))}
-        </div>
-      )}
+    <div className="w-full max-w-[467px]">
+    <div className="relative aspect-[467/354] overflow-hidden rounded-[2px] bg-[#F5F6F8]">
+      <Image
+        src={images[active]}
+        alt={product.title}
+        fill
+        className="object-contain p-8"
+        sizes="(max-width: 768px) 100vw, 467px"
+        priority
+      />
+  
+      <span className="absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[11px] font-semibold tracking-wider text-gray-700 shadow-sm">
+        <span className="h-2 w-2 rounded-full bg-green-500" />
+        IN STOCK
+      </span>
     </div>
+  
+    {images.length > 1 && (
+      <div className="mt-4 grid grid-cols-4 gap-3">
+        {images.map((src, i) => (
+          <button
+            key={src}
+            type="button"
+            onClick={() => setActive(i)}
+            aria-label={`View image ${i + 1} of ${images.length}`}
+            aria-current={i === active}
+            className={`relative aspect-square overflow-hidden rounded-md bg-[#F5F6F8] transition ${
+              i === active
+                ? "ring-2 ring-[#A10F1A]"
+                : "ring-1 ring-gray-200 hover:ring-gray-300"
+            }`}
+          >
+            <Image
+              src={src}
+              alt=""
+              fill
+              className="object-contain p-2"
+              sizes="(max-width:768px) 22vw, 110px"
+            />
+          </button>
+        ))}
+      </div>
+    )}
+  </div>
   );
 }
