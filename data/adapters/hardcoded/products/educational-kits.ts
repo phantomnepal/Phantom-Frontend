@@ -6,7 +6,11 @@ export const educationalKitsProducts: Product[] = [
     slug: "electronics-starter-kit",
     title: "Electronics Starter Kit",
     category: "educational-kits",
-    image: "/categories/educational-kits.png",
+    image: "/products/electronics-starter-kit/contents-flat-lay.jpg",
+    gallery: [
+      "/products/electronics-starter-kit/contents-angle.jpg",
+      "/products/electronics-starter-kit/contents-detail.jpg",
+    ],
     priceUsd: 35,
     description: "Beginner-friendly kit for learning electronics fundamentals",
     status: "available",
@@ -108,7 +112,13 @@ export const educationalKitsProducts: Product[] = [
     slug: "educational-1u-cubesat",
     title: "Educational 1U CubeSat",
     category: "educational-kits",
-    image: "/products/educational-1u-cubesat/hero.png",
+    // Real photographs of the Phantom boards, not the earlier AI render
+    // (hero.png, kept in public/ but no longer referenced).
+    image: "/products/educational-1u-cubesat/onboard-computer.jpg",
+    gallery: [
+      "/products/educational-1u-cubesat/eps-board.jpg",
+      "/products/educational-1u-cubesat/eps-board-detail.jpg",
+    ],
     priceUsd: 349,
     description: "Learn satellite systems with this 1U CubeSat platform",
     status: "available",

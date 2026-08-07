@@ -59,17 +59,32 @@ alone was 8.7 MB at 4096×2730, rendering into a ~400px card.
 
 ## A caution about what an image claims
 
-An image is a specification. `unsorted/project3.jpg` is a stock photo of an
-Arduino UNO starter kit — putting it on the Electronics Starter Kit page would
-claim the kit ships an Arduino UNO. `categories/flight-electronics.png` and
+An image is a specification. `categories/flight-electronics.png` and
 `products/educational-1u-cubesat/hero.png` are generic renders, not photographs
-of Phantom hardware; the silkscreen on the former is nonsense text.
+of Phantom hardware; the silkscreen on the former is nonsense text. `hero.png`
+is kept on disk but is **no longer referenced** — the CubeSat now shows the real
+board photos.
 
-Only these are real Phantom hardware:
+Real Phantom hardware — renders made from Phantom's own board files, or
+photographs of Phantom's own hardware:
 
 - `products/phantom-f722/{top,bottom,angle}.png`
 - `products/advance-usb-c-power-supply/{top,bottom,angle}.png`
 - `products/phantom-f405/top.png`
+- `products/sensor-modules/{top,bottom,angle}.png` — the Phantom BEC. The
+  bottom render's silkscreen reads `PHANTOM BEC / INPUT: 3.8V-32V / OUTPUT 5V`.
+- `products/educational-1u-cubesat/{onboard-computer,eps-board,eps-board-detail}.jpg`
+- `products/electronics-starter-kit/contents-{flat-lay,angle,detail}.jpg` —
+  the same shoot as `unsorted/project3.jpg`, which an earlier version of this
+  file wrongly called a stock Arduino photo. It is Phantom's own kit.
+- `products/robotics-kit/{assembled,contents-flat-lay,contents-angle}.jpg` —
+  placed but **unreferenced**: the `robotics-kit` product is parked (commented
+  out in `products/_parked.ts`).
+
+`site/drone-*.jpg` and `site/fpv-quad-outdoor.jpg` are Unsplash stock and every
+one of them shows **a competitor's aircraft** — DJI Mavic, Parrot Anafi (logo
+legible), an iFlight quad with a Caddx camera. They are placed but unreferenced;
+using them on a Phantom page implies Phantom built that airframe.
 
 Same rule as the specs in CLAUDE.md: don't let an image assert something the
 hardware doesn't.

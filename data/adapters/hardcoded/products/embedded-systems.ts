@@ -116,7 +116,8 @@ export const embeddedSystemsProducts: Product[] = [
     slug: "sensor-modules",
     title: "Phantom BEC",
     category: "embedded-systems",
-    image: "/categories/embedded-systems.jpg",
+    image: "/products/sensor-modules/top.png",
+    gallery: ["/products/sensor-modules/bottom.png", "/products/sensor-modules/angle.png"],
     priceUsd: 24,
     description:
       "Integrated sensor solutions for high-precision data acquisition and industrial monitoring.",
