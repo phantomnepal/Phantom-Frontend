@@ -56,6 +56,16 @@ export const educationalKitsProducts: Product[] = [
         label: "Power",
         value: "9V battery with clip, jumper wires (M-M, M-F), USB cable",
       },
+      // These two close the specs grid at a multiple of three — see
+      // TechnicalSpecsSection. Both restate the user's own FAQ answers rather
+      // than adding a claim: "you'll write simple Arduino code … with guided
+      // examples" and the list of projects the kit builds.
+      { label: "Programming", value: "Arduino IDE, with guided examples" },
+      {
+        label: "Example projects",
+        value:
+          "Motion-activated light, temperature/humidity display, servo-controlled gauge, relay-switched circuits",
+      },
       { label: "Built for", value: "Beginners and self-learners" },
     ],
     highlights: [
@@ -119,6 +129,9 @@ export const educationalKitsProducts: Product[] = [
     ],
     specs: [
       { label: "Form factor", value: "1U, 3D-printed frame" },
+      // Restates the summary row above the fold, and closes the specs grid at a
+      // multiple of three — see TechnicalSpecsSection.
+      { label: "Subsystems", value: "OBC, EPS and solar board" },
       { label: "EPS (electrical power system)", value: "Li-ion battery management" },
       {
         label: "OBC (on-board computer)",

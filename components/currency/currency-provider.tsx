@@ -23,6 +23,23 @@ type CurrencyState = {
   /** USD→NPR. Starts at the baked-in fallback and is replaced if the live
    *  rate arrives; never null, so no consumer has to handle "no rate yet". */
   rate: number;
+  /**
+   * Whether `rate` came from the network or is still the baked-in fallback.
+   *
+   * Exposed so the currency menu can say which one a reader is looking at. A
+   * converted price is an approximation either way, but "today's rate" and "a
+   * rate we hardcoded in August" are different claims and should not look
+   * identical.
+   */
+  rateIsLive: boolean;
+  /**
+   * Forget the stored preference and go back to USD.
+   *
+   * The currency choice is the only thing this site keeps about a visitor, so
+   * the account menu offers to clear it — that menu has nothing else truthful
+   * to manage until the store ships auth.
+   */
+  resetCurrency: () => void;
 };
 
 const CurrencyContext = createContext<CurrencyState | null>(null);
@@ -42,6 +59,7 @@ const CurrencyContext = createContext<CurrencyState | null>(null);
 export function CurrencyProvider({ children }: { children: React.ReactNode }) {
   const [currency, setCurrencyState] = useState<Currency>("USD");
   const [rate, setRate] = useState(FALLBACK_NPR_PER_USD);
+  const [rateIsLive, setRateIsLive] = useState(false);
 
   // Restore the stored preference. localStorage throws in Safari's private
   // mode rather than returning null, so this cannot go unguarded.
@@ -63,7 +81,10 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
       .then((response) => (response.ok ? response.json() : null))
       .then((payload) => {
         const live = readNprRate(payload);
-        if (live !== null) setRate(live);
+        if (live !== null) {
+          setRate(live);
+          setRateIsLive(true);
+        }
       })
       .catch(() => {
         // Offline, blocked, rate-limited, or the shape changed. Keep the
@@ -82,8 +103,19 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  const resetCurrency = useCallback(() => {
+    setCurrencyState("USD");
+    try {
+      window.localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // Nothing was stored to begin with.
+    }
+  }, []);
+
   return (
-    <CurrencyContext.Provider value={{ currency, setCurrency, rate }}>
+    <CurrencyContext.Provider
+      value={{ currency, setCurrency, rate, rateIsLive, resetCurrency }}
+    >
       {children}
     </CurrencyContext.Provider>
   );

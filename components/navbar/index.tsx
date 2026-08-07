@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef, startTransition } from "react";
-import { Menu, X, Search, ShoppingCart, User } from "lucide-react";
+import { Menu, X, Search, ShoppingCart } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -16,6 +16,7 @@ import { DesktopNav } from "./desktop-nav";
 import { MobileNav } from "./mobile-nav";
 import { getSiteContent } from "@/data/content";
 import { CurrencyToggle } from "@/components/currency/currency-toggle";
+import { AccountMenu } from "./account-menu";
 
 export default function Navbar() {
   const content = getSiteContent();
@@ -135,7 +136,10 @@ export default function Navbar() {
               className="object-contain w-auto"
               priority
             />
-            <span className="text-[18px] font-semibold tracking-wide text-gray-800">
+            {/* Hidden below `sm` so Cart, Account and the menu button all keep
+                44px targets on a 320px bar. The link is still named: the logo
+                image carries the alt text. */}
+            <span className="hidden sm:inline text-[18px] font-semibold tracking-wide text-gray-800">
               PHANTOM
             </span>
           </Link>
@@ -164,9 +168,9 @@ export default function Navbar() {
 
             <CurrencyToggle />
 
-            {/* Store affordances from the design mock. Deliberately inert:
-                main has no cart and no auth — those live on ecommerce-phase1,
-                pending store.phantom.com.np. Wire them up when it ships. */}
+            {/* Cart is still inert: main has no cart — that lives on
+                ecommerce-phase1, pending store.phantom.com.np. Account is not:
+                see AccountMenu, which offers only what actually works today. */}
             <button
               type="button"
               className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A10F1A]"
@@ -174,22 +178,15 @@ export default function Navbar() {
             >
               <ShoppingCart className="w-5 h-5" />
             </button>
-            <button
-              type="button"
-              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A10F1A]"
-              aria-label="Account"
-            >
-              <User className="w-5 h-5" />
-            </button>
+            <AccountMenu />
           </div>
 
-          {/* ⚠ Account is deliberately NOT here. At 320px the logo lockup plus
-              three 44px targets overflows the bar, and Account is the one that
-              is inert anyway — it moves into the sheet's territory rather than
-              costing a third of the narrowest header. Cart stays: it is the
-              store affordance the design calls for. */}
+          {/* Account sits beside Cart here at the user's request. It was left
+              out while it was an inert icon, because three 44px targets plus
+              the logo lockup overflowed a 320px bar; the wordmark now hides
+              below `sm` to pay for it, which is what makes all three fit. */}
           <div className="lg:hidden flex items-center gap-1">
-            {/* Inert, same as the desktop pair above. */}
+            {/* Inert, unlike Account — main has no cart. */}
             <button
               type="button"
               className="flex size-11 shrink-0 items-center justify-center rounded-md text-gray-600 hover:bg-gray-100 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A10F1A]"
@@ -197,6 +194,7 @@ export default function Navbar() {
             >
               <ShoppingCart className="w-5 h-5" />
             </button>
+            <AccountMenu className="flex size-11 shrink-0 items-center justify-center p-0" />
             {/* `shrink-0` is what keeps this a 44px target — the flex row
                 squeezed it to 34px wide at 320px without it. */}
             <button

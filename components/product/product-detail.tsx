@@ -77,23 +77,23 @@ export function ProductDetail({
                 {product.description}
               </p>
 
-              {product.statusNote && (
-                <p className="mt-4 text-sm leading-relaxed text-gray-500">
-                  {product.statusNote}
-                </p>
-              )}
-
               {product.priceUsd !== undefined && (
                 <div className="mt-8 flex flex-wrap items-baseline gap-4">
                   <Price
                     usd={product.priceUsd}
                     className="text-3xl font-semibold text-gray-900"
                   />
-                  {/* Lead time from the Figma. See the note in this file's
-                      docblock: nothing backs this. */}
-                  <span className="text-sm text-gray-500">
-                    Ships in 2-4 Weeks
-                  </span>
+                  {/* The lead time here was hardcoded "Ships in 2-4 Weeks" from
+                      the Figma, which nothing backed. It now comes from the
+                      product, and a product with no `statusNote` shows no lead
+                      time at all rather than a made-up one — the 4WD kit and
+                      the Starter Kit ship in 2-4 *days*, and the CubeSat does
+                      not ship at all yet. */}
+                  {product.statusNote && (
+                    <span className="text-sm text-gray-500">
+                      {product.statusNote}
+                    </span>
+                  )}
                 </div>
               )}
 

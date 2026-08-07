@@ -150,14 +150,14 @@ The user will provide real **content and images later**. Until then:
   efficiency takes the third highlight slot. Restore the row once confirmed.
 - `orderSteps` (`productPageContent`) is site-level and now describes the
   **store** — "Choose your quantity" → "Add to cart and check out" → "We build
-  and ship". **`main` has no cart, no quantity selector and no checkout**; the
+  and ship". **`main` has a quantity field but no cart and no checkout**; the
   product CTA is "Enquire now" → `/contact`, and the store is on
   `ecommerce-phase1` pending `store.phantom.com.np`. So every product page
-  currently describes a purchase flow the site cannot perform, including for the
-  five `specs: []` products that are not orderable at all. This was raised and
-  the user chose it deliberately — **do not "fix" it back.** It resolves itself
-  when the store ships. The bulk-pricing threshold is still unspecified, so the
-  copy claims tiered pricing without a number.
+  currently describes a purchase flow the site cannot perform. This was raised
+  and the user chose it deliberately — **do not "fix" it back.** It resolves
+  itself when the store ships. The bulk-pricing threshold is still unspecified,
+  so the copy claims tiered pricing without a number — and the buy box now
+  offers 10/25/50/100 presets against that unspecified threshold.
 - `whyChoose` is site-level with an **optional per-product override**
   (`Product.whyChoose`). Only the power supply overrides it, because "Built for
   real power demands" would read as nonsense on the Robotics Kit or CubeSat.
@@ -214,6 +214,43 @@ The user will provide real **content and images later**. Until then:
   reviewing before further `/product` or `/projects` changes.
 
 `.env.local` holds secrets and is gitignored. Never commit it.
+
+## Navbar and buy box controls
+
+`components/ui/dropdown.tsx` is the shared anchored menu — ARIA menu-button
+pattern, roving arrow keys, Escape/Tab handling, focus return. Both navbar
+menus use it; don't hand-roll a third.
+
+- **Currency** (`currency-toggle.tsx`) was a two-button segmented control and is
+  a dropdown now. The extra room states **which rate a converted price used**:
+  the provider exposes `rateIsLive`, so the panel says "Live rate" or "Offline
+  rate" and gives the figure. Before this, `Rs 3,200` looked equally
+  authoritative whether it came from today's rate or the constant baked into the
+  bundle. In the mobile sheet it opens **upward** (`side="top"`) — its trigger is
+  in the pinned bottom bar.
+- **Account** (`navbar/account-menu.tsx`) deliberately has **no "Sign in" and no
+  "My orders"** — there is no auth on `main`. It offers the routes that work
+  (`/contact`, `/product`) and an "On this device" block that shows and clears
+  the stored currency preference, which is the only state this site keeps about
+  a visitor. When the store ships, the top block becomes the session.
+- Account now sits **beside Cart in the mobile bar** at the user's request. The
+  `PHANTOM` wordmark is hidden below `sm` to pay for it — three 44px targets
+  plus the full lockup overflowed a 320px bar, which is why Account was left out
+  originally. Verified at 320px.
+- **Buy box quantity is a real number field**, not a stepper alone: 100 units
+  used to cost 99 clicks. Type any quantity, `inputMode="numeric"`, Up/Down to
+  step, Shift for ±10, and bulk presets (10/25/50/100). Draft state is a string
+  so the field can be empty mid-edit and settles on blur. Still inert — no cart
+  on `main`.
+- **The product lead time is no longer hardcoded.** `product-detail.tsx` printed
+  "Ships in 2-4 Weeks" from the Figma on every product; it now renders
+  `Product.statusNote`, and a product without one shows no lead time rather than
+  a false one.
+- **The specs grid no longer pads with empty cells.** It used filler divs to
+  close its rectangle when the spec count was not a multiple of three, which
+  rendered as blank cells — and only ran at `lg`, so the `sm` two-column
+  breakpoint had the same open edge with nothing filling it. The container
+  carries the border now, so any count closes cleanly at any breakpoint.
 
 ## Hero and mega menu
 

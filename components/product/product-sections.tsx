@@ -111,7 +111,15 @@ export function TechnicalSpecsSection({ product }: { product: Product }) {
           </button>
         </div>
 
-        <dl className="grid border-t border-l border-white/10 sm:grid-cols-2 lg:grid-cols-3">
+        {/* `border-r`/`border-b` on the container, not on filler cells.
+            This grid used to pad the last row with empty divs so the rectangle
+            closed on the right — which is what produced the blank cells the
+            user reported. Worse, the padding only ran at `lg`: at the `sm`
+            two-column breakpoint any odd spec count left the same open edge
+            with nothing filling it. Closing the rectangle with the container's
+            own right and bottom borders works at every breakpoint and for every
+            count, and never renders a cell with no content in it. */}
+        <dl className="grid border border-white/10 sm:grid-cols-2 lg:grid-cols-3">
           {product.specs.map((spec) => (
             <div
               key={spec.label}
@@ -124,18 +132,6 @@ export function TechnicalSpecsSection({ product }: { product: Product }) {
                 {spec.value}
               </dd>
             </div>
-          ))}
-          {/* Close the rectangle. A spec count that is not a multiple of three
-              would otherwise leave the last row unbordered on the right, which
-              reads as a rendering fault rather than a datasheet. */}
-          {Array.from({
-            length: (3 - (product.specs.length % 3)) % 3,
-          }).map((_, i) => (
-            <div
-              key={`filler-${i}`}
-              aria-hidden="true"
-              className="hidden border-b border-r border-white/10 lg:block"
-            />
           ))}
         </dl>
       </div>
