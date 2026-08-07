@@ -45,7 +45,7 @@ export const solutionIcons: Record<string, LucideIcon> = {
 export const columnIcons: Record<string, LucideIcon> = {
   "Embedded Systems": Cpu,
   "IoT & Robotics": Layers,
-  "UAV Systems": Rocket,
+  "Flight Electronics": Rocket,
   "Educational Kits": BookOpen,
   "Embedded Hardware Development": CircuitBoard,
   "Embedded Software Development": Terminal,

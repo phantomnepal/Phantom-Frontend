@@ -11,20 +11,23 @@ import type { Product } from "@/data/types";
  * photograph — see Product['gallery']. Products with a single shot (or a
  * category placeholder) render the image alone rather than padding the strip
  * with duplicates.
+ *
+ * Sizing is the Figma's: a 467px column at 467x354. Capped rather than filling
+ * its grid cell, so the hero does not stretch on wide screens.
  */
 export function ProductGallery({ product }: { product: Product }) {
   const images = [product.image, ...(product.gallery ?? [])];
   const [active, setActive] = useState(0);
 
   return (
-    <div>
-      <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-[#F5F6F8]">
+    <div className="w-full max-w-[467px]">
+      <div className="relative aspect-[467/354] overflow-hidden rounded-[2px] bg-[#F5F6F8]">
         <Image
           src={images[active]}
           alt={product.title}
           fill
           className="object-contain p-8"
-          sizes="(max-width: 1024px) 100vw, 50vw"
+          sizes="(max-width: 768px) 100vw, 467px"
           priority
         />
         {/* Stock pill from the Figma. See Product docs: main has no inventory
@@ -58,7 +61,7 @@ export function ProductGallery({ product }: { product: Product }) {
                 alt=""
                 fill
                 className="object-contain p-2"
-                sizes="120px"
+                sizes="(max-width: 768px) 22vw, 110px"
               />
             </button>
           ))}
