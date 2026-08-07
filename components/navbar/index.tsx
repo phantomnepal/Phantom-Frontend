@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect, startTransition } from "react";
+import { useState, useEffect, useRef, startTransition } from "react";
 import { Menu, X, Search, ShoppingCart, User } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
@@ -22,6 +22,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
 
   const {
     activeLabel: activeMegaLabel,
@@ -54,14 +55,50 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Escape closes the mobile drawer, as it does the mega panel and search.
+  // Escape closes the mobile sheet, as it does the mega panel and search, and
+  // puts focus back on the button that opened it.
   useEffect(() => {
     if (!mobileOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMobileOpen(false);
+      if (event.key !== "Escape") return;
+      setMobileOpen(false);
+      menuBtnRef.current?.focus();
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
+  }, [mobileOpen]);
+
+  // The sheet covers the viewport, so the page behind it must not scroll.
+  // `overscroll-contain` on the list stops the chaining; this stops a touch
+  // that starts on the sheet's own padding from moving the page.
+  //
+  // ⚠ <html> as well as <body>. A body-only lock is ignored in several iOS
+  // Safari cases.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const root = document.documentElement;
+    const previousBody = document.body.style.overflow;
+    const previousRoot = root.style.overflow;
+    document.body.style.overflow = "hidden";
+    root.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousBody;
+      root.style.overflow = previousRoot;
+    };
+  }, [mobileOpen]);
+
+  // ⚠ Without this, widening past `lg` with the sheet open leaves the body
+  // scroll-locked by a panel `lg:hidden` has just made invisible — the page
+  // looks frozen with nothing on screen to explain it.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => {
+      if (mq.matches) setMobileOpen(false);
+    };
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
   }, [mobileOpen]);
 
   useEffect(() => {
@@ -72,20 +109,19 @@ export default function Navbar() {
     });
   }, [pathname, setActiveMegaLabel]);
 
-  const toggleDropdown = (label: string) => {
-    setActiveDropdown(activeDropdown === label ? null : label);
-  };
-
-  const toggleMegaMobile = (label: string) => {
-    setActiveMegaLabel((prev) => (prev === label ? null : label));
-    setActiveDropdown(null);
-  };
+  // ⚠ Solid while the sheet is open, not only while scrolled — and this is
+  // load-bearing, not cosmetic. The sheet is `top-full`, and `top:100%`
+  // resolves against the header's PADDING box, which excludes the 1px bottom
+  // border. With the border on, the sheet starts at 71px and `100dvh - 72px`
+  // pushes its last pixel past the bottom of the viewport. Dropping the border
+  // whenever the sheet is open keeps the two numbers in step.
+  const solid = scrolled || mobileOpen;
 
   return (
     <>
       <header
         className={`w-full bg-white sticky top-0 z-50 transition-shadow duration-300 ${
-          scrolled ? "shadow-md" : "border-b border-gray-200"
+          solid ? "shadow-md" : "border-b border-gray-200"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between">
@@ -144,27 +180,30 @@ export default function Navbar() {
             </button>
           </div>
 
+          {/* ⚠ Account is deliberately NOT here. At 320px the logo lockup plus
+              three 44px targets overflows the bar, and Account is the one that
+              is inert anyway — it moves into the sheet's territory rather than
+              costing a third of the narrowest header. Cart stays: it is the
+              store affordance the design calls for. */}
           <div className="lg:hidden flex items-center gap-1">
             {/* Inert, same as the desktop pair above. */}
             <button
               type="button"
-              className="p-2 rounded-md text-gray-600 hover:bg-gray-100 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A10F1A]"
+              className="flex size-11 shrink-0 items-center justify-center rounded-md text-gray-600 hover:bg-gray-100 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A10F1A]"
               aria-label="Cart"
             >
               <ShoppingCart className="w-5 h-5" />
             </button>
+            {/* `shrink-0` is what keeps this a 44px target — the flex row
+                squeezed it to 34px wide at 320px without it. */}
             <button
+              ref={menuBtnRef}
               type="button"
-              className="p-2 rounded-md text-gray-600 hover:bg-gray-100 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A10F1A]"
-              aria-label="Account"
-            >
-              <User className="w-5 h-5" />
-            </button>
-            <button
-              className="p-1 rounded-md hover:bg-gray-100 transition"
+              className="flex size-11 shrink-0 items-center justify-center rounded-md hover:bg-gray-100 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A10F1A]"
               onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle menu"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
+              aria-controls="mobile-nav-panel"
             >
               {mobileOpen ? (
                 <X className="w-6 h-6" />
@@ -202,24 +241,29 @@ export default function Navbar() {
           </div>
         )}
 
-        {/* The drawer collapses to zero height but stays in the DOM, so
-            without `inert` every link inside remained in the tab order while
-            invisible — keyboard focus would disappear into a closed menu. */}
+        {/* Full-height sheet, not a max-height drawer.
+            ⚠ The clamp it replaces (`max-h-[800px] overflow-hidden`) was
+            hiding ~1100px of a 1917px menu with no way to reach it.
+            `h-`, not `max-h-`: a content-height sheet leaves the page showing
+            through underneath with the actions floating mid-screen, and a
+            fixed sheet keeps them pinned to the real bottom of the viewport at
+            every level.
+            `inert` also matters — `hidden` alone would be enough, but the two
+            together keep the links out of both the tab order and the a11y
+            tree regardless of how the sheet is animated later. */}
         <div
+          id="mobile-nav-panel"
           inert={!mobileOpen}
-          className={`lg:hidden transition-all duration-300 overflow-hidden ${
-            mobileOpen ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"
+          className={`lg:hidden absolute inset-x-0 top-full h-[calc(100dvh-72px)] bg-white ${
+            mobileOpen ? "" : "hidden"
           }`}
         >
           <MobileNav
+            open={mobileOpen}
             navItems={content.navItems}
             pathname={pathname}
-            activeMegaLabel={activeMegaLabel}
-            activeDropdown={activeDropdown}
-            onToggleMega={toggleMegaMobile}
-            onToggleDropdown={toggleDropdown}
             onSearch={openSearch}
-            onMobileClose={() => setMobileOpen(false)}
+            onClose={() => setMobileOpen(false)}
           />
         </div>
       </header>

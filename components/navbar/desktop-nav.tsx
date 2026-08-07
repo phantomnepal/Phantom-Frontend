@@ -36,7 +36,6 @@ export function DesktopNav({
           >
             <NavItemTrigger
               item={item}
-              variant="desktop"
               pathname={pathname}
               isExpanded={activeMegaLabel === item.label}
             />
@@ -50,7 +49,6 @@ export function DesktopNav({
           >
             <NavItemTrigger
               item={item}
-              variant="desktop"
               pathname={pathname}
               isExpanded={activeDropdown === item.label}
             />
@@ -84,7 +82,6 @@ export function DesktopNav({
           <NavItemTrigger
             key={item.label}
             item={item}
-            variant="desktop"
             pathname={pathname}
             isExpanded={false}
           />

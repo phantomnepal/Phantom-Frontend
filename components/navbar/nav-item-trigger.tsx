@@ -7,33 +7,29 @@ import type { NavItem } from "@/data/types";
 /** Shared between the trigger's aria-controls and the panel's id. */
 export const MEGA_PANEL_ID = "mega-menu-panel";
 
+/**
+ * A top-level nav label on the desktop bar.
+ *
+ * Desktop only. The mobile branch this used to carry went away with the
+ * accordion — the sheet in mobile-nav.tsx renders its own rows because a
+ * drill-in row and a hover-plus-link trigger share nothing but their text.
+ */
 interface NavItemTriggerProps {
   item: NavItem;
-  variant: "desktop" | "mobile";
   pathname: string;
   isExpanded: boolean;
-  onTrigger?: () => void;
-  desktopHandlers?: {
-    onMouseEnter: () => void;
-    onMouseLeave: () => void;
-  };
 }
 
 export function NavItemTrigger({
   item,
-  variant,
   pathname,
   isExpanded,
-  onTrigger,
-  desktopHandlers,
 }: NavItemTriggerProps) {
   if (!item.megaMenu && !item.dropdown) {
     return (
       <Link
         href={item.href!}
-        className={`${
-          variant === "desktop" ? "" : "block py-2"
-        } hover:text-black transition ${
+        className={`hover:text-black transition ${
           pathname === item.href ? "text-black font-semibold" : ""
         }`}
       >
@@ -51,22 +47,8 @@ export function NavItemTrigger({
 
   const isActive = item.megaMenu ? isExpanded || matchesPath : matchesPath;
 
-  const handlers =
-    variant === "desktop" && desktopHandlers
-      ? {
-          onMouseEnter: desktopHandlers.onMouseEnter,
-          onMouseLeave: desktopHandlers.onMouseLeave,
-        }
-      : {};
-
-  const className = `${
-    variant === "desktop"
-      ? "flex items-center gap-1 transition hover:text-black"
-      : "flex justify-between w-full items-center py-2 hover:text-black transition"
-  } ${
-    isActive && variant === "desktop"
-      ? `text-black${matchesPath ? " font-semibold" : ""}`
-      : ""
+  const className = `flex items-center gap-1 transition hover:text-black ${
+    isActive ? `text-black${matchesPath ? " font-semibold" : ""}` : ""
   }`;
 
   const label = (
@@ -80,14 +62,6 @@ export function NavItemTrigger({
     </>
   );
 
-  /**
-   * On desktop the label doubles as a link to the section landing page while
-   * hover still opens the panel — the panel is the only thing the pointer
-   * drives, so nothing about the hover behaviour changes.
-   *
-   * Mobile stays a button: there is no hover there, so the tap has to be what
-   * expands the submenu.
-   */
   // The panel's open state belongs on whichever control reveals it, so screen
   // readers announce "collapsed"/"expanded" rather than leaving the panel's
   // appearance a purely visual event.
@@ -95,26 +69,21 @@ export function NavItemTrigger({
     ? { "aria-expanded": isExpanded, "aria-controls": MEGA_PANEL_ID }
     : {};
 
-  if (variant === "desktop" && item.href) {
+  /**
+   * The label doubles as a link to the section landing page while hover opens
+   * the panel — the panel is the only thing the pointer drives, so nothing
+   * about the hover behaviour changes.
+   */
+  if (item.href) {
     return (
-      <Link
-        href={item.href}
-        className={className}
-        {...expandedProps}
-        {...handlers}
-      >
+      <Link href={item.href} className={className} {...expandedProps}>
         {label}
       </Link>
     );
   }
 
   return (
-    <button
-      className={className}
-      onClick={variant === "mobile" ? onTrigger : undefined}
-      {...expandedProps}
-      {...handlers}
-    >
+    <button type="button" className={className} {...expandedProps}>
       {label}
     </button>
   );
