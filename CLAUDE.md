@@ -40,21 +40,43 @@ section background `#F5F6F8`. Font: Geist.
 
 ### Content-adapter data layer (`data/`)
 All copy is decoupled behind one interface. `data/types.ts` defines `SiteContent`;
-`data/adapters/hardcoded.ts` holds the content; `data/content.ts` exposes
+`data/adapters/hardcoded/` holds the content; `data/content.ts` exposes
 `getSiteContent()`. Components call `getSiteContent()` — never import the adapter
-directly. `data/icons.ts` maps `iconName` strings to Lucide components so content
-stays plain data.
+directly, and nothing outside `data/` imports from inside the adapter directory.
+`data/icons.ts` maps `iconName` strings to Lucide components so content stays
+plain data.
+
+The adapter was one 1383-line `hardcoded.ts`; it is now one module per area of
+the site, with `hardcoded/index.ts` doing nothing but assembling `SiteContent`
+from them:
+
+| File | Holds |
+|------|-------|
+| `categories.ts` | `productCategories` (incl. the parked `iot-robotics` block) |
+| `products/{embedded-systems,flight-electronics,educational-kits}.ts` | one file per category |
+| `products/_parked.ts` | products kept for later, commented out verbatim |
+| `products/index.ts` | composes `catalog` from the category files |
+| `product-page.ts` | site-level `productPageContent` |
+| `navigation.ts` | `navItems`, `searchableItems`, and the two derived lists |
+| `footer.ts` / `marketing.ts` / `faq.ts` / `about.ts` / `contact.ts` | the rest |
 
 ### Product catalog — the single source of truth
-`catalog: Product[]` (12 products) and `productCategories: ProductCategory[]`
-(4 categories) in `hardcoded.ts`. **The product mega menu and site search derive
-from the catalog** (`productMegaMenuColumns`, `catalogSearchItems`) — add a
+`catalog: Product[]` (8 products) and `productCategories: ProductCategory[]`
+(3 categories). **The product mega menu and site search derive from the catalog**
+(`productMegaMenuColumns`, `catalogSearchItems` in `navigation.ts`) — add a
 product and it appears in nav, category page, and search at once. Do not
 hand-maintain those lists again; they used to be hardcoded, and all 12 nav links
 pointed at a dead `/product`.
 
-Helpers live in `lib/catalog.ts`. `Product` carries no price: pricing is a store
-concern, joined by slug later.
+**Parked products are not dead code.** The user keeps `custom-dev-board`,
+`4-dof-robotic-arm`, `smart-sensor`, `industrial-monitoring-devices` and
+`robotics-kit` commented out for later use, along with the `iot-robotics`
+category they belong to — category and products must stay parked together, since
+a product pointing at a missing category fails the catalog test. Do not delete
+them and do not uncomment one without its category.
+
+Helpers live in `lib/catalog.ts`. `Product` carries `priceUsd` only; NPR is
+derived at render time (`lib/currency.ts`), never stored.
 
 ### Product routing (`app/product/[[...slug]]/page.tsx`)
 One optional catch-all serves three shapes:
@@ -101,7 +123,7 @@ false claim on a commercial page selling hardware, and is their copy. This was
 asked for and declined; the decision stands.
 
 `phantom.com.np` is this same codebase — fetching it returns the strings already
-in `hardcoded.ts`. There is no external source of Phantom product content.
+in `data/adapters/hardcoded/`. There is no external source of Phantom product content.
 
 ### Current content state (user is supplying the rest)
 The user will provide real **content and images later**. Until then:
