@@ -4,6 +4,7 @@ import { hasSpecs } from "@/lib/catalog";
 import { StatusBadge } from "./status-badge";
 import { BuyBox } from "./buy-box";
 import { ProductGallery } from "./product-gallery";
+import { Price } from "@/components/currency/price";
 import {
   ApplicationsBand,
   CompleteYourBuildSection,
@@ -79,11 +80,12 @@ export function ProductDetail({
                 </p>
               )}
 
-              {product.price && (
+              {product.priceUsd !== undefined && (
                 <div className="mt-8 flex flex-wrap items-baseline gap-4">
-                  <span className="text-3xl font-semibold text-gray-900">
-                    {product.price}
-                  </span>
+                  <Price
+                    usd={product.priceUsd}
+                    className="text-3xl font-semibold text-gray-900"
+                  />
                   {/* Lead time from the Figma. See the note in this file's
                       docblock: nothing backs this. */}
                   <span className="text-sm text-gray-500">

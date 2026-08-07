@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Product, ProductCategory } from "@/data/types";
 import { StatusBadge } from "./status-badge";
+import { Price } from "@/components/currency/price";
 
 export function ProductCategoryView({
   category,
@@ -91,8 +92,10 @@ export function ProductCategoryView({
                   {/* Draft placeholder pricing — see Product['price']. Omitted
                       entirely when unset, so the slot collapses rather than
                       leaving a gap. */}
-                  {product.price && (
-                    <p className="mt-6 text-lg text-gray-900">{product.price}</p>
+                  {product.priceUsd !== undefined && (
+                    <p className="mt-6 text-lg text-gray-900">
+                      <Price usd={product.priceUsd} />
+                    </p>
                   )}
 
                   <span className="mt-auto pt-6 inline-flex items-center gap-1 text-sm font-semibold text-[#A10F1A]">

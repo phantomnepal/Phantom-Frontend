@@ -61,7 +61,7 @@ const catalog: Product[] = [
     image: "/project/project7.png",
     // Further real shots of the same board, shared with its /projects entry.
     gallery: ["/project/project8.png", "/project/project9.png"],
-    price: "$49.00",
+    priceUsd: 49,
     description:
       "A custom power supply for selectable, high-current voltage output.",
     status: "prototype",
@@ -167,7 +167,7 @@ const catalog: Product[] = [
     title: "Sensor Modules",
     category: "embedded-systems",
     image: "/embedded-systems.jpg",
-    price: "$24.00",
+    priceUsd: 24,
     description:
       "Integrated sensor solutions for high-precision data acquisition and industrial monitoring.",
     status: "in-development",
@@ -214,7 +214,7 @@ const catalog: Product[] = [
     title: "Custom Dev Board",
     category: "embedded-systems",
     image: "/embedded-systems.jpg",
-    price: "$89.00",
+    priceUsd: 89,
     description:
       "Versatile development platforms for various microcontroller and FPGA architectures.",
     // Badged in-development, not "available" as the design mock shows: nothing
@@ -265,7 +265,7 @@ const catalog: Product[] = [
     title: "4-DOF Robotic Arm",
     category: "iot-robotics",
     image: "/iot-robotics.jpg",
-    price: "$149.00",
+    priceUsd: 149,
     description: "Programmable robotic arm for education and automation",
     status: "in-development",
     overview:
@@ -311,7 +311,7 @@ const catalog: Product[] = [
     title: "Smart Sensor",
     category: "iot-robotics",
     image: "/iot-robotics.jpg",
-    price: "$59.00",
+    priceUsd: 59,
     description: "Intelligent sensing platform with wireless connectivity",
     status: "in-development",
     overview:
@@ -357,7 +357,7 @@ const catalog: Product[] = [
     title: "Industrial Monitoring Devices",
     category: "iot-robotics",
     image: "/iot-robotics.jpg",
-    price: "$399.00",
+    priceUsd: 399,
     description: "Real-time industrial monitoring and control hardware",
     status: "in-development",
     overview:
@@ -403,7 +403,7 @@ const catalog: Product[] = [
     title: "Phantom F405",
     category: "uav-systems",
     image: "/products/phantom-f405.png",
-    price: "$79.00",
+    priceUsd: 79,
     description: "STM32F405-based flight controller for FPV drones",
     status: "available",
     overview:
@@ -456,7 +456,7 @@ const catalog: Product[] = [
     image: "/products/flight-controller.png",
     // Real shots of the F722-Analog, shared with its /projects entry.
     gallery: ["/project/project2.png", "/project/projects3.png"],
-    price: "$99.00",
+    priceUsd: 99,
     description: "High-performance F722 flight controller for industrial UAVs",
     status: "prototype",
     overview:
@@ -520,7 +520,7 @@ const catalog: Product[] = [
     title: "ESC Stack",
     category: "uav-systems",
     image: "/products/flight-controller.png",
-    price: "$79.00",
+    priceUsd: 79,
     description: "High-current ESC modules for multirotor platforms",
     status: "in-development",
     overview:
@@ -566,7 +566,7 @@ const catalog: Product[] = [
     title: "Electronics Starter Kit",
     category: "educational-kits",
     image: "/engineering-kits.png",
-    price: "$35.00",
+    priceUsd: 35,
     description: "Beginner-friendly kit for learning electronics fundamentals",
     status: "available",
     overview:
@@ -617,7 +617,7 @@ const catalog: Product[] = [
     title: "Embedded Systems Kit",
     category: "educational-kits",
     image: "/engineering-kits.png",
-    price: "$79.00",
+    priceUsd: 79,
     description: "Advanced kit for embedded systems development",
     status: "available",
     overview:
@@ -668,7 +668,7 @@ const catalog: Product[] = [
     title: "Robotics Kit",
     category: "educational-kits",
     image: "/engineering-kits.png",
-    price: "$129.00",
+    priceUsd: 129,
     description: "Build and program your own robots",
     status: "available",
     overview:
@@ -719,7 +719,7 @@ const catalog: Product[] = [
     title: "Educational 1U CubeSat",
     category: "educational-kits",
     image: "/products/cubesat.png",
-    price: "$349.00",
+    priceUsd: 349,
     description: "Learn satellite systems with this 1U CubeSat platform",
     status: "available",
     overview:

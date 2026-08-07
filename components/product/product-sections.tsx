@@ -10,6 +10,7 @@ import {
 import type { Product, ProductCategory, ProductPageContent } from "@/data/types";
 import { applicationIcons } from "@/data/icons";
 import { getCategoryBySlug } from "@/lib/catalog";
+import { Price } from "@/components/currency/price";
 
 /**
  * Product page sections, following the Figma product page.
@@ -240,9 +241,9 @@ export function CompleteYourBuildSection({
               >
                 {product.title}
               </Link>
-              {product.price && (
+              {product.priceUsd !== undefined && (
                 <p className="mt-2 text-lg font-semibold text-[#A10F1A]">
-                  {product.price}
+                  <Price usd={product.priceUsd} />
                 </p>
               )}
 

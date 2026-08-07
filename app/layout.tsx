@@ -3,6 +3,7 @@ import { Inter, Sora, Geist } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
+import { CurrencyProvider } from "@/components/currency/currency-provider";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -96,9 +97,13 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <Navbar />
-        <div id="main-content">{children}</div>
-        <Footer />
+        {/* Wraps the navbar as well as the page: the currency switch lives in
+            the header, and every price it controls is below it. */}
+        <CurrencyProvider>
+          <Navbar />
+          <div id="main-content">{children}</div>
+          <Footer />
+        </CurrencyProvider>
         <Analytics />
       </body>
     </html>

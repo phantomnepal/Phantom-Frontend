@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import type { NavItem } from "@/data/types";
+import { CurrencyToggle } from "@/components/currency/currency-toggle";
 
 /**
  * Mobile navigation sheet — a drill-in, not an accordion.
@@ -227,6 +228,10 @@ export function MobileNav({
           so. `shrink-0` pins them: the links scroll, search and contact never
           move. */}
       <div className="flex shrink-0 flex-col gap-2 border-t border-gray-200 px-6 py-4">
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-gray-500">Currency</span>
+          <CurrencyToggle size="lg" className="w-40" />
+        </div>
         <button
           type="button"
           onClick={() => {

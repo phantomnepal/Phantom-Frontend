@@ -121,18 +121,27 @@ export interface Product {
    */
   gallery?: string[];
   /**
-   * DRAFT PLACEHOLDER PRICING — display label only, rendered verbatim on
-   * product cards (category grids and related-product rails), never on the
-   * detail page. Fixed figures only — no "from" or "starting at" prefixes.
+   * DRAFT PLACEHOLDER PRICING — the price in whole US dollars.
+   *
+   * ⚠ USD is the only authored currency. NPR is derived from this at display
+   * time (see `lib/currency.ts`) and is never stored, so the two cannot drift.
+   * Do not add an NPR field: `main` and the store branch previously carried
+   * separate USD and NPR numbers for the same six products and disagreed by up
+   * to 6x.
+   *
+   * ⚠ A number, not a formatted string — it used to be `"$49.00"`, which
+   * nothing could convert. Formatting belongs to `formatPrice`.
    *
    * These are USD design-mock figures, not quotes: three come from the Figma,
-   * the rest were filled in to match. The store branch prices in NPR. Replace
-   * with real numbers before this ships publicly, and note that a priced card
-   * still leads to an "Enquire now" CTA — main has no checkout.
+   * the rest were filled in to match. Replace with real numbers before this
+   * ships publicly — and note the currency switch now presents them in two
+   * denominations, which makes draft pricing look considerably more official
+   * than one number did. A priced card still leads to an "Enquire now" CTA;
+   * main has no checkout.
    *
    * Omit for products with nothing to publish; the card leaves the slot empty.
    */
-  price?: string;
+  priceUsd?: number;
   /** One-line summary. Used on cards, in the mega menu, and as meta description. */
   description: string;
   status: ProductStatus;

@@ -116,10 +116,12 @@ describe('getSiteContent()', () => {
           expect(p.highlights.length).toBe(3);
           expect(p.specs.length).toBeGreaterThan(0);
         }
-        // Optional, but when set it is a display label rendered verbatim.
-        if (p.price !== undefined) {
-          expect(typeof p.price).toBe('string');
-          expect(p.price.length).toBeGreaterThan(0);
+        // Optional, but when set it must be a number NPR can be derived from —
+        // a formatted string (the old shape) converts to nothing.
+        if (p.priceUsd !== undefined) {
+          expect(typeof p.priceUsd).toBe('number');
+          expect(Number.isFinite(p.priceUsd)).toBe(true);
+          expect(p.priceUsd).toBeGreaterThan(0);
         }
         for (const spec of p.specs) {
           expect(typeof spec.label).toBe('string');

@@ -15,6 +15,7 @@ import { MegaMenuContent } from "./mega-menu";
 import { DesktopNav } from "./desktop-nav";
 import { MobileNav } from "./mobile-nav";
 import { getSiteContent } from "@/data/content";
+import { CurrencyToggle } from "@/components/currency/currency-toggle";
 
 export default function Navbar() {
   const content = getSiteContent();
@@ -160,6 +161,8 @@ export default function Navbar() {
                 ⌘K
               </kbd>
             </button>
+
+            <CurrencyToggle />
 
             {/* Store affordances from the design mock. Deliberately inert:
                 main has no cart and no auth — those live on ecommerce-phase1,
