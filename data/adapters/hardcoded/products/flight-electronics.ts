@@ -1,61 +1,13 @@
 /** Products in the `uav-systems` category (titled Flight Electronics).
  *
  * The slug stays `uav-systems`: renaming it would break every existing
- * /product/uav-systems link without a redirect. */
+ * /product/uav-systems link without a redirect.
+ *
+ * Only the F722 is live. `phantom-f405` and `esc-stack` were parked on
+ * 2026-08-08 — see ./_parked.ts. */
 import type { Product } from "../../../types";
 
 export const flightElectronicsProducts: Product[] = [
-  {
-    slug: "phantom-f405",
-    title: "Phantom F405",
-    category: "uav-systems",
-    image: "/products/phantom-f405/top.png",
-    priceUsd: 79,
-    description: "STM32F405-based flight controller for FPV drones",
-    status: "available",
-    overview:
-      "The F405 pairs a proven, widely supported flight controller core with a compact, resilient layout that covers the majority of FPV and light UAV work. Designed and assembled in Nepal.",
-    applications: [
-      {
-        iconName: "Gamepad2",
-        title: "FPV builds",
-        description: "FPV freestyle and racing builds.",
-      },
-      {
-        iconName: "Plane",
-        title: "Light UAV",
-        description: "Light UAV and fixed-wing platforms.",
-      },
-      {
-        iconName: "GraduationCap",
-        title: "Coursework",
-        description: "Flight control coursework and experimentation.",
-      },
-    ],
-    specs: [
-      { label: "MCU", value: "STM32F405" },
-      { label: "Layout", value: "Compact, for tight builds" },
-      { label: "Suited to", value: "FPV and light UAV platforms" },
-      { label: "Origin", value: "Designed and assembled in Nepal" },
-    ],
-    faqs: [
-      {
-        question: "How does the F405 differ from the F722?",
-        answer:
-          "The F405 covers the majority of FPV and light UAV work. The F722 targets builds where control-loop precision matters most.",
-      },
-      {
-        question: "Is firmware support available?",
-        answer:
-          "The STM32F405 core is proven and widely supported. Contact us about your setup.",
-      },
-      {
-        question: "Where is it made?",
-        answer:
-          "Designed and assembled in Nepal.",
-      },
-    ],
-  },
   {
     slug: "phantom-f722",
     title: "Phantom F722 Analog",
@@ -118,52 +70,6 @@ export const flightElectronicsProducts: Product[] = [
         question: "Where is it made?",
         answer:
           "Designed and assembled in Nepal.",
-      },
-    ],
-  },
-  {
-    slug: "esc-stack",
-    title: "ESC",
-    category: "uav-systems",
-    image: "/categories/flight-electronics.png",
-    priceUsd: 79,
-    description: "High-current ESC modules for multirotor platforms",
-    status: "in-development",
-    overview:
-      "An ESC stack handles the power side of a multirotor, turning control signals into motor drive without becoming the weak link in the build. Designed to pair cleanly with our flight controllers.",
-    applications: [
-      {
-        iconName: "Zap",
-        title: "Power trains",
-        description: "Multirotor and FPV power trains.",
-      },
-      {
-        iconName: "Plane",
-        title: "High-current UAV",
-        description: "Higher-current UAV platforms.",
-      },
-      {
-        iconName: "Layers",
-        title: "Stacked builds",
-        description: "Paired flight controller and ESC builds.",
-      },
-    ],
-    specs: [],
-    faqs: [
-      {
-        question: "Can I buy this today?",
-        answer:
-          "Not yet — it is still in development. Get in touch and we will tell you where it stands and when to expect it.",
-      },
-      {
-        question: "Can I influence the design?",
-        answer:
-          "Yes. Early conversations shape what we build, so tell us what you need it to do.",
-      },
-      {
-        question: "Are specifications available?",
-        answer:
-          "Not yet. We publish specifications once the hardware is real enough for us to stand behind them.",
       },
     ],
   },

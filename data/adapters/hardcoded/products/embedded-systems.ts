@@ -113,50 +113,81 @@ export const embeddedSystemsProducts: Product[] = [
     ],
   },
   {
-    slug: "sensor-modules",
-    title: "Phantom BEC",
+    // Was `sensor-modules`, a placeholder SKU titled "Phantom BEC" with no
+    // published specs. The user supplied the real product; the slug follows the
+    // real name.
+    slug: "advance-bec-power-module",
+    title: "Advance BEC Power Module",
     category: "embedded-systems",
-    image: "/products/sensor-modules/top.png",
-    gallery: ["/products/sensor-modules/bottom.png", "/products/sensor-modules/angle.png"],
-    priceUsd: 24,
+    image: "/products/advance-bec-power-module/top.png",
+    gallery: [
+      "/products/advance-bec-power-module/bottom.png",
+      "/products/advance-bec-power-module/angle.png",
+    ],
+    priceUsd: 6,
+    status: "prototype",
+    statusNote: "Ships in 2–4 weeks",
+    // USER-AUTHORED. Not draft placeholder — do not rewrite.
     description:
-      "Integrated sensor solutions for high-precision data acquisition and industrial monitoring.",
-    status: "in-development",
+      "High-efficiency AP63205WU synchronous buck converter for reliable regulated power delivery.",
     overview:
-      "Sensor modules handle the analog front end, power, and interface so your application code only deals with clean data. Each module is designed to drop into an existing project without redesigning the board around it.",
+      "High-efficiency AP63205WU synchronous buck converter for reliable regulated power delivery. Designed for drones, robotics, embedded systems, and industrial electronics.",
+    // The three cards restate the four markets named in the overview; no new claim.
     applications: [
       {
-        iconName: "Database",
-        title: "Data logging",
-        description: "Data acquisition and logging.",
+        iconName: "Plane",
+        title: "Drones",
+        description: "Regulated 5V for flight controllers, cameras and RF links.",
       },
       {
-        iconName: "Gauge",
-        title: "Condition monitoring",
-        description: "Environmental and condition monitoring.",
+        iconName: "Bot",
+        title: "Robotics",
+        description: "Clean logic-side power alongside high-current actuators.",
       },
       {
-        iconName: "Puzzle",
-        title: "Retrofit",
-        description: "Adding sensing to an existing system.",
+        iconName: "Factory",
+        title: "Embedded and industrial",
+        description: "Embedded systems and industrial electronics.",
       },
     ],
-    specs: [],
+    specs: [
+      { label: "Buck converter", value: "AP63205WU" },
+      { label: "Input voltage", value: "3.8V–32V DC" },
+      { label: "Output voltage", value: "Fixed 5V" },
+      { label: "Output current", value: "Up to 2A continuous" },
+      { label: "Switching frequency", value: "1.1MHz" },
+      { label: "Conversion efficiency", value: "Up to 95%" },
+      { label: "Output ripple", value: "Low-ripple design" },
+      {
+        label: "Protection",
+        value: "Over-current, thermal shutdown, short-circuit protection",
+      },
+      { label: "Form factor", value: "Ultra-compact, 25×20mm" },
+    ],
+    // ⚠ The supplied copy gave the PCB two different values — "PCB GRADE
+    // 2-Layer" in the summary row and "PCB DESIGN 4-Layer Power Optimized" in
+    // the table. Both are omitted rather than publishing a guess; efficiency
+    // takes the third slot. Restore the row once the layer count is confirmed.
+    highlights: [
+      { label: "Input voltage", value: "3.8V–32V DC" },
+      { label: "Max output", value: "5V / 2A continuous" },
+      { label: "Efficiency", value: "Up to 95%" },
+    ],
     faqs: [
       {
-        question: "Can I buy this today?",
+        question: "Is the output regulated and safe for sensitive electronics?",
         answer:
-          "Not yet — it is still in development. Get in touch and we will tell you where it stands and when to expect it.",
+          "Yes. The Advance BEC provides a stable 5V regulated output with low ripple and high conversion efficiency. It is suitable for powering microcontrollers, flight controllers, sensors, RF modules, cameras, and other sensitive embedded electronics.",
       },
       {
-        question: "Can I influence the design?",
+        question: "Does the module require any external components?",
         answer:
-          "Yes. Early conversations shape what we build, so tell us what you need it to do.",
+          "No. The Advance BEC is a fully assembled module with all required passive components integrated. Simply connect a supported DC input and your 5V load for immediate operation.",
       },
       {
-        question: "Are specifications available?",
+        question: "Can the Advance BEC operate continuously at full load?",
         answer:
-          "Not yet. We publish specifications once the hardware is real enough for us to stand behind them.",
+          "Yes. The Advance BEC is designed for continuous operation up to 2A under recommended input voltage and thermal conditions. For optimal performance, ensure adequate airflow and proper PCB mounting in high-temperature environments.",
       },
     ],
   },

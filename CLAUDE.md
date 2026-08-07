@@ -61,7 +61,7 @@ from them:
 | `footer.ts` / `marketing.ts` / `faq.ts` / `about.ts` / `contact.ts` | the rest |
 
 ### Product catalog — the single source of truth
-`catalog: Product[]` (8 products) and `productCategories: ProductCategory[]`
+`catalog: Product[]` (7 products) and `productCategories: ProductCategory[]`
 (3 categories). **The product mega menu and site search derive from the catalog**
 (`productMegaMenuColumns`, `catalogSearchItems` in `navigation.ts`) — add a
 product and it appears in nav, category page, and search at once. Do not
@@ -69,11 +69,15 @@ hand-maintain those lists again; they used to be hardcoded, and all 12 nav links
 pointed at a dead `/product`.
 
 **Parked products are not dead code.** The user keeps `custom-dev-board`,
-`4-dof-robotic-arm`, `smart-sensor`, `industrial-monitoring-devices` and
-`robotics-kit` commented out for later use, along with the `iot-robotics`
-category they belong to — category and products must stay parked together, since
-a product pointing at a missing category fails the catalog test. Do not delete
-them and do not uncomment one without its category.
+`4-dof-robotic-arm`, `smart-sensor`, `industrial-monitoring-devices`,
+`phantom-f405` and `esc-stack` commented out for later use, along with the
+`iot-robotics` category three of them belong to — category and products must
+stay parked together, since a product pointing at a missing category fails the
+catalog test. Do not delete them and do not uncomment one without its category.
+
+The old parked `robotics-kit` placeholder was **deleted**, not kept: it is now
+live as `4wd-robotics-kit` in `educational-kits` with user-authored content that
+supersedes every field it held.
 
 Helpers live in `lib/catalog.ts`. `Product` carries `priceUsd` only; NPR is
 derived at render time (`lib/currency.ts`), never stored.
@@ -128,14 +132,22 @@ in `data/adapters/hardcoded/`. There is no external source of Phantom product co
 ### Current content state (user is supplying the rest)
 The user will provide real **content and images later**. Until then:
 
-- `overview`, `applications`, `faqs` are **DRAFT PLACEHOLDER** on 11 of the 12
-  products, marked as such in `data/types.ts`. Written to make no performance,
-  dimensional, or component claims. Unreviewed — they speak for the company if
-  shipped. **Advance USB-C Power Supply is the exception: user-authored, real.**
-- `specs` are real, restructured from previously authored highlights into
-  param/value rows. **5 products have `specs: []`** — Sensor Modules, 4-DOF
-  Robotic Arm, Smart Sensor, Industrial Monitoring Devices, ESC Stack. They
-  render an honest "In development" block instead of a table, and have no photos.
+- `overview`, `applications`, `faqs` are **DRAFT PLACEHOLDER** on 2 of the 7
+  live products — Phantom F722 and Embedded Systems Kit — marked as such in
+  `data/types.ts`. Written to make no performance, dimensional, or component
+  claims. Unreviewed — they speak for the company if shipped. The other five are
+  **user-authored and real**: Advance USB-C Power Supply, Advance BEC Power
+  Module, Educational 1U CubeSat, 4WD Robotics Kit, Electronics Starter Kit.
+  Their entries are marked `USER-AUTHORED` — do not rewrite them.
+- `specs` are real. **Every live product now publishes a specs table**; the
+  `specs: []` products were either filled in by the user (BEC) or parked (ESC
+  Stack, and the three `iot-robotics` entries). The "In development" fallback
+  block still exists and `lib/catalog.ts`'s `hasSpecs` is still tested, but
+  nothing in the catalog currently triggers it.
+- ⚠ **The BEC's PCB layer count is unresolved.** The supplied copy said
+  "PCB GRADE 2-Layer" in the summary row and "PCB DESIGN 4-Layer Power
+  Optimized" in the table. Both were omitted rather than publishing a guess;
+  efficiency takes the third highlight slot. Restore the row once confirmed.
 - `orderSteps` (`productPageContent`) is site-level and now describes the
   **store** — "Choose your quantity" → "Add to cart and check out" → "We build
   and ship". **`main` has no cart, no quantity selector and no checkout**; the
@@ -149,11 +161,17 @@ The user will provide real **content and images later**. Until then:
 - `whyChoose` is site-level with an **optional per-product override**
   (`Product.whyChoose`). Only the power supply overrides it, because "Built for
   real power demands" would read as nonsense on the Robotics Kit or CubeSat.
-- **Real Phantom hardware imagery exists for 3 products**, as three renders each
-  for two of them: `/products/phantom-f722/{top,bottom,angle}.png`,
-  `/products/advance-usb-c-power-supply/{top,bottom,angle}.png` (shared with its
-  `/projects` entry) and `/products/phantom-f405/top.png`. Everything else is a
-  generic placeholder. See `public/README.md` for the folder convention.
+- **Real Phantom imagery now covers 6 of the 7 live products** — F722, Advance
+  USB-C Power Supply, Advance BEC (renders) and CubeSat, Starter Kit, 4WD kit
+  (photographs). Only the Embedded Systems Kit still uses a category
+  placeholder. See `public/README.md` for the folder convention and the full
+  list. `/products/phantom-f405/top.png` is kept though that product is parked.
+
+  Four Unsplash drone shots are in `public/site/` and are **deliberately
+  unreferenced**: every one shows a competitor's aircraft (DJI Mavic, Parrot
+  Anafi with the logo legible, an iFlight quad with a Caddx camera). The user
+  intends to place them on the hero and the flight-electronics section of the
+  landing page and will say which goes where.
 
   A previous version of this note was **wrong** and worth not repeating:
   it listed `/products/flight-controller.png` as the F722. It is not — it is a
@@ -167,10 +185,20 @@ The user will provide real **content and images later**. Until then:
   `embedded-systems`, `prototype`). Its specs were restructured from the
   authored highlights on the `/projects` entry for the same board — no new
   claims, and `/product` still does not link to `/projects`.
-- **Statuses are partly guessed and unconfirmed.** F722 is `prototype` because
-  `projects` badges it so, but the ecommerce branch prices it at NPR 18,000, which
-  implies sellable. CubeSat / F405 / kits were set `available` on the strength of
-  that branch's prices.
+- **"Sensor Modules" no longer exists either.** Same story: a placeholder SKU
+  the user replaced with the **Advance BEC Power Module**
+  (`advance-bec-power-module`, `embedded-systems`, `prototype`, $6). The slug and
+  the `public/products/` folder were both renamed, so `/product/sensor-modules`
+  now 404s.
+- **Statuses**: the user confirmed BEC `prototype`, CubeSat `in-development`,
+  4WD kit and Starter Kit `available`, each with a `statusNote` giving the real
+  lead time. F722 is still `prototype` on the strength of its `/projects` badge,
+  and the Embedded Systems Kit is still `available` on the strength of the
+  ecommerce branch's prices — those two remain unconfirmed guesses.
+- **The green "IN STOCK" pill was removed** from `ProductGallery` at the user's
+  request. It came from the Figma and asserted stock on every product including
+  ones still in development, with no inventory system behind it. Availability is
+  carried by `StatusBadge` + `statusNote` instead. Do not reinstate it.
 
 ## Branches
 

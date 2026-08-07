@@ -70,16 +70,14 @@ photographs of Phantom's own hardware:
 
 - `products/phantom-f722/{top,bottom,angle}.png`
 - `products/advance-usb-c-power-supply/{top,bottom,angle}.png`
-- `products/phantom-f405/top.png`
-- `products/sensor-modules/{top,bottom,angle}.png` — the Phantom BEC. The
-  bottom render's silkscreen reads `PHANTOM BEC / INPUT: 3.8V-32V / OUTPUT 5V`.
+- `products/phantom-f405/top.png` — kept, though `phantom-f405` is now parked.
+- `products/advance-bec-power-module/{top,bottom,angle}.png` — the bottom
+  render's silkscreen reads `PHANTOM BEC / INPUT: 3.8V-32V / OUTPUT 5V`.
 - `products/educational-1u-cubesat/{onboard-computer,eps-board,eps-board-detail}.jpg`
 - `products/electronics-starter-kit/contents-{flat-lay,angle,detail}.jpg` —
   the same shoot as `unsorted/project3.jpg`, which an earlier version of this
   file wrongly called a stock Arduino photo. It is Phantom's own kit.
-- `products/robotics-kit/{assembled,contents-flat-lay,contents-angle}.jpg` —
-  placed but **unreferenced**: the `robotics-kit` product is parked (commented
-  out in `products/_parked.ts`).
+- `products/4wd-robotics-kit/{assembled,contents-flat-lay,contents-angle}.jpg`
 
 `site/drone-*.jpg` and `site/fpv-quad-outdoor.jpg` are Unsplash stock and every
 one of them shows **a competitor's aircraft** — DJI Mavic, Parrot Anafi (logo

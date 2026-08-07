@@ -35,9 +35,13 @@ describe("catalog", () => {
   });
 
   it("treats a product with no specs as having none", () => {
-    const escStack = getProductBySlug("esc-stack");
-    expect(escStack).toBeDefined();
-    expect(hasSpecs(escStack!)).toBe(false);
+    // Not pinned to a slug any more: this used to name `esc-stack`, which was
+    // parked, and every live product now publishes specs. What matters is that
+    // an empty table is reported as empty so the page renders the "In
+    // development" block instead of an empty table.
+    const template = allProducts()[0];
+    expect(hasSpecs({ ...template, specs: [] })).toBe(false);
+    expect(hasSpecs(template)).toBe(true);
   });
 
   it("carries product specs on the product itself", () => {

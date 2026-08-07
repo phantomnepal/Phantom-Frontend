@@ -202,54 +202,107 @@ export const parkedProducts: Product[] = [
       },
     ],
   },*/
-  /*{
-    slug: "robotics-kit",
-    title: "Robotics Kit",
-    category: "educational-kits",
-    image: "/categories/educational-kits.png",
-    priceUsd: 129,
-    description: "Build and program your own robots",
+  // The parked "Robotics Kit" placeholder was removed rather than kept: it is
+  // now live as `4wd-robotics-kit` in ./educational-kits.ts, with user-authored
+  // content that supersedes every field the placeholder held.
+
+  /* Parked 2026-08-08 at the user's request. Both are real Phantom products
+     with nothing published about them yet; the F405 has one real render at
+     /products/phantom-f405/top.png, which stays in public/.
+  {
+    slug: "phantom-f405",
+    title: "Phantom F405",
+    category: "uav-systems",
+    image: "/products/phantom-f405/top.png",
+    priceUsd: 79,
+    description: "STM32F405-based flight controller for FPV drones",
     status: "available",
     overview:
-      "Robotics ties together mechanics, electronics, and code, which is where most learners get stuck. This kit walks builders through motion control, sensors, and actuators with projects that assemble into a working robot.",
+      "The F405 pairs a proven, widely supported flight controller core with a compact, resilient layout that covers the majority of FPV and light UAV work. Designed and assembled in Nepal.",
     applications: [
       {
-        iconName: "Bot",
-        title: "Project-based",
-        description: "Project-based robotics learning.",
+        iconName: "Gamepad2",
+        title: "FPV builds",
+        description: "FPV freestyle and racing builds.",
       },
       {
-        iconName: "Waypoints",
-        title: "Sensors and control",
-        description: "Teaching sensors, actuators, and control together.",
+        iconName: "Plane",
+        title: "Light UAV",
+        description: "Light UAV and fixed-wing platforms.",
       },
       {
-        iconName: "Trophy",
-        title: "Clubs and competitions",
-        description: "Clubs, workshops, and competitions.",
+        iconName: "GraduationCap",
+        title: "Coursework",
+        description: "Flight control coursework and experimentation.",
       },
     ],
     specs: [
-      { label: "Covers", value: "Motion control, sensors and actuators" },
-      { label: "Format", value: "Project-based" },
-      { label: "Disciplines", value: "Mechanics, electronics and code" },
-      { label: "Outcome", value: "Program your own behaviours" },
+      { label: "MCU", value: "STM32F405" },
+      { label: "Layout", value: "Compact, for tight builds" },
+      { label: "Suited to", value: "FPV and light UAV platforms" },
+      { label: "Origin", value: "Designed and assembled in Nepal" },
     ],
     faqs: [
       {
-        question: "What will I build?",
+        question: "How does the F405 differ from the F722?",
         answer:
-          "Projects assemble into a working robot you program yourself.",
+          "The F405 covers the majority of FPV and light UAV work. The F722 targets builds where control-loop precision matters most.",
       },
       {
-        question: "Do I need to know how to code?",
+        question: "Is firmware support available?",
         answer:
-          "The kit walks through motion control, sensors and actuators together, so the code comes with the build.",
+          "The STM32F405 core is proven and widely supported. Contact us about your setup.",
       },
       {
-        question: "Is it suitable for a club or competition?",
+        question: "Where is it made?",
         answer:
-          "Yes — it is used for clubs, workshops and competitions.",
+          "Designed and assembled in Nepal.",
+      },
+    ],
+  },
+  {
+    slug: "esc-stack",
+    title: "ESC",
+    category: "uav-systems",
+    image: "/categories/flight-electronics.png",
+    priceUsd: 79,
+    description: "High-current ESC modules for multirotor platforms",
+    status: "in-development",
+    overview:
+      "An ESC stack handles the power side of a multirotor, turning control signals into motor drive without becoming the weak link in the build. Designed to pair cleanly with our flight controllers.",
+    applications: [
+      {
+        iconName: "Zap",
+        title: "Power trains",
+        description: "Multirotor and FPV power trains.",
+      },
+      {
+        iconName: "Plane",
+        title: "High-current UAV",
+        description: "Higher-current UAV platforms.",
+      },
+      {
+        iconName: "Layers",
+        title: "Stacked builds",
+        description: "Paired flight controller and ESC builds.",
+      },
+    ],
+    specs: [],
+    faqs: [
+      {
+        question: "Can I buy this today?",
+        answer:
+          "Not yet — it is still in development. Get in touch and we will tell you where it stands and when to expect it.",
+      },
+      {
+        question: "Can I influence the design?",
+        answer:
+          "Yes. Early conversations shape what we build, so tell us what you need it to do.",
+      },
+      {
+        question: "Are specifications available?",
+        answer:
+          "Not yet. We publish specifications once the hardware is real enough for us to stand behind them.",
       },
     ],
   },*/

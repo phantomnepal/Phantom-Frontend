@@ -32,12 +32,10 @@ export function ProductGallery({ product }: { product: Product }) {
           sizes="(max-width: 768px) 100vw, 467px"
           priority
         />
-        {/* Stock pill from the Figma. See Product docs: main has no inventory
-            system behind this. */}
-        <span className="absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[11px] font-semibold tracking-wider text-gray-700 shadow-sm">
-          <span className="h-2 w-2 rounded-full bg-green-500" />
-          IN STOCK
-        </span>
+        {/* The Figma's green "IN STOCK" pill was removed at the user's request:
+            main has no inventory system, so it asserted stock on every product
+            including the ones still in development. Availability is carried by
+            StatusBadge and Product['statusNote'] instead. */}
       </div>
 
       {images.length > 1 && (
