@@ -15,6 +15,11 @@ const productCategories: ProductCategory[] = [
       "Custom PCBs, dev boards and sensor hardware for rapid prototyping.",
     image: "/embedded-systems.jpg",
   },
+  /* Parked. Replaced by Flight Electronics below (formerly UAV Systems).
+     Its three products are commented out with it further down — a product
+     assigned to a category that does not exist fails the catalog test and
+     would be unreachable in nav, search and its category page. */
+  /*
   {
     slug: "iot-robotics",
     title: "IoT & Robotics",
@@ -22,6 +27,7 @@ const productCategories: ProductCategory[] = [
       "Connected sensing, monitoring and programmable robotic platforms.",
     image: "/iot-robotics.jpg",
   },
+  */
   {
     slug: "uav-systems",
     title: "Flight Electronics",
@@ -260,7 +266,10 @@ const catalog: Product[] = [
       },
     ],
   }*/
-  {
+  /* Parked with the IoT & Robotics category above. To bring any of these
+     back, uncomment that category too — or reassign `category` to one that
+     still exists. */
+  /*{
     slug: "4-dof-robotic-arm",
     title: "4-DOF Robotic Arm",
     category: "iot-robotics",
@@ -397,7 +406,7 @@ const catalog: Product[] = [
           "Not yet. We publish specifications once the hardware is real enough for us to stand behind them.",
       },
     ],
-  },
+  },*/
   {
     slug: "phantom-f405",
     title: "Phantom F405",
