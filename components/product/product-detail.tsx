@@ -58,7 +58,10 @@ export function ProductDetail({
             </Link>
           </nav>
 
-          <div className="grid lg:grid-cols-2 gap-0 lg:gap-0">
+          {/* The gallery column stretches so its hero ends flush with the buy
+              box; the headline specs sit in the right column below the buy
+              box, so they don't affect the hero height. */}
+          <div className="grid lg:grid-cols-[467px_608px] gap-0 lg:gap-12">
             <ProductGallery product={product} />
 
             <div className="flex flex-col">
@@ -110,22 +113,22 @@ export function ProductDetail({
                   ))}
                 </dl>
               )}
-
-              {!hasSpecs(product) && (
-                <div className="mt-8 rounded-md border border-gray-200 bg-gray-50 p-6">
-                  <p className="mb-2 font-semibold text-gray-900">
-                    In development
-                  </p>
-                  <p className="text-sm leading-relaxed text-gray-600">
-                    This product is still being engineered, so we haven&apos;t
-                    published specifications yet. If you have a requirement in
-                    mind, talk to us about it — early conversations shape what
-                    we build.
-                  </p>
-                </div>
-              )}
             </div>
           </div>
+
+          {!hasSpecs(product) && (
+            <div className="mt-8 rounded-md border border-gray-200 bg-gray-50 p-6">
+              <p className="mb-2 font-semibold text-gray-900">
+                In development
+              </p>
+              <p className="text-sm leading-relaxed text-gray-600">
+                This product is still being engineered, so we haven&apos;t
+                published specifications yet. If you have a requirement in
+                mind, talk to us about it — early conversations shape what
+                we build.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

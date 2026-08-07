@@ -12,16 +12,18 @@ import type { Product } from "@/data/types";
  * category placeholder) render the image alone rather than padding the strip
  * with duplicates.
  *
- * Sizing is the Figma's: a 467px column at 467x354. Capped rather than filling
- * its grid cell, so the hero does not stretch on wide screens.
+ * Sizing is the Figma's: a 467px column at 467x354. On desktop the hero
+ * stretches to fill the grid row so it lines up with the buy box column
+ * beside it (see ProductDetail). On mobile the column is single-stacked and
+ * keeps the 467x354 aspect ratio.
  */
 export function ProductGallery({ product }: { product: Product }) {
   const images = [product.image, ...(product.gallery ?? [])];
   const [active, setActive] = useState(0);
 
   return (
-    <div className="w-full max-w-[467px]">
-      <div className="relative aspect-[467/354] overflow-hidden rounded-[2px] bg-[#F5F6F8]">
+    <div className="flex w-full max-w-[452px] flex-col lg:h-full">
+      <div className="relative aspect-[467/354] overflow-hidden rounded-[2px] bg-[#F5F6F8] lg:aspect-auto lg:flex-1 lg:min-h-[280px]">
         <Image
           src={images[active]}
           alt={product.title}
@@ -61,7 +63,7 @@ export function ProductGallery({ product }: { product: Product }) {
                 alt=""
                 fill
                 className="object-contain p-2"
-                sizes="(max-width: 768px) 22vw, 110px"
+                sizes="(max-width: 400px) 22vw, 110px"
               />
             </button>
           ))}

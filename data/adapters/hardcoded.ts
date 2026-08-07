@@ -497,7 +497,6 @@ const catalog: Product[] = [
       { label: "Motor outputs", value: "DShot600 on all four channels, via Timer8" },
       { label: "UARTs", value: "5" },
       { label: "Mounting", value: "Plug-and-play with soldering pads" },
-      { label: "Designed for", value: "Ultra-clean analog systems only" },
     ],
     // Terse summary for the hero strip — the leading spec rows are part
     // numbers and a sentence, which wrap over several lines there.
