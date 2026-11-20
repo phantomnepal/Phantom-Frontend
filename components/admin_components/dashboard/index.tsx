@@ -1,5 +1,5 @@
 'use client'
-import api from "@/lib/axios/axios-client";
+import api from "@/lib/axios/axios-server";
 
 function Dashboard() {
 
