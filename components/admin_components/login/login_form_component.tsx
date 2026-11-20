@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import api from "../../../lib/axios/axios-client";
+import api from "../../../lib/axios/axios-server";
 import { useRouter } from "next/navigation";
 
 type LoginFormData = {
