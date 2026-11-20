@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import api from "@/lib/axios/axios-client";
+import api from "@/lib/axios/axios-server";
 
 export default function SessionMonitor() {
   const router = useRouter();
