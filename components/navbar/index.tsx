@@ -122,7 +122,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`w-full bg-white sticky top-0 z-50 transition-shadow duration-300 ${
+        className={`w-full bg-white fixed top-0 z-50 transition-shadow duration-300 ${
           solid ? "shadow-md" : "border-b border-gray-200"
         }`}
       >
@@ -216,7 +216,7 @@ export default function Navbar() {
         </div>
 
         {activeMegaLabel && (
-          <div className="hidden lg:flex absolute left-0 right-0 z-50 justify-center pointer-events-none">
+          <div className="hidden lg:flex absolute left-0  right-0 z-50 justify-center pointer-events-none">
             {/* Hover handlers belong on the panel itself, not the full-width
                 wrapper: the wrapper spans the viewport, so its onMouseLeave
                 only fires far outside the visible menu. */}
@@ -255,7 +255,7 @@ export default function Navbar() {
         <div
           id="mobile-nav-panel"
           inert={!mobileOpen}
-          className={`lg:hidden absolute inset-x-0 top-full h-[calc(100dvh-72px)] bg-white ${
+          className={`lg:hidden fixed inset-x-0 top-[72px]  h-full bg-white ${
             mobileOpen ? "" : "hidden"
           }`}
         >
