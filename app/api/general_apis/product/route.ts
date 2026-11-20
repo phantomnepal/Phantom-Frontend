@@ -9,9 +9,9 @@ export async function GET(request: NextRequest) {
 
     const accessToken = cookieStore.get("access_token")?.value;
     const refreshToken = cookieStore.get("refresh_token")?.value;
-    console.log("Product api run");
-    console.log("Access Token:", accessToken);
-    console.log("Refresh Token:", refreshToken);
+    // console.log("Product api run");
+    // console.log("Access Token:", accessToken);
+    // console.log("Refresh Token:", refreshToken);
 
     if (!accessToken) {
       return NextResponse.json(
@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    console.error("Product API error:", error);
+    // console.error("Product API error:", error);
 
     return NextResponse.json(
       { message: "Something went wrong" },
